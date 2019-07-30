@@ -4,8 +4,8 @@ import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.WeakHashMap;
 
 /**
  * Created by user on 2019-07-30.
@@ -19,7 +19,7 @@ public class Configurator {
         ICON
     }
     private List<IconFontDescriptor> icons = new ArrayList<>();
-    private static final WeakHashMap<String,Object> PDA_CONFIGS = new WeakHashMap<>();
+    private static final HashMap<String,Object> PDA_CONFIGS = new HashMap<>();
      private static Configurator instance;
      private Configurator(){
          initIcons();
@@ -41,7 +41,7 @@ public class Configurator {
          PDA_CONFIGS.put(ConfigType.CONFIG_READY.name(),true);
      }
 
-    public static WeakHashMap<String, Object> getPdaConfigs() {
+    public static HashMap<String, Object> getPdaConfigs() {
         return PDA_CONFIGS;
     }
 

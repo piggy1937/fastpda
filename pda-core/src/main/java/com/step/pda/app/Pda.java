@@ -2,7 +2,7 @@ package com.step.pda.app;
 
 import android.content.Context;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 /**
  * Created by user on 2019-07-30.
@@ -15,9 +15,11 @@ public final class  Pda {
         getConfigurations().put(Configurator.ConfigType.APPLICATION_CONTEXT.name(),context.getApplicationContext());
         return Configurator.getInstance();
     }
-    private static WeakHashMap<String,Object> getConfigurations(){
+    private static HashMap<String,Object> getConfigurations(){
         return  Configurator.getInstance().getPdaConfigs();
     }
 
-
+    private static Context getApplicationContext(){
+        return (Context) Configurator.getPdaConfigs().get(Configurator.ConfigType.APPLICATION_CONTEXT.name());
+    }
 }

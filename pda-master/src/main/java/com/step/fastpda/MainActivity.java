@@ -1,13 +1,14 @@
 package com.step.fastpda;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.step.fastpda.delegate.MainDelegate;
+import com.step.pda.app.activity.ProxyActivity;
+import com.step.pda.app.delegate.PdaDelagete;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ProxyActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public PdaDelagete setRootDelegate() {
+        return new MainDelegate();
     }
 }
