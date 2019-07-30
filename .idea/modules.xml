@@ -7,7 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/pda-complier/pda-complier.iml" filepath="$PROJECT_DIR$/pda-complier/pda-complier.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-core/pda-core.iml" filepath="$PROJECT_DIR$/pda-core/pda-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-ec/pda-ec.iml" filepath="$PROJECT_DIR$/pda-ec/pda-ec.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pda-master/app.iml" filepath="$PROJECT_DIR$/pda-master/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pda-master/pda-master.iml" filepath="$PROJECT_DIR$/pda-master/pda-master.iml" />
     </modules>
   </component>
 </project>
