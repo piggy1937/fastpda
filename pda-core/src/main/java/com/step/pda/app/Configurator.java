@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.Interceptor;
+
 /**
  * Created by user on 2019-07-30.
  */
@@ -16,11 +18,15 @@ public class Configurator {
         API_HOST,
         APPLICATION_CONTEXT,
         CONFIG_READY,
-        ICON
+        ICON,
+        INTERCEPTOR
     }
     private List<IconFontDescriptor> icons = new ArrayList<>();
     private static final HashMap<String,Object> PDA_CONFIGS = new HashMap<>();
-     private static Configurator instance;
+    private static  final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
+    private static Configurator instance;
+
+
      private Configurator(){
          initIcons();
          PDA_CONFIGS.put(ConfigType.CONFIG_READY.name(),false);
@@ -61,6 +67,16 @@ public class Configurator {
                  initializer.with(icons.get(i));
              }
         }
+    }
+    public Configurator withInterceptor(Interceptor interceptor){
+        this.INTERCEPTORS.add(interceptor);
+        PDA_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
+        return this;
+    }
+    public Configurator withInterceptors(List<Interceptor> interceptors){
+        this.INTERCEPTORS.addAll(interceptors);
+        PDA_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
+        return this;
     }
     private  void checkConfiguration(){
         final boolean isReady = (boolean) PDA_CONFIGS.get(ConfigType.CONFIG_READY.name());

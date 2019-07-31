@@ -28,7 +28,7 @@ public class MainDelegate extends PdaDelagete {
     }
 
     private void testRestClient() {
-        RestClient.builder().url("https://news.baidu.com/")
+        RestClient.builder().url("http://127.0.0.1/index").params("","")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
