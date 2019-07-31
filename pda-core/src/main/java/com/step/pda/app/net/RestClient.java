@@ -1,9 +1,13 @@
 package com.step.pda.app.net;
 
+import android.content.Context;
+
 import com.step.pda.app.callback.IError;
 import com.step.pda.app.callback.IFailure;
 import com.step.pda.app.callback.IRequest;
 import com.step.pda.app.callback.ISuccess;
+import com.step.pda.app.ui.LoadingStyle;
+import com.step.pda.app.ui.PdaLoader;
 
 import java.util.Map;
 
@@ -23,13 +27,17 @@ public class RestClient {
     private final IFailure FAILURE;
     private final IError ERROR;
     private final RequestBody BODY;
-
+    private final LoadingStyle LOADING_STYLE;
+    private final Context context;
     public RestClient(String URL, Map<String, Object> PARAMS,
                       IRequest REQUEST,
                       ISuccess SUCCESS,
                       IFailure FAILURE,
                       IError ERROR,
-                      RequestBody BODY) {
+                      RequestBody BODY,
+                      Context context,
+                      LoadingStyle loadingStyle
+                      ) {
         this.URL = URL;
         this.PARAMS = PARAMS;
         this.REQUEST = REQUEST;
@@ -37,6 +45,8 @@ public class RestClient {
         this.FAILURE = FAILURE;
         this.ERROR = ERROR;
         this.BODY = BODY;
+        this.context = context;
+        this.LOADING_STYLE = loadingStyle;
     }
 
     public static RestClientBuilder builder() {
@@ -48,6 +58,9 @@ public class RestClient {
         Call<String> call = null;
         if (REQUEST != null) {
             REQUEST.onRequestStart();
+        }
+        if(LOADING_STYLE !=null){
+            PdaLoader.showLoading(context);
         }
         switch (method) {
             case GET:
@@ -72,7 +85,7 @@ public class RestClient {
     }
 
         private Callback<String> getRequestCallback(){
-            return new RequestCallback(REQUEST,SUCCESS,FAILURE,ERROR);
+            return new RequestCallback(REQUEST,SUCCESS,FAILURE,ERROR,LOADING_STYLE);
         }
     public final  void get(){
             request(HttpMethod.GET);
@@ -86,5 +99,5 @@ public class RestClient {
     public final  void delete(){
             request(HttpMethod.DELETE);
     }
-  
+
 }

@@ -1,9 +1,12 @@
 package com.step.pda.app.net;
 
+import android.content.Context;
+
 import com.step.pda.app.callback.IError;
 import com.step.pda.app.callback.IFailure;
 import com.step.pda.app.callback.IRequest;
 import com.step.pda.app.callback.ISuccess;
+import com.step.pda.app.ui.LoadingStyle;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -23,6 +26,8 @@ public class RestClientBuilder {
     private  IFailure mFailure;
     private  IError mError;
     private  RequestBody mBody;
+    private  LoadingStyle mLoadingStyle;
+    private  Context mContext;
     RestClientBuilder(){
 
     }
@@ -61,7 +66,18 @@ public class RestClientBuilder {
         this.mError = iError;
         return this;
     }
-    public final RestClient build(){
-        return new RestClient(mUrl,mParams,mRequest,mSuccess,mFailure,mError,mBody);
+    public final RestClientBuilder loader(Context context,LoadingStyle loadingStyle){
+        this.mContext = context;
+        this.mLoadingStyle = loadingStyle;
+        return this;
     }
+    public final RestClientBuilder loader(Context context){
+        this.mContext = context;
+        this.mLoadingStyle = LoadingStyle.BallClipRotateIndicator;
+        return this;
+    }
+    public final RestClient build(){
+        return new RestClient(mUrl,mParams,mRequest,mSuccess,mFailure,mError,mBody,mContext,mLoadingStyle);
+    }
+
 }
