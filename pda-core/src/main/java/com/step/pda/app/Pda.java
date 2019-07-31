@@ -15,11 +15,11 @@ public final class  Pda {
         getConfigurations().put(Configurator.ConfigType.APPLICATION_CONTEXT.name(),context.getApplicationContext());
         return Configurator.getInstance();
     }
-    private static HashMap<String,Object> getConfigurations(){
+    public static HashMap<String,Object> getConfigurations(){
         return  Configurator.getInstance().getPdaConfigs();
     }
 
-    private static Context getApplicationContext(){
+    public static Context getApplicationContext(){
         return (Context) Configurator.getPdaConfigs().get(Configurator.ConfigType.APPLICATION_CONTEXT.name());
     }
 }
