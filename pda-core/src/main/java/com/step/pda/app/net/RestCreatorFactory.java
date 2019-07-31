@@ -2,6 +2,7 @@ package com.step.pda.app.net;
 
 import com.step.pda.app.Configurator;
 import com.step.pda.app.Pda;
+import com.step.pda.app.net.rx.RxRestService;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
@@ -27,7 +29,7 @@ public enum  RestCreatorFactory {
         return instance;
     }
 
-    class RestCreator{
+ public class RestCreator{
         private Retrofit mRetrofit = null;
         private OkHttpClient okHttpClient = null;
       //  GsonConverterFactory factory = null;
@@ -50,11 +52,15 @@ public enum  RestCreatorFactory {
                    .baseUrl(BaseUrl)
                     .client(okHttpClient)
                    .addConverterFactory(ScalarsConverterFactory.create())
-                   .build();
+                   .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
         }
 
        public RestService getRestService(){
             return mRetrofit.create(RestService.class);
+       }
+       public RxRestService getRxRestService(){
+            return mRetrofit.create(RxRestService.class);
        }
     }
 }
