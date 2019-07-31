@@ -12,7 +12,9 @@ package com.step.pda.app.util.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class ShareUtils {
+import com.step.pda.app.Pda;
+
+public class PreferenceUtils {
 
     public static final String NAME = "config";
 
@@ -64,4 +66,17 @@ public class ShareUtils {
         sp.edit().clear().commit();
     }
 
+    public static void setAppFlag(String key, boolean flag) {
+        Context context=   Pda.getApplicationContext();
+        SharedPreferences sp = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        sp.edit()
+                .putBoolean(key, flag)
+                .apply();
+    }
+
+    public static boolean getAppFlag(String key) {
+        Context context=   Pda.getApplicationContext();
+        SharedPreferences sp = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        return sp.getBoolean(key, false);
+    }
 }

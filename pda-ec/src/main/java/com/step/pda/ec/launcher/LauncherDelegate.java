@@ -6,6 +6,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.ui.launcher.ScrollLauncherTag;
+import com.step.pda.app.util.storage.PreferenceUtils;
 import com.step.pda.app.util.timer.BaseTimerTask;
 import com.step.pda.app.util.timer.ITimerListner;
 import com.step.pda.ec.R;
@@ -32,6 +34,7 @@ public class LauncherDelegate extends PdaDelagete implements ITimerListner {
         if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
+            checkIsShowScroller();
         }
     }
     private void  initTimer()
@@ -50,7 +53,16 @@ public class LauncherDelegate extends PdaDelagete implements ITimerListner {
        // mTvTimer = rootViw.findViewById(R.id.tv_launcher_timer);
         initTimer();
     }
+   //判断是否显示启动滚动页
+    private  void checkIsShowScroller(){
+        if(!PreferenceUtils.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCH_APP.name())){
+            start(new LauncherScrollDelegate(),SINGLETASK);
+        }else{
+            //检测用户是否登录了APP
 
+        }
+
+    }
     @Override
     public void onTimer() {
              getProxyActivity().runOnUiThread(new Runnable() {
@@ -63,6 +75,7 @@ public class LauncherDelegate extends PdaDelagete implements ITimerListner {
                              if(mTimer!=null){
                                  mTimer.cancel();
                                  mTimer=null;
+                                 checkIsShowScroller();
                              }
                          }
                      }

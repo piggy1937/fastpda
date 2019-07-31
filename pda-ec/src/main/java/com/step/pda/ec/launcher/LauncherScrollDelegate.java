@@ -8,6 +8,8 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.step.pda.app.delegate.PdaDelagete;
 import com.step.pda.app.ui.launcher.LauncherHolderCreator;
+import com.step.pda.app.ui.launcher.ScrollLauncherTag;
+import com.step.pda.app.util.storage.PreferenceUtils;
 import com.step.pda.ec.R;
 
 import java.util.ArrayList;
@@ -45,6 +47,10 @@ public class LauncherScrollDelegate extends PdaDelagete implements OnItemClickLi
 
     @Override
     public void onItemClick(int position) {
-
+        //如果点击点是最后一个
+       if(position == INTEGERS.size()-1){
+           PreferenceUtils.setAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCH_APP.name(),true);
+           //检测用户是否已登录
+       }
     }
 }
