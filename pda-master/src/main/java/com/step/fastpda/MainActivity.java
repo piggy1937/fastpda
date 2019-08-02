@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBar;
 
 import com.step.pda.app.activity.ProxyActivity;
 import com.step.pda.app.delegate.PdaDelagete;
-import com.step.pda.ec.launcher.LauncherDelegate;
+import com.step.pda.ec.login.SigninDelegate;
 
 public class MainActivity extends ProxyActivity {
     @Override
@@ -20,6 +20,6 @@ public class MainActivity extends ProxyActivity {
 
     @Override
     public PdaDelagete setRootDelegate() {
-        return new LauncherDelegate();
+        return new SigninDelegate();
     }
 }

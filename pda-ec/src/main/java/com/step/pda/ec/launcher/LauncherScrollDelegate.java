@@ -7,6 +7,7 @@ import android.view.View;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.ui.launcher.ILauncherListener;
 import com.step.pda.app.ui.launcher.LauncherHolderCreator;
 import com.step.pda.app.ui.launcher.ScrollLauncherTag;
 import com.step.pda.app.util.storage.PreferenceUtils;
@@ -18,7 +19,8 @@ import java.util.ArrayList;
  * Created by user on 2019-07-31.
  */
 
-public class LauncherScrollDelegate extends PdaDelagete implements OnItemClickListener {
+public class LauncherScrollDelegate extends PdaDelagete
+        implements OnItemClickListener,ILauncherListener{
     private ConvenientBanner<Integer> mConvenientBanner=null;
     private static final ArrayList<Integer>  INTEGERS = new ArrayList<>();
     private void initBanner(){
@@ -52,5 +54,10 @@ public class LauncherScrollDelegate extends PdaDelagete implements OnItemClickLi
            PreferenceUtils.setAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCH_APP.name(),true);
            //检测用户是否已登录
        }
+    }
+
+    @Override
+    public void onLauncherFinish(LaunchFinishTag tag) {
+
     }
 }
