@@ -28,7 +28,6 @@ public class Configurator {
 
 
      private Configurator(){
-         initIcons();
          PDA_CONFIGS.put(ConfigType.CONFIG_READY.name(),false);
      }
 
@@ -44,6 +43,8 @@ public class Configurator {
      }
 
      public final void configure(){
+
+         initIcons();
          PDA_CONFIGS.put(ConfigType.CONFIG_READY.name(),true);
      }
 
