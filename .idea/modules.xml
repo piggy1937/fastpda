@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/fastpda.iml" filepath="$PROJECT_DIR$/fastpda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FastPda.iml" filepath="$PROJECT_DIR$/FastPda.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-annotations/pda-annotations.iml" filepath="$PROJECT_DIR$/pda-annotations/pda-annotations.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-complier/pda-complier.iml" filepath="$PROJECT_DIR$/pda-complier/pda-complier.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-core/pda-core.iml" filepath="$PROJECT_DIR$/pda-core/pda-core.iml" />
