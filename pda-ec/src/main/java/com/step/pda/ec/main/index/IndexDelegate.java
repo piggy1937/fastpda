@@ -2,6 +2,7 @@ package com.step.pda.ec.main.index;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.step.pda.app.Pda;
@@ -41,6 +43,15 @@ public class IndexDelegate extends BottomItemDelegate {
 
     @BindView(R2.id.icon_index_ellipsis)
     IconTextView mIconEllipsis = null;
+    @BindView(R2.id.fab_index_add)
+    FloatingActionButton mfabIndexAdd;
+    @OnClick(R2.id.fab_index_add)
+    public void onFabIndexAdd(){
+        Toast.makeText(Pda.getApplicationContext(),"新增按钮",Toast.LENGTH_SHORT).show();
+    }
+
+
+
 
     @OnClick(R2.id.icon_index_ellipsis)
     public void onIconEllipsisClick(){
