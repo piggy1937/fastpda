@@ -66,4 +66,9 @@ dependencies {
     //Banner依赖
     compile 'com.bigkoo:ConvenientBanner:2.1.4'
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+    //auto
+//    compile 'com.google.auto.service:auto-service:1.0-rc3'
+//    compile 'com.google.auto:auto-common:0.8'
+    provided 'com.google.auto.value:auto-value:1.4.1'
+    annotationProcessor "com.google.auto.value:auto-value:1.4.1"
 }

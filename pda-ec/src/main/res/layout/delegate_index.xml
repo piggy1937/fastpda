@@ -20,6 +20,7 @@
        android:layout_width="match_parent"
        android:layout_height="?attr/actionBarSize"
        android:background="@color/tool_bar"
+       app:layout_behavior="com.step.pda.ec.main.index.TranslucentBehavior"
        >
       <!--app:layout_behavior="com.flj.latte.ec.main.index.TranslucentBehavior"-->
 
