@@ -10,7 +10,7 @@ public final class PagingBean {
     //总数据条数
     private int mTotal = 0;
     //一页显示几条数据
-    private int mPageSize = 0;
+    private int mPageSize = 20;
     //当前已经显示了几条数据
     private int mCurrentCount = 0;
     //加载延迟
@@ -61,7 +61,7 @@ public final class PagingBean {
         return this;
     }
 
-    PagingBean addIndex() {
+    public PagingBean addIndex() {
         mPageIndex++;
         return this;
     }

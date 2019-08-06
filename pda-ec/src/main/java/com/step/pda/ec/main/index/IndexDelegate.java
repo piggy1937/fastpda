@@ -11,10 +11,10 @@ import android.view.View;
 
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
 import com.step.pda.app.ui.recycler.BaseDecoration;
-import com.step.pda.app.ui.refresh.RefreshHandler;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.main.EcBottomDelegate;
+import com.step.pda.ec.ui.refresh.DbRefreshHandler;
 
 import butterknife.BindView;
 
@@ -29,7 +29,7 @@ public class IndexDelegate extends BottomItemDelegate {
     SwipeRefreshLayout mRefreshLayout = null;
     @BindView(R2.id.tb_index)
     Toolbar mToolbar = null;
-    private RefreshHandler mRefreshHandler = null;
+    private DbRefreshHandler mRefreshHandler = null;
     @Override
     public Object setLayout() {
         return R.layout.delegate_index;
@@ -37,24 +37,15 @@ public class IndexDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
-        mRefreshHandler = RefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter());
-
+        mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter());
     }
 
-    private void initRecyclerView() {
-        final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.addItemDecoration
-                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
-        final EcBottomDelegate ecBottomDelegate = getParentDelegate();
-        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
-    }
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
         initRecyclerView();
-        mRefreshHandler.firstPage("index.php");
+        mRefreshHandler.firstPage("package_info");
     }
 
     private void initRefreshLayout() {
@@ -64,5 +55,13 @@ public class IndexDelegate extends BottomItemDelegate {
                 android.R.color.holo_red_light
         );
         mRefreshLayout.setProgressViewOffset(true, 120, 300);
+    }
+    private void initRecyclerView() {
+        final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.addItemDecoration
+                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
+        final EcBottomDelegate ecBottomDelegate = getParentDelegate();
+        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 }

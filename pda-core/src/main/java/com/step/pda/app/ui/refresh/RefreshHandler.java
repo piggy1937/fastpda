@@ -50,6 +50,10 @@ public class RefreshHandler implements
 
     public void firstPage(String url) {
         BEAN.setDelayed(1000);
+
+
+
+
 //        RestClient.builder()
 //                .url(url)
 //                .success(new ISuccess() {

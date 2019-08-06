@@ -10,7 +10,8 @@ import org.greenrobot.greendao.database.Database;
 
 public class DatabaseManager {
     private DaoSession mDaoSession = null;
-    private UserProfileDao mDao = null;
+    private UserProfileDao mUserProfileDao = null;
+    private PackageInfoDao mPackageInfoDao;
     private static DatabaseManager instance;
     private DatabaseManager(){
 
@@ -37,10 +38,23 @@ public class DatabaseManager {
          final  ReleaseOpenHelper helper = new ReleaseOpenHelper(context,"fast_pda.db");
          final Database db = helper.getWritableDb();
          mDaoSession = new DaoMaster(db).newSession();
-         mDao = mDaoSession.getUserProfileDao();
+         mUserProfileDao = mDaoSession.getUserProfileDao();
+         mPackageInfoDao = mDaoSession.getPackageInfoDao();
     }
 
+    /***
+     * 用户数据库
+     * @return
+     */
     public UserProfileDao getDao() {
-        return mDao;
+        return mUserProfileDao;
+    }
+
+    /***
+     * 包装信息数据库
+     * @return
+     */
+    public PackageInfoDao getmPackageInfoDao() {
+        return mPackageInfoDao;
     }
 }
