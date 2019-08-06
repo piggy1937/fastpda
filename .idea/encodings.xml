@@ -2,8 +2,26 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/pda-core/libs/DataCollection.aar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/banner/BannerCreator.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/banner/HolderCreator.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/banner/ImageHolder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/recycler/DataConverter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/recycler/ItemType.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/recycler/MultipleEntityBuilder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/recycler/MultipleFields.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/recycler/MultipleItemEntity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/recycler/MultipleRecyclerAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/recycler/MultipleViewHolder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/refresh/PagingBean.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/refresh/RefreshHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/res/drawable/dot_focus.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/res/drawable/dot_normal.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/bottom_item_icon_text_layout.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/delegate_bottom.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/item_multiple_banner.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/item_multiple_image.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/item_multiple_image_text.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/item_multiple_text.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/values/styles.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/layout-ldrtl/delegate_index.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/layout-ldrtl/delegate_personal.xml" charset="GBK" />

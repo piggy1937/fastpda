@@ -1,5 +1,7 @@
 package com.step.pda.app;
 
+import android.os.Handler;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -19,16 +21,20 @@ public class Configurator {
         APPLICATION_CONTEXT,
         CONFIG_READY,
         ICON,
+        HANDLER,
         INTERCEPTOR
     }
     private List<IconFontDescriptor> icons = new ArrayList<>();
     private static final HashMap<String,Object> PDA_CONFIGS = new HashMap<>();
     private static  final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
+    private static final Handler HANDLER = new Handler();
     private static Configurator instance;
 
 
      private Configurator(){
+
          PDA_CONFIGS.put(ConfigType.CONFIG_READY.name(),false);
+         PDA_CONFIGS.put(ConfigType.HANDLER.name(), HANDLER);
      }
 
      public static Configurator getInstance(){
