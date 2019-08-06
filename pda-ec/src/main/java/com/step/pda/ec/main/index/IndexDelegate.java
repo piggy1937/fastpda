@@ -6,31 +6,65 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.joanzapata.iconify.widget.IconTextView;
 import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
+import com.step.pda.app.ui.dialog.SelectDialog;
 import com.step.pda.app.ui.slider.SlideRecyclerView;
+import com.step.pda.app.util.DimenUtil;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.main.EcBottomDelegate;
 import com.step.pda.ec.ui.refresh.DbRefreshHandler;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by user on 2019-08-06.
  */
 
 public class IndexDelegate extends BottomItemDelegate {
+    private static final int LOADER_SIZE_SCALE = 2;
     @BindView(R2.id.rv_index)
     SlideRecyclerView mRecyclerView = null;
     @BindView(R2.id.srl_index)
     SwipeRefreshLayout mRefreshLayout = null;
     @BindView(R2.id.tb_index)
     Toolbar mToolbar = null;
+
+    @BindView(R2.id.icon_index_ellipsis)
+    IconTextView mIconEllipsis = null;
+
+    @OnClick(R2.id.icon_index_ellipsis)
+    public void onIconEllipsisClick(){
+        SelectDialog dialog= new SelectDialog(getContext(), com.step.pda.R.style.select_dialog);
+        final Window dialogWindow = dialog.getWindow();
+        int deviceWidth = DimenUtil.getScreenWidth();
+        int deviceHeight = DimenUtil.getScreenHeight();
+        if(dialogWindow!=null){
+            WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+            int[] location = new int[2];
+            mIconEllipsis.getLocationOnScreen(location);
+            int x = location[0];
+            int y = location[1];
+            lp.x = x;
+            lp.y = y;
+            lp.width  =deviceWidth/LOADER_SIZE_SCALE;
+            lp.height = deviceHeight/LOADER_SIZE_SCALE;
+            lp.gravity= Gravity.TOP;
+            dialogWindow.setAttributes(lp);
+        }
+        dialog.show();
+    }
+
+
     private DbRefreshHandler mRefreshHandler = null;
     @Override
     public Object setLayout() {
@@ -60,15 +94,17 @@ public class IndexDelegate extends BottomItemDelegate {
     }
     private void initRecyclerView() {
         final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(Pda.getApplicationContext(), LinearLayoutManager.VERTICAL,false));
+        mRecyclerView.setLayoutManager(manager);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(Pda.getApplicationContext(), DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(ContextCompat.getDrawable(Pda.getApplicationContext(), R.drawable.divider_inset));
         mRecyclerView.addItemDecoration(itemDecoration);
 
 
-        //        mRecyclerView.addItemDecoration
+//                mRecyclerView.addItemDecoration
 //                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
         final EcBottomDelegate ecBottomDelegate = getParentDelegate();
        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
+
+
 }

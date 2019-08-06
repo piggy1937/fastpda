@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dp_10"
+    android:background="#fff"
+    android:layout_height="match_parent">
+    <Button android:layout_height="wrap_content" android:background="#00000000"  android:layout_width="match_parent" android:text="@string/import_in_out" android:paddingTop="5dp" android:paddingBottom="5dp" android:paddingLeft="10dp" android:gravity="left|center_vertical" android:id="@+id/btnSltCntAll"></Button>
+    <Button android:layout_height="wrap_content" android:background="#00000000"  android:text="@string/help" android:gravity="left|center_vertical" android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_width="fill_parent" android:id="@+id/btnSltGudongUser"></Button>
+</LinearLayout>

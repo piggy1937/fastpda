@@ -14,6 +14,21 @@
     <!--全屏慕-->
     <item name ="android:windowFullscreen">true</item>
 </style>
+<style name="select_dialog" parent="@android:style/Theme.Dialog">
+    <!--去掉边框-->
+    <item name ="android:windowFrame">@null</item>
+    <!--悬浮-->
+    <item name ="android:windowIsFloating">true</item>
+     <!--半透明-->
+    <item name ="android:windowIsTranslucent">false</item>
+    <item name ="android:windowNoTitle">true</item>
+    <!--背景透明-->
+    <item name ="android:windowBackground">@android:color/transparent</item>
+    <!--允许模糊-->
+    <item name ="android:backgroundDimEnabled">true</item>
+    <!--全屏慕-->
+    <item name ="android:windowFullscreen">true</item>
+</style>
 
 
 

@@ -45,7 +45,7 @@
 
 
          <com.joanzapata.iconify.widget.IconTextView
-             android:id="@+id/icon_index_message"
+             android:id="@+id/icon_index_ellipsis"
              android:layout_width="wrap_content"
              android:layout_height="match_parent"
              android:layout_gravity="right"
