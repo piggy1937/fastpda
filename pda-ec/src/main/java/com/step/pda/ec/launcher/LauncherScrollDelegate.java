@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
-import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.app.ui.launcher.ILauncherListener;
 import com.step.pda.app.ui.launcher.LauncherHolderCreator;
 import com.step.pda.app.ui.launcher.ScrollLauncherTag;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Created by user on 2019-07-31.
  */
 
-public class LauncherScrollDelegate extends PdaDelagete
+public class LauncherScrollDelegate extends PdaDelegate
         implements OnItemClickListener,ILauncherListener{
     private ConvenientBanner<Integer> mConvenientBanner=null;
     private static final ArrayList<Integer>  INTEGERS = new ArrayList<>();

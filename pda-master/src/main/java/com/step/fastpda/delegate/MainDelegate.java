@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.step.fastpda.R;
-import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.app.net.rx.RxRestClient;
 import com.step.pda.app.ui.PdaLoader;
 
@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by user on 2019-07-30.
  */
 
-public class MainDelegate extends PdaDelagete {
+public class MainDelegate extends PdaDelegate {
     private static  final Handler HANDLER = new Handler() ;
     @Override
     public Object setLayout() {

@@ -2,15 +2,19 @@ package com.step.pda.ec.main.index;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
+import com.step.pda.app.ui.recycler.BaseDecoration;
 import com.step.pda.app.ui.refresh.RefreshHandler;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
+import com.step.pda.ec.main.EcBottomDelegate;
 
 import butterknife.BindView;
 
@@ -34,8 +38,25 @@ public class IndexDelegate extends BottomItemDelegate {
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
         mRefreshHandler = RefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter());
-        initRefreshLayout();
+
     }
+
+    private void initRecyclerView() {
+        final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.addItemDecoration
+                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
+        final EcBottomDelegate ecBottomDelegate = getParentDelegate();
+        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
+    }
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        initRefreshLayout();
+        initRecyclerView();
+        mRefreshHandler.firstPage("index.php");
+    }
+
     private void initRefreshLayout() {
         mRefreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,

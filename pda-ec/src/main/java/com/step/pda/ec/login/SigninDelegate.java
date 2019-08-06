@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 
-import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 
@@ -17,7 +17,7 @@ import butterknife.OnClick;
  * 登录
  */
 
-public class SigninDelegate  extends PdaDelagete{
+public class SigninDelegate  extends PdaDelegate{
     @BindView(R2.id.edit_sign_in_email)
     TextInputEditText mEmail;
     @OnClick(R2.id.btn_sign_in)

@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.step.pda.app.AccountManager;
 import com.step.pda.app.IUserChecker;
-import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.app.ui.launcher.ILauncherListener;
 import com.step.pda.app.ui.launcher.ScrollLauncherTag;
 import com.step.pda.app.util.storage.PreferenceUtils;
@@ -27,7 +27,7 @@ import butterknife.OnClick;
  * Created by user on 2019-07-31.
  */
 
-public class LauncherDelegate extends PdaDelagete implements ITimerListner{
+public class LauncherDelegate extends PdaDelegate implements ITimerListner{
     private  int mCount = 6;
     private Timer mTimer=null;
     private ILauncherListener mLauncherListener;

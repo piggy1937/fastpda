@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.ContentFrameLayout;
 
 import com.step.pda.R;
-import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.delegate.PdaDelegate;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
@@ -15,7 +15,7 @@ import me.yokeyword.fragmentation.SupportActivity;
  */
 
 public abstract class ProxyActivity extends SupportActivity {
-    public abstract PdaDelagete setRootDelegate();
+    public abstract PdaDelegate setRootDelegate();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

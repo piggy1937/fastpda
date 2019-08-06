@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 
 import com.step.pda.app.activity.ProxyActivity;
-import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.main.EcBottomDelegate;
 
 public class MainActivity extends ProxyActivity {
@@ -19,7 +19,7 @@ public class MainActivity extends ProxyActivity {
     }
 
     @Override
-    public PdaDelagete setRootDelegate() {
+    public PdaDelegate setRootDelegate() {
         return new EcBottomDelegate();
     }
 }

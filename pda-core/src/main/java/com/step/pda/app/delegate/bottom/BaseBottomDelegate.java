@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.step.pda.R;
 import com.step.pda.R2;
-import com.step.pda.app.delegate.PdaDelagete;
+import com.step.pda.app.delegate.PdaDelegate;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -28,7 +28,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
  * 底部按钮
  */
 
-public abstract class BaseBottomDelegate extends PdaDelagete implements View.OnClickListener {
+public abstract class BaseBottomDelegate extends PdaDelegate implements View.OnClickListener {
     //tab 按钮
     private final ArrayList<BottomTabBean> TAB_BEANS = new ArrayList<>();
     //tab页
