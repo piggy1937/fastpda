@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">pda</string>
+    <string name="delete">删除</string>
+    <string name="edite">编辑</string>
 </resources>

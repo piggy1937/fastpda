@@ -4,13 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
-import com.step.pda.app.ui.recycler.BaseDecoration;
+import com.step.pda.app.ui.slider.SlideRecyclerView;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.main.EcBottomDelegate;
@@ -24,7 +26,7 @@ import butterknife.BindView;
 
 public class IndexDelegate extends BottomItemDelegate {
     @BindView(R2.id.rv_index)
-    RecyclerView mRecyclerView = null;
+    SlideRecyclerView mRecyclerView = null;
     @BindView(R2.id.srl_index)
     SwipeRefreshLayout mRefreshLayout = null;
     @BindView(R2.id.tb_index)
@@ -58,10 +60,15 @@ public class IndexDelegate extends BottomItemDelegate {
     }
     private void initRecyclerView() {
         final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.addItemDecoration
-                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(Pda.getApplicationContext(), LinearLayoutManager.VERTICAL,false));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(Pda.getApplicationContext(), DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(ContextCompat.getDrawable(Pda.getApplicationContext(), R.drawable.divider_inset));
+        mRecyclerView.addItemDecoration(itemDecoration);
+
+
+        //        mRecyclerView.addItemDecoration
+//                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
         final EcBottomDelegate ecBottomDelegate = getParentDelegate();
-        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
+       mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 }

@@ -5,7 +5,6 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.step.pda.app.delegate.PdaDelegate;
-import com.step.pda.app.ui.recycler.MultipleFields;
 import com.step.pda.app.ui.recycler.MultipleItemEntity;
 
 /**
@@ -27,7 +26,7 @@ public class IndexItemClickListener extends SimpleClickListener {
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         final MultipleItemEntity entity = (MultipleItemEntity) baseQuickAdapter.getData().get(position);
-        final int goodsId = entity.getField(MultipleFields.ID);
+      //  final int goodsId = entity.getField(MultipleFields.ID);
 //        final GoodsDetailDelegate delegate = GoodsDetailDelegate.create(goodsId);
 //        DELEGATE.getSupportDelegate().start(delegate);
     }

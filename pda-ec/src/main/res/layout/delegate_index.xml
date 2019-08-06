@@ -5,14 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
    <android.support.v4.widget.SwipeRefreshLayout
+       android:paddingTop="50dp"
        android:id="@+id/srl_index"
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-      <android.support.v7.widget.RecyclerView
+      <com.step.pda.app.ui.slider.SlideRecyclerView
           android:id="@+id/rv_index"
           android:layout_width="match_parent"
           android:layout_height="match_parent" />
+
    </android.support.v4.widget.SwipeRefreshLayout>
 
    <android.support.v7.widget.Toolbar
@@ -49,7 +51,7 @@
              android:layout_gravity="right"
              android:gravity="center"
              android:paddingLeft="10dp"
-             android:paddingRight="10dp"
+             android:paddingRight="20dp"
              android:text="{fa-ellipsis-v}"
              android:textColor="@android:color/white"
              android:textSize="20sp" />
