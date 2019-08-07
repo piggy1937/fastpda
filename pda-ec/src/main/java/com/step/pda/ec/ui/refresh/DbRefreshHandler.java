@@ -158,6 +158,7 @@ public class DbRefreshHandler implements
                                     }
                                 })
                                 .positiveText("确定")
+                                .negativeText("取消")
                                 .show();
 
 
