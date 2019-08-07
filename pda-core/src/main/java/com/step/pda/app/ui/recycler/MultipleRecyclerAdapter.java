@@ -117,7 +117,7 @@ public class MultipleRecyclerAdapter extends
 
     @Override
     public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
-        return getData().get(position).getField(MultipleFields.SPAN_SIZE);
+        return   4;//getData().get(position).getField(MultipleFields.SPAN_SIZE);
     }
 
     @Override
@@ -125,8 +125,10 @@ public class MultipleRecyclerAdapter extends
 
     }
 
-    @Override
-    public int getItemCount() {
-        return super.getItemCount();
-    }
+//    @Override
+//    public int getItemCount() {
+//        if(getData()!=null&&getData().size()>0)
+//             return getData().size();
+//        return 0;
+//    }
 }

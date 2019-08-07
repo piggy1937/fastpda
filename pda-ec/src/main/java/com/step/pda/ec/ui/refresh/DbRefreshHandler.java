@@ -12,14 +12,15 @@ import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.database.PackageInfoDao;
 import com.step.pda.ec.main.index.IndexDataConverter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by user on 2019-08-06.
@@ -33,7 +34,7 @@ public class DbRefreshHandler implements
     private final SwipeRefreshLayout REFRESH_LAYOUT;
     private final PagingBean BEAN;
     private final RecyclerView RECYCLERVIEW;
-    private MultipleRecyclerAdapter mAdapter = null;
+    private static MultipleRecyclerAdapter mAdapter = null;
     private final IndexDataConverter CONVERTER;
     private DbRefreshHandler(SwipeRefreshLayout swipeRefreshLayout,
                              RecyclerView recyclerView,
@@ -81,7 +82,10 @@ public class DbRefreshHandler implements
                 emitter.onNext(packageInfoList);
                 emitter.onComplete();
             }
-        }).subscribe(new Observer< List<PackageInfo> >() {
+        }).unsubscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer< List<PackageInfo> >() {
             @Override
             public void onSubscribe(Disposable d) {
             }
@@ -89,7 +93,6 @@ public class DbRefreshHandler implements
             public void onNext(List<PackageInfo> packageInfos) {
                 //设置Adapter
                 mAdapter = MultipleRecyclerAdapter.create(CONVERTER.setPackageInfoList(packageInfos));
-                mAdapter.setOnLoadMoreListener(DbRefreshHandler.this, RECYCLERVIEW);
                 RECYCLERVIEW.setAdapter(mAdapter);
             }
             @Override
@@ -97,6 +100,7 @@ public class DbRefreshHandler implements
             }
             @Override
             public void onComplete() {
+                mAdapter.setOnLoadMoreListener(DbRefreshHandler.this, RECYCLERVIEW);
                 BEAN.addIndex();
             }
         });
@@ -104,46 +108,23 @@ public class DbRefreshHandler implements
     }
 
     private void paging(final String url) {
-
-        Observable.create(new ObservableOnSubscribe<List<PackageInfo>>() {
-            @Override
-            public void subscribe(ObservableEmitter<List<PackageInfo>> emitter) throws Exception {
-                final int pageSize = BEAN.getPageSize();
-                final int currentCount = BEAN.getCurrentCount();
-                final int total = BEAN.getTotal();
-                final int index = BEAN.getPageIndex();
-                if (mAdapter.getData().size() < pageSize || currentCount >= total) {
-                    mAdapter.loadMoreEnd(true);
-                } else {
-                    CONVERTER.clearData();
-                    CONVERTER.setPackageInfoList(new ArrayList<PackageInfo>());
-                    DatabaseManager.getInstance().init(Pda.getApplicationContext());
-                    PackageInfoDao dao =  DatabaseManager.getInstance().getmPackageInfoDao();
-                    List<PackageInfo> packageInfoList= dao.queryBuilder().offset(index*20).limit(BEAN.getPageSize()).orderAsc(PackageInfoDao.Properties.Id).list();
-                    emitter.onNext(packageInfoList);
-                    emitter.onComplete();
-                }
-            }
-        }).subscribe(new Observer< List<PackageInfo> >() {
-            @Override
-            public void onSubscribe(Disposable d) {
-            }
-            @Override
-            public void onNext(List<PackageInfo> packageInfos) {
-                //设置Adapter
-                mAdapter.addData(CONVERTER.setPackageInfoList( packageInfos).convert());
-            }
-            @Override
-            public void onError(Throwable e) {
-            }
-            @Override
-            public void onComplete() {
-                //累加数量
-                BEAN.setCurrentCount(mAdapter.getData().size());
-                mAdapter.loadMoreComplete();
-                BEAN.addIndex();
-            }
-        });
+        final int pageSize = BEAN.getPageSize();
+        final int currentCount = BEAN.getCurrentCount();
+        final int total = BEAN.getTotal();
+        final int index = BEAN.getPageIndex();
+        if (mAdapter.getData().size() < pageSize || currentCount >= total) {
+            mAdapter.loadMoreEnd(true);
+        } else {
+            CONVERTER.clearData();
+            DatabaseManager.getInstance().init(Pda.getApplicationContext());
+            PackageInfoDao dao = DatabaseManager.getInstance().getmPackageInfoDao();
+            List<PackageInfo> packageInfoList = dao.queryBuilder().offset(index * pageSize).limit(BEAN.getPageSize()).orderAsc(PackageInfoDao.Properties.Id).list();
+            //设置Adapter
+            mAdapter.addData(CONVERTER.setPackageInfoList(packageInfoList).convert());
+            BEAN.setCurrentCount(mAdapter.getData().size());
+            mAdapter.loadMoreComplete();
+            BEAN.addIndex();
+        }
 
 
     }

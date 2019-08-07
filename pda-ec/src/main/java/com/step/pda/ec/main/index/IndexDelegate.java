@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -14,9 +13,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.joanzapata.iconify.widget.IconTextView;
-import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
 import com.step.pda.app.ui.dialog.SelectDialog;
+import com.step.pda.app.ui.recycler.BaseDecoration;
 import com.step.pda.app.ui.slider.SlideRecyclerView;
 import com.step.pda.app.util.DimenUtil;
 import com.step.pda.ec.R;
@@ -49,7 +48,7 @@ public class IndexDelegate extends BottomItemDelegate {
     @OnClick(R2.id.fab_index_add)
     public void onFabIndexAdd(){
         //打开包装界面
-        startForResult(new PackingDelegate(),ReqCode);
+        getSupportDelegate().startForResult(new PackingDelegate(),ReqCode);
     }
 
 
@@ -86,6 +85,8 @@ public class IndexDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
+
+        initRecyclerView();
         mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter());
     }
 
@@ -93,7 +94,6 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
-        initRecyclerView();
         mRefreshHandler.firstPage("package_info");
     }
 
@@ -108,13 +108,13 @@ public class IndexDelegate extends BottomItemDelegate {
     private void initRecyclerView() {
         final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
         mRecyclerView.setLayoutManager(manager);
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(Pda.getApplicationContext(), DividerItemDecoration.VERTICAL);
-        itemDecoration.setDrawable(ContextCompat.getDrawable(Pda.getApplicationContext(), R.drawable.divider_inset));
-        mRecyclerView.addItemDecoration(itemDecoration);
+//        DividerItemDecoration itemDecoration = new DividerItemDecoration(Pda.getApplicationContext(), DividerItemDecoration.VERTICAL);
+//        itemDecoration.setDrawable(ContextCompat.getDrawable(Pda.getApplicationContext(), R.drawable.divider_inset));
+//        mRecyclerView.addItemDecoration(itemDecoration);
 
 
-//                mRecyclerView.addItemDecoration
-//                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
+                mRecyclerView.addItemDecoration
+                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
         final EcBottomDelegate ecBottomDelegate = getParentDelegate();
         mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }

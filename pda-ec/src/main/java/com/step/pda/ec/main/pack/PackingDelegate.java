@@ -62,10 +62,25 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                 Bundle bundle = new Bundle();
                 bundle.putInt("errCode",0);
                 setFragmentResult(RES_CODE,bundle);
-                pop();
+                getSupportDelegate().pop();
             }
         }else if(id==R.id.btn_packing_submit_next){
             if(checkForm()) {
+
+
+                PackageInfo packageInfo =null;
+                PackageInfoService packageInfoService = new PackageInfoService();
+                for(int i =0 ;i<100;i++){
+                    packageInfo = new PackageInfo();
+                    packageInfo.setSn("sn_"+i);
+                    packageInfo.setQuantity(i);
+                    long rowId= packageInfoService.save(packageInfo);
+
+                }
+
+
+
+
                 Toast.makeText(getContext(), "submit_next", Toast.LENGTH_SHORT).show();
             }
         }

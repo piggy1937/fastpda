@@ -7,7 +7,6 @@ import com.step.pda.app.ui.recycler.MultipleItemEntity;
 import com.step.pda.ec.database.PackageInfo;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,7 +14,7 @@ import java.util.List;
  */
 
 public class IndexDataConverter extends DataConverter {
-    private LinkedList<PackageInfo> packageInfoList =null;
+    private List<PackageInfo> packageInfoList =null;
     @Override
     public ArrayList<MultipleItemEntity> convert() {
         int size =packageInfoList!=null?packageInfoList.size():0;
@@ -38,23 +37,19 @@ public class IndexDataConverter extends DataConverter {
             ENTITIES.add(entity);
 
         }
-        return ENTITIES;
+        return (ArrayList<MultipleItemEntity>) ENTITIES.clone();
     }
 
 
-    public IndexDataConverter setPackageInfoList(List<PackageInfo> packageInfoList) {
+    public DataConverter setPackageInfoList(List<PackageInfo> packageInfoList) {
         if(packageInfoList==null){
             this.packageInfoList =null;
+            return this;
         }
-        this.packageInfoList =new LinkedList<>(packageInfoList) ;
+        this.packageInfoList = packageInfoList ;
         return this;
     }
 
-    @Override
-    public void clearData() {
-        super.clearData();
-        this.packageInfoList = null;
-    }
 
 
 }
