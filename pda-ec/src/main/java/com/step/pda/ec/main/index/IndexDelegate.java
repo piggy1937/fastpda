@@ -130,8 +130,6 @@ public class IndexDelegate extends BottomItemDelegate {
         super.onFragmentResult(requestCode, resultCode, data);
         if(requestCode==100&&resultCode==101){
             mRefreshHandler.onRefresh();
-            this.onResume();
         }
     }
-
 }

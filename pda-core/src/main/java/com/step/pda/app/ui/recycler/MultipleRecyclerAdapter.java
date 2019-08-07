@@ -124,4 +124,9 @@ public class MultipleRecyclerAdapter extends
     public void onItemClick(int position) {
 
     }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
 }
