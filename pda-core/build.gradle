@@ -25,7 +25,9 @@ android {
 
 }
 repositories{
-    flatDir {        dirs 'libs'    }
+    flatDir{
+        dirs 'libs'
+    }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -71,4 +73,7 @@ dependencies {
 //    compile 'com.google.auto:auto-common:0.8'
     provided 'com.google.auto.value:auto-value:1.4.1'
     annotationProcessor "com.google.auto.value:auto-value:1.4.1"
+    //沉浸式状态栏 本地
+    compile(name:'StatusBarCompat', ext:'aar')
+
 }

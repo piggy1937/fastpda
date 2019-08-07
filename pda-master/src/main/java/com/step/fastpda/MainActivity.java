@@ -8,6 +8,8 @@ import com.step.pda.app.activity.ProxyActivity;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.main.EcBottomDelegate;
 
+import qiu.niorgai.StatusBarCompat;
+
 public class MainActivity extends ProxyActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -16,6 +18,7 @@ public class MainActivity extends ProxyActivity {
         if(actionBar!=null){
             actionBar.hide();
         }
+        StatusBarCompat.translucentStatusBar(this, true);
     }
 
     @Override
