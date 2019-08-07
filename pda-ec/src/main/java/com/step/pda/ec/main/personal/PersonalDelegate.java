@@ -21,4 +21,9 @@ public class PersonalDelegate extends BottomItemDelegate {
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
 
     }
+
+    @Override
+    public void post(Runnable runnable) {
+
+    }
 }

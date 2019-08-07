@@ -49,7 +49,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
     @OnClick(R2.id.fab_index_add)
     public void onFabIndexAdd(){
         //打开包装界面
-        startForResult(new PackingDelegate(),ReqCode);
+        getSupportDelegate().startForResult(new PackingDelegate(),ReqCode);
     }
 
 
@@ -87,6 +87,11 @@ public class BigPackingDelegate extends BottomItemDelegate {
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
         mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter());
+    }
+
+    @Override
+    public void post(Runnable runnable) {
+
     }
 
     @Override

@@ -103,4 +103,8 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
     }
 
 
+    @Override
+    public void post(Runnable runnable) {
+
+    }
 }

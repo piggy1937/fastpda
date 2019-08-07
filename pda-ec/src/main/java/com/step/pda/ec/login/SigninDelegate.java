@@ -43,4 +43,9 @@ public class SigninDelegate  extends PdaDelegate{
 
         return isPass;
     }
+
+    @Override
+    public void post(Runnable runnable) {
+
+    }
 }

@@ -70,4 +70,9 @@ public class MainDelegate extends PdaDelegate {
                         }
                     },1000);
                 }
+
+    @Override
+    public void post(Runnable runnable) {
+
+    }
 }

@@ -70,7 +70,7 @@ public class LauncherDelegate extends PdaDelegate implements ITimerListner{
     //判断是否显示启动滚动页
     private  void checkIsShowScroller(){
         if(!PreferenceUtils.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCH_APP.name())){
-            start(new LauncherScrollDelegate(),SINGLETASK);
+            getSupportDelegate().start(new LauncherScrollDelegate(), SINGLETASK);
         }else{
             //检测用户是否登录了APP
             AccountManager.checkAccount(new IUserChecker() {
@@ -118,4 +118,8 @@ public class LauncherDelegate extends PdaDelegate implements ITimerListner{
     }
 
 
+    @Override
+    public void post(Runnable runnable) {
+
+    }
 }

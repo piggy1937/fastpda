@@ -60,4 +60,9 @@ public class LauncherScrollDelegate extends PdaDelegate
     public void onLauncherFinish(LaunchFinishTag tag) {
 
     }
+
+    @Override
+    public void post(Runnable runnable) {
+
+    }
 }
