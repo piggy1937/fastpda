@@ -218,7 +218,8 @@ public class DbRefreshHandler implements
     public void addData(PackageInfo packageInfo) {
         List<PackageInfo> list= new ArrayList<PackageInfo>();
         list.add(packageInfo);
-        mAdapter.addData(CONVERTER.setPackageInfoList(list).convert());
+        CONVERTER.clearData();
+        mAdapter.getData().add(CONVERTER.setPackageInfoList(list).convert().get(0));
         mAdapter.refresh();
         refresh();
     }
