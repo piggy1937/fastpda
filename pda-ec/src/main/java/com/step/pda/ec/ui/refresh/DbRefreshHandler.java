@@ -1,16 +1,25 @@
 package com.step.pda.ec.ui.refresh;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.step.pda.app.Pda;
+import com.step.pda.app.ui.recycler.MultipleFields;
+import com.step.pda.app.ui.recycler.MultipleItemEntity;
 import com.step.pda.app.ui.recycler.MultipleRecyclerAdapter;
 import com.step.pda.app.ui.refresh.PagingBean;
+import com.step.pda.ec.R;
 import com.step.pda.ec.database.DatabaseManager;
 import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.database.PackageInfoDao;
 import com.step.pda.ec.main.index.IndexDataConverter;
+import com.step.pda.ec.services.PackageInfoService;
 
 import java.util.List;
 
@@ -36,19 +45,21 @@ public class DbRefreshHandler implements
     private final RecyclerView RECYCLERVIEW;
     private static MultipleRecyclerAdapter mAdapter = null;
     private final IndexDataConverter CONVERTER;
+    private final Context CONTEXT;
     private DbRefreshHandler(SwipeRefreshLayout swipeRefreshLayout,
                              RecyclerView recyclerView,
-                             IndexDataConverter converter, PagingBean bean) {
+                             IndexDataConverter converter, PagingBean bean,Context context) {
         this.REFRESH_LAYOUT = swipeRefreshLayout;
         this.RECYCLERVIEW = recyclerView;
         this.CONVERTER = converter;
         this.BEAN = bean;
+        this.CONTEXT = context;
         REFRESH_LAYOUT.setOnRefreshListener(this);
     }
 
     public static DbRefreshHandler create(SwipeRefreshLayout swipeRefreshLayout,
-                                        RecyclerView recyclerView, IndexDataConverter converter) {
-        return new DbRefreshHandler(swipeRefreshLayout, recyclerView, converter, new PagingBean());
+                                        RecyclerView recyclerView, IndexDataConverter converter,Context context) {
+        return new DbRefreshHandler(swipeRefreshLayout, recyclerView, converter, new PagingBean(),context);
     }
 
     private void refresh() {
@@ -100,6 +111,58 @@ public class DbRefreshHandler implements
             }
             @Override
             public void onComplete() {
+                mAdapter.onSlideListener(new MultipleRecyclerAdapter.onSlideListener(){
+                    @Override
+                    public void onDel(final int position) {
+
+                        MultipleItemEntity  entity = mAdapter.getData().get(position);
+                        String title =  entity.getField(MultipleFields.TEXT);
+                        final long id =  entity.getField(MultipleFields.ID);
+                        new MaterialDialog.Builder(CONTEXT)
+                                .title("删除")
+                                .content("确定要删除"+title+"吗?")
+                                .positiveText("确认")
+                                .negativeText("取消").onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        PackageInfoService service = new PackageInfoService();
+                                        service.delete(id);
+                                        long count = service.count();
+                                        mAdapter.getData().remove(position);
+                                        mAdapter.refresh();
+                                        refresh();
+                                    }
+                                })
+                                .show();
+                    }
+                    @Override
+                    public void onModify(final int position) {
+                        final MultipleItemEntity  entity = mAdapter.getData().get(position);
+                        String title =  entity.getField(MultipleFields.TEXT);
+                        final long id =  entity.getField(MultipleFields.ID);
+                        new MaterialDialog.Builder(CONTEXT)
+                                .title(title)
+                                //限制输入的长度
+                                .inputRangeRes(2, 20, R.color.tool_bar)
+                                //限制输入类型
+                                .inputType(InputType.TYPE_CLASS_NUMBER)
+                                .input("数量", null, new MaterialDialog.InputCallback() {
+                                    @Override
+                                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                                        PackageInfoService service = new PackageInfoService();
+                                        entity.setField(MultipleFields.QUANTITY,input.toString());
+                                        service.update(id,Integer.parseInt(input.toString()));
+                                        mAdapter.getData().set(position,entity);
+                                        mAdapter.refresh();
+                                        refresh();
+                                    }
+                                })
+                                .positiveText("确定")
+                                .show();
+
+
+                    }
+                });
                 mAdapter.setOnLoadMoreListener(DbRefreshHandler.this, RECYCLERVIEW);
                 BEAN.addIndex();
             }

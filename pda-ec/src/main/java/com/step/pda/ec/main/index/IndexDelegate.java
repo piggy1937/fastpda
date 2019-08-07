@@ -41,6 +41,9 @@ public class IndexDelegate extends BottomItemDelegate {
     @BindView(R2.id.tb_index)
     Toolbar mToolbar = null;
 
+
+
+
     @BindView(R2.id.icon_index_ellipsis)
     IconTextView mIconEllipsis = null;
     @BindView(R2.id.fab_index_add)
@@ -87,7 +90,7 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
 
         initRecyclerView();
-        mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter());
+        mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter(),getContext());
     }
 
     @Override

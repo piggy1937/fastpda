@@ -1,5 +1,6 @@
 package com.step.pda.app.ui.recycler;
 
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ public class MultipleRecyclerAdapter extends
 
     //确保初始化一次Banner，防止重复Item加载
     private boolean mIsInitBanner = false;
+    private onSlideListener mOnSlideListener;
     //设置图片加载策略
     private static final RequestOptions RECYCLER_OPTIONS =
             new RequestOptions()
@@ -54,6 +56,10 @@ public class MultipleRecyclerAdapter extends
         setNewData(data);
         notifyDataSetChanged();
     }
+    public void refresh() {
+        notifyDataSetChanged();
+    }
+
 
     private void init() {
         //设置不同的item布局
@@ -74,7 +80,7 @@ public class MultipleRecyclerAdapter extends
     }
 
     @Override
-    protected void convert(MultipleViewHolder holder, MultipleItemEntity entity) {
+    protected void convert(final MultipleViewHolder holder, MultipleItemEntity entity) {
         final String text;
         final String imageUrl;
         final int quantity;
@@ -82,9 +88,23 @@ public class MultipleRecyclerAdapter extends
         switch (holder.getItemViewType()) {
             case ItemType.TEXT:
                 text = entity.getField(MultipleFields.TEXT);
-                quantity = entity.getField(MultipleFields.QUANTITY);
+                quantity =Integer.parseInt(entity.getField(MultipleFields.QUANTITY).toString());
                 holder.setText(R.id.text_single, text);
                 holder.setText(R.id.tv_quantity, quantity+"");
+                AppCompatTextView mTvEdite =holder.getView(R.id.tv_edite);
+                mTvEdite.setOnClickListener(new  View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        mOnSlideListener.onModify(holder.getAdapterPosition());
+                    }
+                });
+                AppCompatTextView mTvDelete =holder.getView(R.id.tv_delete);
+                mTvDelete.setOnClickListener(new  View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        mOnSlideListener.onDel(holder.getAdapterPosition());
+                    }
+                });
                 break;
             case ItemType.IMAGE:
                 imageUrl = entity.getField(MultipleFields.IMAGE_URL);
@@ -123,6 +143,22 @@ public class MultipleRecyclerAdapter extends
     @Override
     public void onItemClick(int position) {
 
+    }
+
+    public void onSlideListener(onSlideListener onSlideListener) {
+        if(onSlideListener !=null){
+            this.mOnSlideListener = onSlideListener;
+        }
+    }
+
+
+
+    /**
+     * 和Activity通信的接口
+     */
+    public interface onSlideListener {
+        void onDel(int position);//删除
+        void onModify(int position);//修改
     }
 
 //    @Override

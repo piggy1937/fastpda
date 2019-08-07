@@ -64,7 +64,7 @@
     <LinearLayout
         android:layout_width="120dp"
         android:layout_height="match_parent">
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_edite"
             android:layout_width="60dp"
             android:layout_height="match_parent"
@@ -75,7 +75,7 @@
             android:text="@string/edite"
             android:textColor="#FFFFFFFF"
             android:textSize="14sp" />
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_delete"
             android:layout_width="60dp"
             android:layout_height="match_parent"
