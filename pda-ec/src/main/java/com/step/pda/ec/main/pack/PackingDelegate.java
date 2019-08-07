@@ -11,9 +11,11 @@ import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.database.PackageInfo;
+import com.step.pda.ec.main.index.IndexDelegate;
 import com.step.pda.ec.services.PackageInfoService;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by user on 2019-08-07.
@@ -30,7 +32,10 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
     AppCompatButton  mbtnPackingSubmit; //保存
     @BindView(R2.id.btn_packing_submit_next)
     AppCompatButton  mbtnPackingSubmitNext;//保存并继续
-
+    @OnClick(R2.id.icon_packing_close)
+    void onIconPackingClose(){
+       getSupportDelegate().startWithPop(new IndexDelegate());
+    }
 
     @Override
     public Object setLayout() {

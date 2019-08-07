@@ -15,6 +15,18 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:orientation="horizontal">
+          <com.joanzapata.iconify.widget.IconTextView
+              android:id="@+id/icon_packing_close"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="left"
+              android:gravity="center"
+              android:paddingLeft="10dp"
+              android:paddingRight="20dp"
+              android:text="{fa-times}"
+              android:textColor="@android:color/white"
+              android:textSize="20sp" />
+
          <android.support.v7.widget.AppCompatTextView
              android:layout_width="0dp"
              android:layout_weight="1"
