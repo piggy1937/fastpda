@@ -36,7 +36,6 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
     void onIconPackingClose(){
        getSupportDelegate().startWithPop(new IndexDelegate());
     }
-
     @Override
     public Object setLayout() {
         return R.layout.delegate_packing;

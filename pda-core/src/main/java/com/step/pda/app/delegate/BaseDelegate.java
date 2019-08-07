@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import com.step.pda.app.activity.ProxyActivity;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.ExtraTransaction;
-import me.yokeyword.fragmentation.ISupportFragment;
+import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.fragmentation.SupportFragmentDelegate;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
@@ -24,7 +23,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * Created by user on 2019-07-30.
  */
 
-public abstract class BaseDelegate extends Fragment implements ISupportFragment {
+public abstract class BaseDelegate extends SupportFragment{
 
     private final SupportFragmentDelegate DELEGATE = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity = null;
@@ -148,10 +147,10 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
         DELEGATE.onSupportInvisible();
     }
 
-    @Override
-    public boolean isSupportVisible() {
-        return DELEGATE.isSupportVisible();
-    }
+//    @Override
+//    public boolean isSupportVisible() {
+//        return DELEGATE.isSupportVisible();
+//    }
 
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
