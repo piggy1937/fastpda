@@ -66,22 +66,19 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
             }
         }else if(id==R.id.btn_packing_submit_next){
             if(checkForm()) {
-
-
-                PackageInfo packageInfo =null;
+                PackageInfo packageInfo = new PackageInfo();
+                packageInfo.setSn(mEdPackingSn.getText().toString());
+                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
                 PackageInfoService packageInfoService = new PackageInfoService();
-                for(int i =0 ;i<100;i++){
-                    packageInfo = new PackageInfo();
-                    packageInfo.setSn("sn_"+i);
-                    packageInfo.setQuantity(i);
-                    long rowId= packageInfoService.save(packageInfo);
-
+                long rowId= packageInfoService.save(packageInfo);
+                if(rowId>0) {
+                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
-                Toast.makeText(getContext(), "submit_next", Toast.LENGTH_SHORT).show();
+                mEdPackingSn.setText("");
+                mEdPackingQuantity.setText("");
+                mEdPackingSn.requestFocus();
             }
         }
 
