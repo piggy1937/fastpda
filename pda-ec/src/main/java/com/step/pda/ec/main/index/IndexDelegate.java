@@ -20,6 +20,7 @@ import com.step.pda.app.ui.slider.SlideRecyclerView;
 import com.step.pda.app.util.DimenUtil;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
+import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.main.EcBottomDelegate;
 import com.step.pda.ec.main.pack.PackingDelegate;
 import com.step.pda.ec.ui.refresh.DbRefreshHandler;
@@ -137,6 +138,8 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
         if(requestCode==100&&resultCode==101){
+          PackageInfo packageInfo = (PackageInfo) data.getSerializable("package_info");
+            mRefreshHandler.addData(packageInfo);
             mRefreshHandler.onRefresh();
         }
     }

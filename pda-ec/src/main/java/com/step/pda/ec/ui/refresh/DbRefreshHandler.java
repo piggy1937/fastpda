@@ -21,6 +21,7 @@ import com.step.pda.ec.database.PackageInfoDao;
 import com.step.pda.ec.main.index.IndexDataConverter;
 import com.step.pda.ec.services.PackageInfoService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -208,5 +209,17 @@ public class DbRefreshHandler implements
     public void onLoadMoreRequested() {
 
         paging("package_info");
+    }
+
+    /***
+     * 根据数据库新增数据
+     * @param packageInfo
+     */
+    public void addData(PackageInfo packageInfo) {
+        List<PackageInfo> list= new ArrayList<PackageInfo>();
+        list.add(packageInfo);
+        mAdapter.addData(CONVERTER.setPackageInfoList(list).convert());
+        mAdapter.refresh();
+        refresh();
     }
 }

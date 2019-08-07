@@ -10,12 +10,12 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity(nameInDb = "user_profile")
 public class UserProfile {
     @Id
-    private long userId = 0;
+    private Long userId;
     private String name =null;
     private String avatar=null;
     private String gender=null;
-    @Generated(hash = 223862979)
-    public UserProfile(long userId, String name, String avatar, String gender) {
+    @Generated(hash = 1553490858)
+    public UserProfile(Long userId, String name, String avatar, String gender) {
         this.userId = userId;
         this.name = name;
         this.avatar = avatar;
@@ -24,10 +24,10 @@ public class UserProfile {
     @Generated(hash = 968487393)
     public UserProfile() {
     }
-    public long getUserId() {
+    public Long getUserId() {
         return this.userId;
     }
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
     public String getName() {
@@ -48,6 +48,8 @@ public class UserProfile {
     public void setGender(String gender) {
         this.gender = gender;
     }
+    
+    
 
 
 }

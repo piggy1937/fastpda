@@ -65,8 +65,8 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                     Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
                 }
                 Bundle bundle = new Bundle();
-                bundle.putInt("errCode",0);
-                setFragmentResult(RES_CODE,bundle);
+                bundle.putSerializable("package_info",packageInfo);
+                getSupportDelegate().setFragmentResult(RES_CODE,bundle);
                 getSupportDelegate().pop();
             }
         }else if(id==R.id.btn_packing_submit_next){

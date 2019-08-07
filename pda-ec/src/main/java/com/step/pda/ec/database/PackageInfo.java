@@ -4,12 +4,15 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 2019-08-06.
  * 包装信息
  */
 @Entity(nameInDb = "package_info")
-public class PackageInfo {
+public class PackageInfo  implements Serializable{
+    private static final long serialVersionUID = 9057399777770511208L;
     @Id(autoincrement = true)
     private Long id ;
     /***

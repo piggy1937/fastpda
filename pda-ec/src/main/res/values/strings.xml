@@ -3,4 +3,5 @@
     <string name="add_mini_pack_label">新增小包标签</string>
     <string name="add_mini_big_label">新增大包标签</string>
     <string name="packing_big">大包标签</string>
+    <string name="username">用户名</string>
 </resources>
