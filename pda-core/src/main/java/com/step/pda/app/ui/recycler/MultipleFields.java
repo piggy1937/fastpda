@@ -14,5 +14,6 @@ public enum MultipleFields {
     ID,
     NAME,
     TAG,
-    SLIDE_RECYCLER_VIEW
+    SLIDE_RECYCLER_VIEW,
+    QUANTITY
 }

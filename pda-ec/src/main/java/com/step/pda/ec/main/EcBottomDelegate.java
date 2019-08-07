@@ -6,6 +6,7 @@ import com.step.pda.app.delegate.bottom.BaseBottomDelegate;
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
 import com.step.pda.app.delegate.bottom.BottomTabBean;
 import com.step.pda.app.delegate.bottom.ItemBuilder;
+import com.step.pda.ec.main.index.BigPackingDelegate;
 import com.step.pda.ec.main.index.IndexDelegate;
 import com.step.pda.ec.main.personal.PersonalDelegate;
 
@@ -21,7 +22,7 @@ public class EcBottomDelegate extends BaseBottomDelegate {
     public LinkedHashMap<BottomTabBean, BottomItemDelegate> setItems(ItemBuilder builder) {
         final LinkedHashMap<BottomTabBean, BottomItemDelegate> items = new LinkedHashMap<>();
         items.put(new BottomTabBean("{fa-ship}", "小包标签"), new IndexDelegate());
-        items.put(new BottomTabBean("{fa-shield}", "大包标签"), new IndexDelegate());
+        items.put(new BottomTabBean("{fa-shield}", "大包标签"), new BigPackingDelegate());
         items.put(new BottomTabBean("{fa-user}", "我的"), new PersonalDelegate());
         return builder.addItems(items).build();
     }

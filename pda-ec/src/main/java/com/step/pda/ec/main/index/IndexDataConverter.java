@@ -25,13 +25,15 @@ public class IndexDataConverter extends DataConverter {
             long id =  packageInfoList.get(i).getId();
             String sn = packageInfoList.get(i).getSn();
             String title = packageInfoList.get(i).getTitle();
+            int quantity = packageInfoList.get(i).getQuantity();//数量
             type = ItemType.TEXT;
 
             final MultipleItemEntity entity = MultipleItemEntity.builder()
                     .setField(MultipleFields.ITEM_TYPE,type)
                     .setField(MultipleFields.SPAN_SIZE,spanSize)
                     .setField(MultipleFields.ID,id)
-                    .setField(MultipleFields.TEXT,title)
+                    .setField(MultipleFields.TEXT,sn)
+                    .setField(MultipleFields.QUANTITY,quantity)
                     .build();
             ENTITIES.add(entity);
 
@@ -53,4 +55,6 @@ public class IndexDataConverter extends DataConverter {
         super.clearData();
         this.packageInfoList = null;
     }
+
+
 }

@@ -77,11 +77,14 @@ public class MultipleRecyclerAdapter extends
     protected void convert(MultipleViewHolder holder, MultipleItemEntity entity) {
         final String text;
         final String imageUrl;
+        final int quantity;
         final ArrayList<String> bannerImages;
         switch (holder.getItemViewType()) {
             case ItemType.TEXT:
                 text = entity.getField(MultipleFields.TEXT);
+                quantity = entity.getField(MultipleFields.QUANTITY);
                 holder.setText(R.id.text_single, text);
+                holder.setText(R.id.tv_quantity, quantity+"");
                 break;
             case ItemType.IMAGE:
                 imageUrl = entity.getField(MultipleFields.IMAGE_URL);

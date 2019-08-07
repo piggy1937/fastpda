@@ -20,11 +20,13 @@ public class PackageInfo {
      * 标题
      */
     private String title = null;
-    @Generated(hash = 1515664068)
-    public PackageInfo(Long id, String sn, String title) {
+    private Integer quantity = 0;
+    @Generated(hash = 2065995351)
+    public PackageInfo(Long id, String sn, String title, Integer quantity) {
         this.id = id;
         this.sn = sn;
         this.title = title;
+        this.quantity = quantity;
     }
     @Generated(hash = 1854842808)
     public PackageInfo() {
@@ -46,6 +48,12 @@ public class PackageInfo {
     }
     public void setTitle(String title) {
         this.title = title;
+    }
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
 

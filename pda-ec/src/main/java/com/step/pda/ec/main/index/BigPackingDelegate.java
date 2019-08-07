@@ -32,7 +32,7 @@ import butterknife.OnClick;
  * Created by user on 2019-08-06.
  */
 
-public class IndexDelegate extends BottomItemDelegate {
+public class BigPackingDelegate extends BottomItemDelegate {
     private static  final int ReqCode = 100;
     private static final int LOADER_SIZE_SCALE = 2;
     @BindView(R2.id.rv_index)
@@ -81,7 +81,7 @@ public class IndexDelegate extends BottomItemDelegate {
     private DbRefreshHandler mRefreshHandler = null;
     @Override
     public Object setLayout() {
-        return R.layout.delegate_index;
+        return R.layout.delegate_packing_big;
     }
 
     @Override
