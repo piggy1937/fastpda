@@ -2,11 +2,12 @@ package com.step.fastpda;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.step.pda.app.activity.ProxyActivity;
-import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.app.ui.launcher.ILauncherListener;
 import com.step.pda.ec.contract.ISignContract;
 import com.step.pda.ec.launcher.LauncherDelegate;
@@ -16,6 +17,8 @@ import com.step.pda.ec.main.EcBottomDelegate;
 import qiu.niorgai.StatusBarCompat;
 
 public class MainActivity extends ProxyActivity implements ISignContract.View,ILauncherListener {
+    //去重fragement
+    private Fragment[] mFragments = new Fragment[4];
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,12 +27,24 @@ public class MainActivity extends ProxyActivity implements ISignContract.View,IL
             actionBar.hide();
         }
         StatusBarCompat.translucentStatusBar(this, true);
+
     }
 
+    /***
+     * 初始化将要加载的fragement
+     * @param savedInstanceState 保存
+     */
     @Override
-    public PdaDelegate setRootDelegate() {
-        return new LauncherDelegate();
+    protected void initContainer(@Nullable Bundle savedInstanceState) {
+        final FrameLayout container = new FrameLayout(this);
+        container.setId(R.id.delegate_container);
+        setContentView(container);
+        if(savedInstanceState ==null){
+            getSupportDelegate().loadRootFragment(R.id.delegate_container, new LauncherDelegate());
+        }
     }
+
+
 
     @Override
     public void onSignInSuccess() {
@@ -60,4 +75,6 @@ public class MainActivity extends ProxyActivity implements ISignContract.View,IL
                 break;
         }
     }
+
+
 }

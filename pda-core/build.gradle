@@ -41,8 +41,7 @@ dependencies {
     api 'me.yokeyword:fragmentation-swipeback:1.2.7'
     api 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    api 'com.android.support:appcompat-v7:27.1.1'
-    api 'com.android.support:support-v4:27.1.1'
+
     api 'com.squareup.retrofit2:retrofit:2.0.2'
 
 //    api 'com.squareup.retrofit2:converter-gson:2.0.2'
@@ -54,8 +53,9 @@ dependencies {
 
     compile 'com.alibaba:fastjson:1.2.42'
 //    compile 'com.android.support:recyclerview-v7:27.1.1'
+    compile 'com.android.support:appcompat-v7:27.1.1'
     compile 'com.android.support:design:27.1.1'
-    api 'com.android.support:support-v4:27.1.1'
+    compile 'com.android.support:support-v4:27.1.1'
     compile 'org.greenrobot:greendao-generator:3.2.0'
     compile 'org.greenrobot:greendao:3.2.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
