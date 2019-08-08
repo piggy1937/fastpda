@@ -35,6 +35,7 @@ import butterknife.OnClick;
 public class BigPackingDelegate extends BottomItemDelegate {
     private static  final int ReqCode = 100;
     private static final int LOADER_SIZE_SCALE = 2;
+    private volatile boolean  isAlreadyLoadData = false;
     @BindView(R2.id.rv_index)
     SlideRecyclerView mRecyclerView = null;
     @BindView(R2.id.srl_index)
@@ -86,7 +87,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
-        mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new BigPackingDataConverter(),getContext());
+        mRefreshHandler =null;// DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new BigPackingDataConverter(),getContext());
     }
 
     @Override
@@ -99,7 +100,10 @@ public class BigPackingDelegate extends BottomItemDelegate {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
         initRecyclerView();
-        mRefreshHandler.firstPage("package_info");
+        if(isAlreadyLoadData) {
+            mRefreshHandler.firstPage("package_info");
+            isAlreadyLoadData = true;
+        }
     }
 
     private void initRefreshLayout() {

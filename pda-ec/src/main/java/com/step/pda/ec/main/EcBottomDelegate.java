@@ -24,6 +24,7 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         items.put(new BottomTabBean("{fa-ship}", "小包标签"), new IndexDelegate());
         items.put(new BottomTabBean("{fa-shield}", "大包标签"), new BigPackingDelegate());
         items.put(new BottomTabBean("{fa-user}", "我的"), new PersonalDelegate());
+
         return builder.addItems(items).build();
     }
 
@@ -37,8 +38,4 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         return Color.parseColor("#ffff8800");
     }
 
-    @Override
-    public void post(Runnable runnable) {
-
-    }
 }

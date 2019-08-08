@@ -95,8 +95,7 @@ public class DbRefreshHandler implements
                 emitter.onNext(packageInfoList);
                 emitter.onComplete();
             }
-        }).unsubscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer< List<PackageInfo> >() {
             @Override
@@ -119,10 +118,10 @@ public class DbRefreshHandler implements
             }
             @Override
             public void onComplete() {
-                if(mAdapter==null){
-                    return;
-                }
-                mAdapter.onSlideListener(new MultipleRecyclerAdapter.onSlideListener(){
+                    if(mAdapter==null){
+                        return;
+                    }
+                    mAdapter.onSlideListener(new MultipleRecyclerAdapter.onSlideListener(){
                     @Override
                     public void onDel(final int position) {
 
@@ -175,9 +174,10 @@ public class DbRefreshHandler implements
 
                     }
                 });
-                mAdapter.setOnLoadMoreListener(DbRefreshHandler.this, RECYCLERVIEW);
-                BEAN.setCurrentCount(mAdapter.getData().size());
-                BEAN.addIndex();
+                    mAdapter.setOnLoadMoreListener(DbRefreshHandler.this, RECYCLERVIEW);
+                    BEAN.setCurrentCount(mAdapter.getData().size());
+                    BEAN.addIndex();
+
             }
         });
 

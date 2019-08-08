@@ -67,6 +67,7 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                 bundle.putSerializable("package_info",packageInfo);
                 getSupportDelegate().setFragmentResult(RES_CODE,bundle);
                 getSupportDelegate().pop();
+
             }
         }else if(id==R.id.btn_packing_submit_next){
             if(checkForm()) {
@@ -103,9 +104,7 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
         return isPass;
     }
 
-
-    @Override
-    public void post(Runnable runnable) {
-
+    public static PackingDelegate newInstance() {
+        return new PackingDelegate();
     }
 }

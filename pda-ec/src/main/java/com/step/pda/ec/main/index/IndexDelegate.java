@@ -52,7 +52,7 @@ public class IndexDelegate extends BottomItemDelegate {
     @OnClick(R2.id.fab_index_add)
     public void onFabIndexAdd(){
         //打开包装界面
-        getSupportDelegate().startForResult(new PackingDelegate(),ReqCode);
+        getSupportDelegate().startForResult( PackingDelegate.newInstance(),ReqCode);
     }
 
 
@@ -141,6 +141,7 @@ public class IndexDelegate extends BottomItemDelegate {
            PackageInfo packageInfo = (PackageInfo) data.getSerializable("package_info");
            mRefreshHandler.addData(packageInfo);
             mRefreshHandler.onRefresh();
+            getSupportDelegate().showHideFragment(this);
         }
     }
 }
