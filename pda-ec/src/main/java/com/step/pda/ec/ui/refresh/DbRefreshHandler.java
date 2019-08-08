@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.step.pda.app.Pda;
+import com.step.pda.app.ui.recycler.DataConverter;
 import com.step.pda.app.ui.recycler.MultipleFields;
 import com.step.pda.app.ui.recycler.MultipleItemEntity;
 import com.step.pda.app.ui.recycler.MultipleRecyclerAdapter;
@@ -44,12 +45,12 @@ public class DbRefreshHandler implements
     private final SwipeRefreshLayout REFRESH_LAYOUT;
     private final PagingBean BEAN;
     private final RecyclerView RECYCLERVIEW;
-    private static MultipleRecyclerAdapter mAdapter = null;
-    private final IndexDataConverter CONVERTER;
+    private  MultipleRecyclerAdapter mAdapter = null;
+    private final DataConverter CONVERTER;
     private final Context CONTEXT;
     private DbRefreshHandler(SwipeRefreshLayout swipeRefreshLayout,
                              RecyclerView recyclerView,
-                             IndexDataConverter converter, PagingBean bean,Context context) {
+                             DataConverter converter, PagingBean bean,Context context) {
         this.REFRESH_LAYOUT = swipeRefreshLayout;
         this.RECYCLERVIEW = recyclerView;
         this.CONVERTER = converter;
@@ -59,7 +60,7 @@ public class DbRefreshHandler implements
     }
 
     public static DbRefreshHandler create(SwipeRefreshLayout swipeRefreshLayout,
-                                        RecyclerView recyclerView, IndexDataConverter converter,Context context) {
+                                          RecyclerView recyclerView, DataConverter converter, Context context) {
         return new DbRefreshHandler(swipeRefreshLayout, recyclerView, converter, new PagingBean(),context);
     }
 
@@ -104,14 +105,23 @@ public class DbRefreshHandler implements
             @Override
             public void onNext(List<PackageInfo> packageInfos) {
                 //设置Adapter
-                mAdapter = MultipleRecyclerAdapter.create(CONVERTER.setPackageInfoList(packageInfos));
-                RECYCLERVIEW.setAdapter(mAdapter);
+                if(CONVERTER instanceof IndexDataConverter) {
+                    if(mAdapter==null) {
+                        mAdapter = MultipleRecyclerAdapter.create(((IndexDataConverter) CONVERTER).setPackageInfoList(packageInfos));
+                    }
+                }
+                if(mAdapter!=null) {
+                    RECYCLERVIEW.setAdapter(mAdapter);
+                }
             }
             @Override
             public void onError(Throwable e) {
             }
             @Override
             public void onComplete() {
+                if(mAdapter==null){
+                    return;
+                }
                 mAdapter.onSlideListener(new MultipleRecyclerAdapter.onSlideListener(){
                     @Override
                     public void onDel(final int position) {
@@ -144,7 +154,7 @@ public class DbRefreshHandler implements
                         new MaterialDialog.Builder(CONTEXT)
                                 .title(title)
                                 //限制输入的长度
-                                .inputRangeRes(2, 20, R.color.tool_bar)
+                                .inputRangeRes(1, 20, R.color.tool_bar)
                                 //限制输入类型
                                 .inputType(InputType.TYPE_CLASS_NUMBER)
                                 .input("数量", null, new MaterialDialog.InputCallback() {
@@ -166,6 +176,7 @@ public class DbRefreshHandler implements
                     }
                 });
                 mAdapter.setOnLoadMoreListener(DbRefreshHandler.this, RECYCLERVIEW);
+                BEAN.setCurrentCount(mAdapter.getData().size());
                 BEAN.addIndex();
             }
         });
@@ -185,7 +196,9 @@ public class DbRefreshHandler implements
             PackageInfoDao dao = DatabaseManager.getInstance().getmPackageInfoDao();
             List<PackageInfo> packageInfoList = dao.queryBuilder().offset(index * pageSize).limit(BEAN.getPageSize()).orderAsc(PackageInfoDao.Properties.Id).list();
             //设置Adapter
-            mAdapter.addData(CONVERTER.setPackageInfoList(packageInfoList).convert());
+            if(CONVERTER instanceof IndexDataConverter) {
+                mAdapter.addData(((IndexDataConverter)CONVERTER).setPackageInfoList(packageInfoList).convert());
+            }
             BEAN.setCurrentCount(mAdapter.getData().size());
             mAdapter.loadMoreComplete();
             BEAN.addIndex();
@@ -207,8 +220,7 @@ public class DbRefreshHandler implements
      */
     @Override
     public void onLoadMoreRequested() {
-
-        paging("package_info");
+      paging("package_info");
     }
 
     /***
@@ -219,8 +231,9 @@ public class DbRefreshHandler implements
         List<PackageInfo> list= new ArrayList<PackageInfo>();
         list.add(packageInfo);
         CONVERTER.clearData();
-        mAdapter.getData().add(CONVERTER.setPackageInfoList(list).convert().get(0));
+        if(CONVERTER instanceof IndexDataConverter) {
+            mAdapter.getData().add(((IndexDataConverter)CONVERTER).setPackageInfoList(list).convert().get(0));
+        }
         mAdapter.refresh();
-        refresh();
     }
 }

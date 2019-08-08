@@ -86,7 +86,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
-        mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter(),getContext());
+        mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new BigPackingDataConverter(),getContext());
     }
 
     @Override

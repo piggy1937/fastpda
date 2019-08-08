@@ -138,8 +138,8 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
         if(requestCode==100&&resultCode==101){
-          PackageInfo packageInfo = (PackageInfo) data.getSerializable("package_info");
-            mRefreshHandler.addData(packageInfo);
+           PackageInfo packageInfo = (PackageInfo) data.getSerializable("package_info");
+           mRefreshHandler.addData(packageInfo);
             mRefreshHandler.onRefresh();
         }
     }
