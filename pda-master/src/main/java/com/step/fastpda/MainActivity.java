@@ -8,14 +8,14 @@ import android.widget.Toast;
 import com.step.pda.app.activity.ProxyActivity;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.app.ui.launcher.ILauncherListener;
+import com.step.pda.ec.contract.ISignContract;
 import com.step.pda.ec.launcher.LauncherDelegate;
-import com.step.pda.ec.login.ISiginListener;
 import com.step.pda.ec.login.SignInDelegate;
 import com.step.pda.ec.main.EcBottomDelegate;
 
 import qiu.niorgai.StatusBarCompat;
 
-public class MainActivity extends ProxyActivity implements ISiginListener,ILauncherListener {
+public class MainActivity extends ProxyActivity implements ISignContract.View,ILauncherListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,11 @@ public class MainActivity extends ProxyActivity implements ISiginListener,ILaunc
     public void onSignInSuccess() {
         Toast.makeText(this, "登录成功", Toast.LENGTH_LONG).show();
         getSupportDelegate().startWithPop(new EcBottomDelegate());
+    }
+
+    @Override
+    public void onSignInError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override

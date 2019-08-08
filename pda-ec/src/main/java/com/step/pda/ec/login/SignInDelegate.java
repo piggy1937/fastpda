@@ -9,6 +9,8 @@ import android.view.View;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
+import com.step.pda.ec.contract.ISignContract;
+import com.step.pda.ec.presenter.SignPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,20 +25,19 @@ public class SignInDelegate  extends PdaDelegate{
     TextInputEditText mUsername;
     @BindView(R2.id.edit_sign_in_password)
     TextInputEditText mPassword;
-
-    private ISiginListener mISignListener;
+    private ISignContract.Presenter mPresenter;
 
     @OnClick(R2.id.btn_sign_in)
     public void doLogin(){
         if(checkForm()){
-            SignHandler.onSignIn("",mISignListener);
+            mPresenter.requestSignIn(mUsername.getText().toString(),mPassword.getText().toString());
         }
     }
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof ISiginListener) {
-            mISignListener = (ISiginListener) activity;
+        if (activity instanceof ISignContract.View) {
+            mPresenter = new SignPresenter((ISignContract.View)activity,getContext());
         }
     }
     @Override
@@ -46,7 +47,6 @@ public class SignInDelegate  extends PdaDelegate{
 
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
-
     }
     private boolean checkForm(){
         String username = mUsername.getText().toString();

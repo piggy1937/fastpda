@@ -18,6 +18,7 @@ public class PdaApp extends Application {
         Pda.init(this)
                 .withApiHost("http://127.0.0.1")
                 .withInterceptor(new DebugInterceptor("index",R.raw.test))
+                .withInterceptor(new DebugInterceptor("LoginUser",R.raw.login_user))
                 .withIcon(new FontAwesomeModule())
                 .configure();
 
