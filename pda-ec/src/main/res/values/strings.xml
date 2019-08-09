@@ -5,4 +5,9 @@
     <string name="packing_big">大包标签</string>
     <string name="username">用户名</string>
     <string name="settings">设置</string>
+    <string name="anim_v">设置全局动画成功! 竖向</string>
+    <string name="action_anim_v">设置全局动画成功! 竖向</string>
+    <string name="anim_h">设置全局动画成功! 横向</string>
+    <string name="anim_none">设置全局动画成功! 无</string>
+    <string name="anim">动画</string>
 </resources>

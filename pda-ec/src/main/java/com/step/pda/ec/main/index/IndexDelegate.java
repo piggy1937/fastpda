@@ -7,14 +7,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
-import com.step.pda.app.ui.dialog.SelectDialog;
 import com.step.pda.app.ui.recycler.BaseDecoration;
 import com.step.pda.app.ui.slider.SlideRecyclerView;
 import com.step.pda.app.util.DimenUtil;
@@ -35,6 +33,7 @@ import butterknife.OnClick;
 public class IndexDelegate extends BottomItemDelegate {
     private static  final int ReqCode = 100;
     private static final int LOADER_SIZE_SCALE = 2;
+    private PopupWindow mPopupWindow;
     @BindView(R2.id.rv_index)
     SlideRecyclerView mRecyclerView = null;
     @BindView(R2.id.srl_index)
@@ -60,26 +59,15 @@ public class IndexDelegate extends BottomItemDelegate {
 
     @OnClick(R2.id.icon_index_ellipsis)
     public void onIconEllipsisClick(){
-        SelectDialog dialog= new SelectDialog(getContext(), com.step.pda.R.style.select_dialog);
-        final Window dialogWindow = dialog.getWindow();
-        int deviceWidth = DimenUtil.getScreenWidth();
-        int deviceHeight = DimenUtil.getScreenHeight();
-        if(dialogWindow!=null){
-            WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-            int[] location = new int[2];
-            mIconEllipsis.getLocationOnScreen(location);
-            int x = location[0];
-            int y = location[1];
-            lp.x = x;
-            lp.y = y;
-            lp.width  =deviceWidth/LOADER_SIZE_SCALE;
-            lp.height = deviceHeight/LOADER_SIZE_SCALE;
-            lp.gravity= Gravity.TOP;
-            dialogWindow.setAttributes(lp);
-        }
-        dialog.show();
+        mPopupWindow.showAsDropDown(mIconEllipsis, 0,
+                0);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initPopupWindow();
+    }
 
     private DbRefreshHandler mRefreshHandler = null;
     @Override
@@ -91,6 +79,7 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
 
         initRecyclerView();
+
         mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter(),getContext());
     }
 
@@ -143,4 +132,19 @@ public class IndexDelegate extends BottomItemDelegate {
             mRefreshHandler.onRefresh();
         }
     }
+    private void initPopupWindow() {
+        View v = getActivity().getLayoutInflater().inflate(
+                R.layout.popopwindow, null);
+        int deviceWidth = DimenUtil.getScreenWidth();
+        mPopupWindow = new PopupWindow(v, deviceWidth/2, WindowManager.LayoutParams.WRAP_CONTENT, true);
+
+
+        mPopupWindow.setFocusable(true);
+        //该属性设置为true则你在点击屏幕的空白位置也会退出
+        mPopupWindow.setTouchable(true);
+
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setAnimationStyle(R.style.PopupAnimation);
+    }
+
 }
