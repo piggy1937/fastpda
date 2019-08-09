@@ -103,6 +103,8 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                 packageInfo.setSn(mEdPackingSn.getText().toString());
                 packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
                 PackageInfoService packageInfoService = new PackageInfoService();
+
+
                 long rowId= packageInfoService.save(packageInfo);
                 if(rowId>0) {
                     Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
@@ -142,6 +144,12 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
         boolean isPass = true;
         if(sn==null||sn.isEmpty()){
             mEdPackingSn.setError("编号不允许为空");
+            isPass = false;
+        }
+        PackageInfoService packageInfoService = new PackageInfoService();
+        Boolean flag = packageInfoService.existSn(sn);
+        if(flag){
+            mEdPackingSn.setError("编号已存在");
             isPass = false;
         }
         if(quantity==null||quantity.isEmpty()){

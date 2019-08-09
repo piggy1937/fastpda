@@ -40,4 +40,14 @@ public class PackageInfoService {
         packageInfo.setQuantity(quantity);
         packageInfoDao.update(packageInfo);
     }
+
+    public Boolean existSn(String sn) {
+        PackageInfoDao packageInfoDao= DatabaseManager.getInstance().getmPackageInfoDao();
+       long couunt= packageInfoDao.queryBuilder().where(PackageInfoDao.Properties.Sn.eq(sn)).count();
+       if(couunt>0){
+           return true;
+       }else{
+           return false;
+       }
+    }
 }
