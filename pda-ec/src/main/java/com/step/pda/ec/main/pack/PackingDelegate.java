@@ -1,6 +1,9 @@
 package com.step.pda.ec.main.pack;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
+import com.step.pda.ec.adapter.MyPrintAdapter;
 import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.main.index.IndexDelegate;
 import com.step.pda.ec.services.PackageInfoService;
@@ -36,6 +40,8 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
     AppCompatButton  mbtnPackingSubmit; //保存
     @BindView(R2.id.btn_packing_submit_next)
     AppCompatButton  mbtnPackingSubmitNext;//保存并继续
+    @BindView(R2.id.btn_packing_submit_print)
+    AppCompatButton  mbtnPackingSubmitPrint;//保存并继续
     @OnClick(R2.id.icon_packing_close)
     void onIconPackingClose(){
        getSupportDelegate().startWithPop(new IndexDelegate());
@@ -90,6 +96,18 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                     }
                     }
                 }
+        });
+
+
+        mbtnPackingSubmitPrint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 String filePath="";
+                PrintManager printManager = (PrintManager) getActivity().getSystemService(Context.PRINT_SERVICE);
+                PrintAttributes.Builder builder = new PrintAttributes.Builder();
+                builder.setColorMode(PrintAttributes.COLOR_MODE_COLOR);
+                printManager.print("test pdf print", new MyPrintAdapter(getActivity(),filePath), builder.build());
+            }
         });
     }
 

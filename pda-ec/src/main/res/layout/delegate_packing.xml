@@ -107,6 +107,18 @@
                 android:text="保存/继续"
                 android:textColor="@android:color/white"
                 tools:ignore="HardcodedText" />
+             <android.support.v7.widget.AppCompatButton
+                 android:id="@+id/btn_packing_submit_print"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginBottom="10dp"
+                 android:layout_marginTop="10dp"
+                 android:background="@color/colorAccent"
+                 android:gravity="center"
+                 android:padding="12dp"
+                 android:text="保存/打印"
+                 android:textColor="@android:color/white"
+                 tools:ignore="HardcodedText" />
          </android.support.v7.widget.LinearLayoutCompat>
       </android.support.v4.widget.NestedScrollView>
 
