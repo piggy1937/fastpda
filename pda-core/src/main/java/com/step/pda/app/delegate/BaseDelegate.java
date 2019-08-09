@@ -97,7 +97,12 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        DELEGATE.onHiddenChanged(hidden);
+        if (hidden) {
+            DELEGATE.onHiddenChanged(hidden);
+        }else{
+            DELEGATE.onHiddenChanged(hidden);
+        }
+
     }
 
     @Override

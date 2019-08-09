@@ -41,6 +41,12 @@ public class MainActivity extends ProxyActivity implements ISignContract.View,IL
         setContentView(container);
         if(savedInstanceState ==null){
             getSupportDelegate().loadRootFragment(R.id.delegate_container, new LauncherDelegate());
+        }else{
+
+
+
+
+
         }
     }
 

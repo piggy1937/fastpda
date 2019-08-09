@@ -76,5 +76,4 @@ public abstract class ProxyActivity extends AppCompatActivity implements ISuppor
     public <T extends ISupportFragment> T findFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getSupportFragmentManager(), fragmentClass);
     }
-
 }

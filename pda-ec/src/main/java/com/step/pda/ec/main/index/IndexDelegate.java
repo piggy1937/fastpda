@@ -139,9 +139,8 @@ public class IndexDelegate extends BottomItemDelegate {
         super.onFragmentResult(requestCode, resultCode, data);
         if(requestCode==100&&resultCode==101){
            PackageInfo packageInfo = (PackageInfo) data.getSerializable("package_info");
-           mRefreshHandler.addData(packageInfo);
+            mRefreshHandler.addData(packageInfo);
             mRefreshHandler.onRefresh();
-            getSupportDelegate().showHideFragment(this);
         }
     }
 }

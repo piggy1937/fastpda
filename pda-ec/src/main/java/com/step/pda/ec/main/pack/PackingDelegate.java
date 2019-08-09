@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ import butterknife.OnClick;
 
 public class PackingDelegate extends PdaDelegate implements View.OnClickListener {
     private static final  int RES_CODE = 101;//保存
+    private static final  int  MIN_MARK =0;
+    private static final  int MAX_MARK =100;
     @BindView(R2.id.ed_packing_sn)
     TextInputEditText mEdPackingSn;//小包标签
     @BindView(R2.id.ed_packing_quantity)
@@ -45,6 +49,48 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
         mbtnPackingSubmit.setOnClickListener(this);
         mbtnPackingSubmitNext.setOnClickListener(this);
+        mEdPackingQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (start > 1) {
+                    if (MIN_MARK != -1 && MAX_MARK != -1) {
+                        Integer num =Integer.parseInt(s.toString());
+                        if (num > MAX_MARK) {
+                            s = String.valueOf(MAX_MARK);
+                            mEdPackingQuantity.setText(s);
+                        } else if (num < MIN_MARK) {
+                            s = String.valueOf(MIN_MARK);
+                            mEdPackingQuantity.setText(s);
+                        }
+                        mEdPackingQuantity.setSelection(s.length());
+                    }
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null && !s.equals("")) {
+                    if (MIN_MARK != -1 && MAX_MARK != -1) {
+                        int markVal = 0;
+                        try {
+                            markVal = Integer.parseInt(s.toString());
+                        } catch (NumberFormatException e) {
+                            markVal = 0;
+                        }
+                        if (markVal > MAX_MARK) {
+                            mEdPackingQuantity.setText(String.valueOf(MAX_MARK));
+                            mEdPackingQuantity.setSelection(String.valueOf(MAX_MARK).length());
+                        }
+                        return;
+                    }
+                    }
+                }
+        });
     }
 
     @Override
@@ -65,8 +111,9 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                 }
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("package_info",packageInfo);
-                getSupportDelegate().setFragmentResult(RES_CODE,bundle);
-                getSupportDelegate().pop();
+                 setFragmentResult(RES_CODE,bundle);
+              //  getSupportDelegate().pop();
+                getSupportDelegate().startWithPop(new IndexDelegate());
 
             }
         }else if(id==R.id.btn_packing_submit_next){
