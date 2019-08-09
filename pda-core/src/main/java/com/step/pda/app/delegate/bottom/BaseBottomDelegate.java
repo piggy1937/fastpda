@@ -29,6 +29,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
  */
 
 public abstract class BaseBottomDelegate extends PdaDelegate implements View.OnClickListener {
+    protected volatile  boolean flag = false;
     //tab 按钮
     private final ArrayList<BottomTabBean> TAB_BEANS = new ArrayList<>();
     //tab页
@@ -91,7 +92,8 @@ public abstract class BaseBottomDelegate extends PdaDelegate implements View.OnC
         }
 
         final ISupportFragment[] delegateArray = ITEM_DELEGATES.toArray(new ISupportFragment[size]);
-        getSupportDelegate().loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, delegateArray);
+        if(!flag)
+          getSupportDelegate().loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, delegateArray);
     }
 
     private void resetColor() {

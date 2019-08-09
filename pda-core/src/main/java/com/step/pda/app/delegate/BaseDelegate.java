@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +27,11 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  */
 
 public abstract class BaseDelegate extends Fragment implements ISupportFragment {
-    private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
     public final SupportFragmentDelegate DELEGATE = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity = null;
     @SuppressWarnings("SpellCheckingInspection")
     private Unbinder mUnbinder = null;
+
     public abstract Object setLayout();
 
     public abstract void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView);
@@ -49,17 +47,6 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DELEGATE.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
-
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            if (isSupportHidden) {
-                ft.hide(this);
-            } else {
-                ft.show(this);
-            }
-            ft.commit();
-        }
     }
 
     @Override
@@ -70,16 +57,8 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.e("#######","BaseDelegate onSaveInstanceState");
         super.onSaveInstanceState(outState);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
         DELEGATE.onSaveInstanceState(outState);
-
-
-
-        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
-
-
     }
 
     @Nullable
@@ -256,6 +235,9 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
 
     /***
      * 需要重写此方法，否则fragement 回调不生效
+     * @param requestCode
+     * @param resultCode
+     * @param data
      */
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
@@ -435,6 +417,7 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     public <T extends ISupportFragment> T findFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getFragmentManager(), fragmentClass);
     }
+    /**
 
     /**
      * 获取栈内的fragment对象
