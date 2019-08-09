@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">pda</string>
+    <string name="app_name">扫码</string>
     <string name="delete">删除</string>
     <string name="edite">编辑</string>
     <string name="import_in_out">导入/导出</string>

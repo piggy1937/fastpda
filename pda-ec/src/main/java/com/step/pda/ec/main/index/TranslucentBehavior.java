@@ -22,7 +22,7 @@ public class TranslucentBehavior extends CoordinatorLayout.Behavior<Toolbar> {
     //颜色变化速度
     private static final int SHOW_SPEED = 3;
     //定义变化的颜色
-    private final RgbValue RGB_VALUE = RgbValue.create(255, 124, 2);
+    private final RgbValue RGB_VALUE = RgbValue.create(244, 67, 54);
 
     public TranslucentBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);

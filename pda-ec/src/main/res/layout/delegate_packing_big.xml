@@ -23,7 +23,7 @@
        android:paddingTop="20dp"
        android:layout_width="match_parent"
        android:layout_height="?attr/actionBarSize"
-       android:background="@color/tool_bar"
+       android:background="@color/colorPrimary"
        app:layout_behavior="com.step.pda.ec.main.index.TranslucentBehavior"
        >
       <android.support.v7.widget.LinearLayoutCompat
@@ -71,7 +71,7 @@
        android:clickable="true"
        android:scaleType="fitXY"
        app:fabSize="normal"
-       android:src="@mipmap/add_72"
+       android:src="@drawable/plus_image"
        app:pressedTranslationZ="12dp"
        app:rippleColor="@color/white"
        />

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
+    <color name="colorAccent">#DF01A5</color>
     <color name="app_background">#1111</color>
     <color name="we_chat_black">#323232</color>
     <color name="item_background">#F1F1F1</color>
-    <color name="app_main">@android:color/holo_orange_dark</color>
-    <color name="tool_bar">#DF01A5</color>
     <color name="white">#fff</color>
 </resources>

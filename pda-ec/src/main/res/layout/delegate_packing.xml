@@ -9,7 +9,7 @@
        android:id="@+id/tb_index" android:paddingTop="20dp"
        android:layout_width="match_parent"
        android:layout_height="?attr/actionBarSize"
-       android:background="@color/tool_bar"
+       android:background="@color/colorPrimary"
        >
       <android.support.v7.widget.LinearLayoutCompat
           android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@android:color/holo_orange_dark"
+                android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:padding="12dp"
                 android:text="保存"
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/tool_bar"
+                android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:padding="12dp"
                 android:text="保存/继续"

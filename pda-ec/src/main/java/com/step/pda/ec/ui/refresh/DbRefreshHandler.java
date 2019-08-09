@@ -153,7 +153,7 @@ public class DbRefreshHandler implements
                         new MaterialDialog.Builder(CONTEXT)
                                 .title(title)
                                 //限制输入的长度
-                                .inputRangeRes(1, 20, R.color.tool_bar)
+                                .inputRangeRes(1, 20, R.color.colorAccent)
                                 //限制输入类型
                                 .inputType(InputType.TYPE_CLASS_NUMBER)
                                 .input("数量", null, new MaterialDialog.InputCallback() {

@@ -23,8 +23,9 @@
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/item_multiple_image_text.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/item_multiple_text.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/values/styles.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/layout-ldrtl/delegate_index.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/layout-ldrtl/delegate_personal.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/drawable/ic_avatar.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/drawable/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/drawable/ic_settings_grey_500_24dp.png" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/values/colors.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
