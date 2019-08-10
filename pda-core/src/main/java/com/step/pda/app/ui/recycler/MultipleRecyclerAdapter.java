@@ -83,14 +83,17 @@ public class MultipleRecyclerAdapter extends
     protected void convert(final MultipleViewHolder holder, MultipleItemEntity entity) {
         final String text;
         final String imageUrl;
+        final String lastModifyTime;
         final int quantity;
         final ArrayList<String> bannerImages;
         switch (holder.getItemViewType()) {
             case ItemType.TEXT:
                 text = entity.getField(MultipleFields.TEXT);
                 quantity =Integer.parseInt(entity.getField(MultipleFields.QUANTITY).toString());
+                lastModifyTime =entity.getField(MultipleFields.LAST_MODIFY_TIME);
                 holder.setText(R.id.text_single, text);
                 holder.setText(R.id.tv_quantity, quantity+"");
+                holder.setText(R.id.tv_last_modify_time,lastModifyTime);
                 AppCompatTextView mTvEdite =holder.getView(R.id.tv_edite);
                 mTvEdite.setOnClickListener(new  View.OnClickListener(){
                     @Override

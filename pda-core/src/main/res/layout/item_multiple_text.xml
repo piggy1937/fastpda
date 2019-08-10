@@ -37,7 +37,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tv_detail"
+            android:id="@+id/tv_last_modify_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_single"
@@ -51,7 +51,7 @@
             android:id="@+id/tv_volume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/tv_detail"
+            android:layout_alignBottom="@id/tv_last_modify_time"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="2dp"

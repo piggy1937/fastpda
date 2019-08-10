@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,6 +29,9 @@ import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.main.index.IndexDelegate;
 import com.step.pda.ec.services.PackageInfoService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,7 +68,7 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
         return R.layout.delegate_packing;
     }
     private BarcodeReader mBarcodeReader;
-
+    private String lastModifyTime;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -72,6 +76,11 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
 
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
+
+
+        mEdPackingSn.setCursorVisible(false);//隐藏光标
+        mEdPackingSn.setFocusable(false);//失去焦点
+        mEdPackingSn.setFocusableInTouchMode(false);
         mbtnPackingSubmit.setOnClickListener(this);
         mbtnPackingSubmitNext.setOnClickListener(this);
         mEdPackingQuantity.addTextChangedListener(new TextWatcher() {
@@ -183,6 +192,7 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Integer id = v.getId();
         if(id==R.id.btn_packing_submit){
             //保存数据到数据库
@@ -190,6 +200,14 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                 PackageInfo packageInfo = new PackageInfo();
                 packageInfo.setSn(mEdPackingSn.getText().toString());
                 packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
+                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
+                    try {
+                        packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
+                    } catch (ParseException e) {
+                        Log.e("packing_delegate",e.getMessage());
+                    }
+                }
+
                 PackageInfoService packageInfoService = new PackageInfoService();
 
 
@@ -211,6 +229,13 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                 PackageInfo packageInfo = new PackageInfo();
                 packageInfo.setSn(mEdPackingSn.getText().toString());
                 packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
+                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
+                    try {
+                        packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
+                    } catch (ParseException e) {
+                        Log.e("packing_delegate",e.getMessage());
+                    }
+                }
                 PackageInfoService packageInfoService = new PackageInfoService();
                 long rowId= packageInfoService.save(packageInfo);
                 if(rowId>0) {
@@ -220,7 +245,7 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                 }
                 mEdPackingSn.setText("");
                 mEdPackingQuantity.setText("");
-                mEdPackingSn.requestFocus();
+                mEdPackingQuantity.requestFocus();
             }
         }
 
@@ -287,6 +312,7 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
     @Override
     public void onBarcodeEvent(BarcodeReadEvent event) {
         final String barcodeData = event.getBarcodeData();
+        lastModifyTime= event.getTimestamp();
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

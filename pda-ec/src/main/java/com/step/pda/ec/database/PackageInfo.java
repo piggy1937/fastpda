@@ -5,6 +5,7 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by user on 2019-08-06.
@@ -24,12 +25,18 @@ public class PackageInfo  implements Serializable{
      */
     private String title = null;
     private Integer quantity = 0;
-    @Generated(hash = 2065995351)
-    public PackageInfo(Long id, String sn, String title, Integer quantity) {
+    /***
+     * 最近修改时间
+     */
+    private Date lastModifyTime;
+    @Generated(hash = 505023468)
+    public PackageInfo(Long id, String sn, String title, Integer quantity,
+            Date lastModifyTime) {
         this.id = id;
         this.sn = sn;
         this.title = title;
         this.quantity = quantity;
+        this.lastModifyTime = lastModifyTime;
     }
     @Generated(hash = 1854842808)
     public PackageInfo() {
@@ -58,6 +65,13 @@ public class PackageInfo  implements Serializable{
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+    public Date getLastModifyTime() {
+        return this.lastModifyTime;
+    }
+    public void setLastModifyTime(Date lastModifyTime) {
+        this.lastModifyTime = lastModifyTime;
+    }
+    
 
 
 
