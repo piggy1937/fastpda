@@ -1,5 +1,9 @@
 package com.step.pda.ec.main.index;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
@@ -144,6 +149,9 @@ public class IndexDelegate extends BottomItemDelegate {
         mPopupWindow.setTouchable(true);
 
         mPopupWindow.setOutsideTouchable(true);
+        Bitmap bmp = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.barcode_example_icon);
+        Drawable drawable = new BitmapDrawable(getContext().getResources(), bmp);
+        mPopupWindow.setBackgroundDrawable(drawable);
         mPopupWindow.setAnimationStyle(R.style.PopupAnimation);
     }
 

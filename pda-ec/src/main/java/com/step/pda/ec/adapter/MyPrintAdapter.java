@@ -59,6 +59,7 @@ public class MyPrintAdapter extends PrintDocumentAdapter {
         PdfRenderer pdfRender = null;
         PdfRenderer.Page page = null;
         try {
+
             mFileDescriptor = ParcelFileDescriptor.open(new File(pdfPath), ParcelFileDescriptor.MODE_READ_ONLY);
             if (mFileDescriptor != null)
                 pdfRender = new PdfRenderer(mFileDescriptor);

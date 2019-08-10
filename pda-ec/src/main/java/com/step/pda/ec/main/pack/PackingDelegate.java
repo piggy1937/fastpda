@@ -138,7 +138,7 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                 PrintManager printManager = (PrintManager) getActivity().getSystemService(Context.PRINT_SERVICE);
                 PrintAttributes.Builder builder = new PrintAttributes.Builder();
                 builder.setColorMode(PrintAttributes.COLOR_MODE_COLOR);
-                printManager.print("test pdf print", new MyPrintAdapter(getActivity(),filePath), builder.build());
+                printManager.print("barcode print", new MyPrintAdapter(getActivity(),filePath), builder.build());
             }
         });
         mBarcodeReader = (BarcodeReader) Pda.getConfigurations().get(BARCODE_READER.name());
@@ -263,6 +263,7 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
         Boolean flag = packageInfoService.existSn(sn);
         if(flag){
             mEdPackingSn.setError("编号已存在");
+            Toast.makeText(getContext(), "编号已存在", Toast.LENGTH_SHORT).show();
             isPass = false;
         }
         if(quantity==null||quantity.isEmpty()){
