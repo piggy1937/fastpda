@@ -7,7 +7,7 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -37,4 +37,5 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     //添加material-dialogs依赖
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    compile(name:'DataCollection', ext:'aar')
 }

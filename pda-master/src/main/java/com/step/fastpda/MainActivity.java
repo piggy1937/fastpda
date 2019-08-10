@@ -7,6 +7,9 @@ import android.support.v7.app.ActionBar;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.honeywell.aidc.AidcManager;
+import com.honeywell.aidc.BarcodeReader;
+import com.step.pda.app.Pda;
 import com.step.pda.app.activity.ProxyActivity;
 import com.step.pda.app.ui.launcher.ILauncherListener;
 import com.step.pda.ec.contract.ISignContract;
@@ -16,7 +19,13 @@ import com.step.pda.ec.main.EcBottomDelegate;
 
 import qiu.niorgai.StatusBarCompat;
 
+import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
+
 public class MainActivity extends ProxyActivity implements ISignContract.View,ILauncherListener {
+
+
+    private static BarcodeReader barcodeReader;
+    private AidcManager manager;
     //去重fragement
     private Fragment[] mFragments = new Fragment[4];
     @Override
@@ -39,14 +48,19 @@ public class MainActivity extends ProxyActivity implements ISignContract.View,IL
         final FrameLayout container = new FrameLayout(this);
         container.setId(R.id.delegate_container);
         setContentView(container);
+        AidcManager.create(this, new AidcManager.CreatedCallback() {
+
+            @Override
+            public void onCreated(AidcManager aidcManager) {
+                manager = aidcManager;
+                barcodeReader = manager.createBarcodeReader();
+                Pda.getConfigurations().put(BARCODE_READER.name(),barcodeReader);
+            }
+        });
+
         if(savedInstanceState ==null){
             getSupportDelegate().loadRootFragment(R.id.delegate_container, new LauncherDelegate());
         }else{
-
-
-
-
-
         }
     }
 
@@ -82,5 +96,25 @@ public class MainActivity extends ProxyActivity implements ISignContract.View,IL
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (barcodeReader != null) {
+            // close BarcodeReader to clean up resources.
+            barcodeReader.close();
+            barcodeReader = null;
+        }
+
+        if (manager != null) {
+            // close AidcManager to disconnect from the scanner service.
+            // once closed, the object can no longer be used.
+            manager.close();
+        }
+    }
+    static BarcodeReader getBarcodeObject() {
+        return barcodeReader;
+    }
 
 }

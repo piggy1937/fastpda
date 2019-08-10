@@ -3,7 +3,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.step.fastpda"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -29,4 +29,5 @@ dependencies {
     annotationProcessor project(':pda-complier')
     //沉浸式状态栏 本地
     compile(name:'StatusBarCompat', ext:'aar')
+    compile(name:'DataCollection', ext:'aar')
 }

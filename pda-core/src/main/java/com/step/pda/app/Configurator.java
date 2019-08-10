@@ -22,7 +22,8 @@ public class Configurator {
         CONFIG_READY,
         ICON,
         HANDLER,
-        INTERCEPTOR
+        INTERCEPTOR,
+        BARCODE_READER
     }
     private List<IconFontDescriptor> icons = new ArrayList<>();
     private static final HashMap<String,Object> PDA_CONFIGS = new HashMap<>();
