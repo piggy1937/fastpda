@@ -12,4 +12,6 @@ public class ItemType {
     public static final int VERTICAL_MENU_LIST = 5;
     public static final int SINGLE_BIG_IMAGE = 6;
     public static final int SLIDE_RECYCLER_VIEW = 7;
+    public static final int TYPE_LEVEL_0 = 8;
+    public static final int TYPE_LEVEL_1 = 9;
 }

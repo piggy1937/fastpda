@@ -1,8 +1,7 @@
 package com.step.pda.ec.database.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-
-import static com.step.pda.ec.adapter.BigPackRecyclerAdapter.TYPE_LEVEL_1;
+import com.step.pda.app.ui.recycler.ItemType;
 
 /**
  * @author zhushubin
@@ -15,7 +14,7 @@ public class BigPackItem implements MultiItemEntity {
     private String customer;
     @Override
     public int getItemType() {
-        return TYPE_LEVEL_1;
+        return ItemType.TYPE_LEVEL_1;
     }
 
     public Long getId() {

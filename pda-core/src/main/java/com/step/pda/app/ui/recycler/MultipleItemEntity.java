@@ -7,7 +7,7 @@ import java.lang.ref.SoftReference;
 import java.util.LinkedHashMap;
 
 /**
- * Created by 傅令杰
+ * Created by zhushubin
  */
 
 public class MultipleItemEntity implements MultiItemEntity {
@@ -16,8 +16,7 @@ public class MultipleItemEntity implements MultiItemEntity {
     private final LinkedHashMap<Object, Object> MULTIPLE_FIELDS = new LinkedHashMap<>();
     private final SoftReference<LinkedHashMap<Object, Object>> FIELDS_REFERENCE =
             new SoftReference<>(MULTIPLE_FIELDS, ITEM_QUEUE);
-
-    MultipleItemEntity(LinkedHashMap<Object, Object> fields) {
+   public MultipleItemEntity(LinkedHashMap<Object, Object> fields) {
         FIELDS_REFERENCE.get().putAll(fields);
     }
 

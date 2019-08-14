@@ -2,10 +2,9 @@ package com.step.pda.ec.database.bean;
 
 import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.step.pda.app.ui.recycler.ItemType;
 
 import java.util.List;
-
-import static com.step.pda.ec.adapter.BigPackRecyclerAdapter.TYPE_LEVEL_0;
 
 /**
  * @author zhushubin
@@ -26,7 +25,7 @@ public class ExpandableBigPack extends AbstractExpandableItem<BigPackItem> imple
 
     @Override
     public int getItemType() {
-        return TYPE_LEVEL_0;
+        return ItemType.TYPE_LEVEL_0;
     }
 
     @Override
@@ -34,4 +33,11 @@ public class ExpandableBigPack extends AbstractExpandableItem<BigPackItem> imple
         super.setSubItems(list);
     }
 
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
 }

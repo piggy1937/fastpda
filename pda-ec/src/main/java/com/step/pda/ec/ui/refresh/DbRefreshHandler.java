@@ -175,8 +175,8 @@ public class DbRefreshHandler implements
                     }
                 });
                     mAdapter.setOnLoadMoreListener(DbRefreshHandler.this, RECYCLERVIEW);
-                    BEAN.setCurrentCount(mAdapter.getData().size());
-                    BEAN.addIndex();
+                BEAN.setCurrentCount(mAdapter.getData().size());
+                BEAN.addIndex();
 
             }
         });

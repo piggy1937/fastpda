@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by user on 2019-08-06.
  */
 
-public class IndexDataConverter extends DataConverter<PackageInfo> {
+public class IndexDataConverter extends DataConverter<PackageInfo,MultipleItemEntity> {
     @Override
     public ArrayList<MultipleItemEntity> convert() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -16,5 +16,5 @@ public enum MultipleFields {
     TAG,
     SLIDE_RECYCLER_VIEW,
     QUANTITY,
-    LAST_MODIFY_TIME
+    LAST_MODIFY_TIME,
 }

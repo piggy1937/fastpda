@@ -6,7 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -101,10 +101,11 @@ public class BigPackingDelegate extends BottomItemDelegate {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
         initRecyclerView();
-        if(isAlreadyLoadData) {
+        if(!isAlreadyLoadData) {
             mRefreshHandler.firstPage();
             isAlreadyLoadData = true;
         }
+
     }
 
     private void initRefreshLayout() {
@@ -116,7 +117,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
         mRefreshLayout.setProgressViewOffset(true, 120, 300);
     }
     private void initRecyclerView() {
-        final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(manager);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(Pda.getApplicationContext(), DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(ContextCompat.getDrawable(Pda.getApplicationContext(), R.drawable.divider_inset));
