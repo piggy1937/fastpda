@@ -66,7 +66,7 @@ public class SignPresenter extends ISignContract.Presenter {
                         if(flag){
 
                             final UserProfile userProfile = new UserProfile();
-                            userProfile.setName("admin");
+                            userProfile.setName(tUsername);
                             userProfile.setUserId(1L);
 
                             try {
