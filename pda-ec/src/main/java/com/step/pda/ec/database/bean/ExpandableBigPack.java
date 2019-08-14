@@ -16,6 +16,22 @@ public class ExpandableBigPack extends AbstractExpandableItem<BigPackItem> imple
      * 编号
      */
     private String sn;
+    /***
+     * 客户号
+     */
+    private String customerSn;
+    /***
+     * 客户名称
+     */
+    private String customerName;
+    /***
+     * 工单单号
+     */
+    private String workOrderSn;
+    /***
+     * 客户单号
+     */
+    private String customerOrderSn;
 
     private List<BigPackItem> list;
     @Override
@@ -40,4 +56,40 @@ public class ExpandableBigPack extends AbstractExpandableItem<BigPackItem> imple
     public void setSn(String sn) {
         this.sn = sn;
     }
+
+    public String getCustomerSn() {
+        return customerSn;
+    }
+
+    public void setCustomerSn(String customerSn) {
+        this.customerSn = customerSn;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getWorkOrderSn() {
+        return workOrderSn;
+    }
+
+    public void setWorkOrderSn(String workOrderSn) {
+        this.workOrderSn = workOrderSn;
+    }
+
+    public String getCustomerOrderSn() {
+        return customerOrderSn;
+    }
+
+    public void setCustomerOrderSn(String customerOrderSn) {
+        this.customerOrderSn = customerOrderSn;
+    }
+
+
+
+
 }

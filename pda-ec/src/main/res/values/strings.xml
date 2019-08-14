@@ -10,4 +10,7 @@
     <string name="anim_h">设置全局动画成功! 横向</string>
     <string name="anim_none">设置全局动画成功! 无</string>
     <string name="anim">动画</string>
+    <string name="sales_sn">销货单号</string>
+    <string name="add_big_pack_label">小标签条码</string>
+    <string name="mini_pack_label">小标签条码</string>
 </resources>

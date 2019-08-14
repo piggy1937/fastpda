@@ -1,4 +1,4 @@
-package com.step.pda.ec.main.index;
+package com.step.pda.ec.main.bigpack;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,8 +22,7 @@ import com.step.pda.app.util.DimenUtil;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.main.EcBottomDelegate;
-import com.step.pda.ec.main.bigpack.BigPackingDataConverter;
-import com.step.pda.ec.main.pack.PackingDelegate;
+import com.step.pda.ec.main.index.IndexItemClickListener;
 import com.step.pda.ec.ui.refresh.BigPackRefreshHandler;
 
 import butterknife.BindView;
@@ -51,7 +50,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
     @OnClick(R2.id.fab_index_add)
     public void onFabIndexAdd(){
         //打开包装界面
-        getSupportDelegate().startForResult(new PackingDelegate(),ReqCode);
+        getSupportDelegate().startForResult(new BigPackingDelegateScan(),ReqCode);
     }
 
 

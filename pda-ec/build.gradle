@@ -37,5 +37,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     //添加material-dialogs依赖
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
     compile(name:'DataCollection', ext:'aar')
 }

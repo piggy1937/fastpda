@@ -67,11 +67,16 @@ public class BigPackRefreshHandler implements
        for(int i=1;i<20;i++){
            expandEntity = new ExpandableBigPack();
            expandEntity.setExpanded(false);
-           expandEntity.setSn("i####_"+i);
+           expandEntity.setSn("2019726001"+i);
+           expandEntity.setCustomerSn("C1001");
+           expandEntity.setCustomerName("Kindey");
+           expandEntity.setWorkOrderSn("510120110620004");
+           expandEntity.setCustomerOrderSn("kideny-001");
+
            expandEntity.setSubItems(new ArrayList<BigPackItem>());
            for(int j=0;j<i;j++){
                bigPackItem = new BigPackItem();
-               bigPackItem.setSn("j####_"+j);
+               bigPackItem.setProductSn("1000"+j);
                expandEntity.getSubItems().add(bigPackItem);
            }
 

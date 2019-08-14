@@ -7,7 +7,7 @@ import com.step.pda.app.delegate.bottom.BaseBottomDelegate;
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
 import com.step.pda.app.delegate.bottom.BottomTabBean;
 import com.step.pda.app.delegate.bottom.ItemBuilder;
-import com.step.pda.ec.main.index.BigPackingDelegate;
+import com.step.pda.ec.main.bigpack.BigPackingDelegate;
 import com.step.pda.ec.main.index.IndexDelegate;
 import com.step.pda.ec.main.personal.PersonalDelegate;
 

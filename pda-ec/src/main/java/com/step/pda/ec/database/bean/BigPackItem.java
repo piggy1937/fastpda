@@ -10,8 +10,10 @@ import com.step.pda.app.ui.recycler.ItemType;
  */
 public class BigPackItem implements MultiItemEntity {
     private Long id;
-    private String sn;
-    private String customer;
+    /***
+     * 产品品号
+     */
+    private String productSn;
     @Override
     public int getItemType() {
         return ItemType.TYPE_LEVEL_1;
@@ -25,19 +27,11 @@ public class BigPackItem implements MultiItemEntity {
         this.id = id;
     }
 
-    public String getSn() {
-        return sn;
+    public String getProductSn() {
+        return productSn;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    public void setProductSn(String productSn) {
+        this.productSn = productSn;
     }
 }

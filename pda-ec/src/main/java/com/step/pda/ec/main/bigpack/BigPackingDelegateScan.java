@@ -1,14 +1,10 @@
-package com.step.pda.ec.main.pack;
+package com.step.pda.ec.main.bigpack;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.print.PrintAttributes;
-import android.print.PrintManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -24,14 +20,12 @@ import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
-import com.step.pda.ec.adapter.MyPrintAdapter;
 import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.main.index.IndexDelegate;
 import com.step.pda.ec.services.PackageInfoService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,27 +39,22 @@ import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
  *包装
  */
 
-public class PackingDelegate extends PdaDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener  {
+public class BigPackingDelegateScan extends PdaDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener  {
     private static final  int RES_CODE = 101;//保存
     private static final  int  MIN_MARK =0;
     private static final  int MAX_MARK =100;
     @BindView(R2.id.ed_packing_sn)
     TextInputEditText mEdPackingSn;//小包标签
-    @BindView(R2.id.ed_packing_quantity)
-    TextInputEditText mEdPackingQuantity;//小包标签数量
     @BindView(R2.id.btn_packing_submit)
     AppCompatButton  mbtnPackingSubmit; //保存
-    @BindView(R2.id.btn_packing_submit_next)
-    AppCompatButton  mbtnPackingSubmitNext;//保存并继续
-    @BindView(R2.id.btn_packing_submit_print)
-    AppCompatButton  mbtnPackingSubmitPrint;//保存并继续
+
     @OnClick(R2.id.icon_packing_close)
     void onIconPackingClose(){
        getSupportDelegate().startWithPop(new IndexDelegate());
     }
     @Override
     public Object setLayout() {
-        return R.layout.delegate_packing;
+        return R.layout.delegate_packing_big_add;
     }
     private BarcodeReader mBarcodeReader;
     private String lastModifyTime;
@@ -78,69 +67,12 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
 
 
-        mEdPackingSn.setCursorVisible(false);//隐藏光标
-        mEdPackingSn.setFocusable(false);//失去焦点
-        mEdPackingSn.setFocusableInTouchMode(false);
+//        mEdPackingSn.setCursorVisible(false);//隐藏光标
+//        mEdPackingSn.setFocusable(false);//失去焦点
+//        mEdPackingSn.setFocusableInTouchMode(false);
         mbtnPackingSubmit.setOnClickListener(this);
-        mbtnPackingSubmitNext.setOnClickListener(this);
-        mEdPackingQuantity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (start > 1) {
-                    if (MIN_MARK != -1 && MAX_MARK != -1) {
-                        Integer num =Integer.parseInt(s.toString());
-                        if (num > MAX_MARK) {
-                            s = String.valueOf(MAX_MARK);
-                            mEdPackingQuantity.setText(s);
-                        } else if (num < MIN_MARK) {
-                            s = String.valueOf(MIN_MARK);
-                            mEdPackingQuantity.setText(s);
-                        }
-                        mEdPackingQuantity.setSelection(s.length());
-                    }
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s != null && !s.equals("")) {
-                    if (MIN_MARK != -1 && MAX_MARK != -1) {
-                        int markVal = 0;
-                        try {
-                            markVal = Integer.parseInt(s.toString());
-                        } catch (NumberFormatException e) {
-                            markVal = 0;
-                        }
-                        if (markVal > MAX_MARK) {
-                            mEdPackingQuantity.setText(String.valueOf(MAX_MARK));
-                            mEdPackingQuantity.setSelection(String.valueOf(MAX_MARK).length());
-                        }
-                        return;
-                    }
-                    }
-                }
 
 
-
-
-        });
-
-
-        mbtnPackingSubmitPrint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 String filePath="";
-                PrintManager printManager = (PrintManager) getActivity().getSystemService(Context.PRINT_SERVICE);
-                PrintAttributes.Builder builder = new PrintAttributes.Builder();
-                builder.setColorMode(PrintAttributes.COLOR_MODE_COLOR);
-                printManager.print("barcode print", new MyPrintAdapter(getActivity(),filePath), builder.build());
-            }
-        });
         mBarcodeReader = (BarcodeReader) Pda.getConfigurations().get(BARCODE_READER.name());
         if(mBarcodeReader!=null){
             initBarcodeReader(mBarcodeReader);
@@ -199,7 +131,6 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
             if(checkForm()) {
                 PackageInfo packageInfo = new PackageInfo();
                 packageInfo.setSn(mEdPackingSn.getText().toString());
-                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
                 if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
                     try {
                         packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
@@ -228,7 +159,6 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
             if(checkForm()) {
                 PackageInfo packageInfo = new PackageInfo();
                 packageInfo.setSn(mEdPackingSn.getText().toString());
-                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
                 if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
                     try {
                         packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
@@ -244,8 +174,6 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
                     Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
                 }
                 mEdPackingSn.setText("");
-                mEdPackingQuantity.setText("");
-                mEdPackingQuantity.requestFocus();
             }
         }
 
@@ -253,7 +181,6 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
 
     private boolean checkForm(){
         String sn = mEdPackingSn.getText().toString();
-        String quantity = mEdPackingQuantity.getText().toString();
         boolean isPass = true;
         if(sn==null||sn.isEmpty()){
             mEdPackingSn.setError("编号不允许为空");
@@ -266,15 +193,11 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
             Toast.makeText(getContext(), "编号已存在", Toast.LENGTH_SHORT).show();
             isPass = false;
         }
-        if(quantity==null||quantity.isEmpty()){
-            mEdPackingQuantity.setError("数量不允许为空");
-            isPass = false;
-        }
         return isPass;
     }
 
-    public static PackingDelegate newInstance() {
-        return new PackingDelegate();
+    public static BigPackingDelegateScan newInstance() {
+        return new BigPackingDelegateScan();
     }
     @Override
     public void onResume() {
@@ -318,7 +241,6 @@ public class PackingDelegate extends PdaDelegate implements View.OnClickListener
             @Override
             public void run() {
                 mEdPackingSn.setText(barcodeData);
-                mEdPackingQuantity.requestFocus();
             }
         });
     }

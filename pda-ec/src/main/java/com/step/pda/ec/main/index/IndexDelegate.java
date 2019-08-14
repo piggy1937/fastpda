@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
@@ -25,7 +24,6 @@ import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.main.EcBottomDelegate;
-import com.step.pda.ec.main.pack.PackingDelegate;
 import com.step.pda.ec.ui.refresh.DbRefreshHandler;
 
 import butterknife.BindView;
@@ -56,7 +54,7 @@ public class IndexDelegate extends BottomItemDelegate {
     @OnClick(R2.id.fab_index_add)
     public void onFabIndexAdd(){
         //打开包装界面
-        getSupportDelegate().startForResult( PackingDelegate.newInstance(),ReqCode);
+        getSupportDelegate().startForResult( MiniPackingDelegateScan.newInstance(),ReqCode);
     }
 
 

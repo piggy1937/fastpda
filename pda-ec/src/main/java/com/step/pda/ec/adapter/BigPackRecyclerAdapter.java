@@ -2,7 +2,6 @@ package com.step.pda.ec.adapter;
 
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -28,8 +27,8 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
     }
 
     private void init() {
-        addItemType(ItemType.TYPE_LEVEL_0, R.layout.item_title);
-        addItemType(ItemType.TYPE_LEVEL_1, R.layout.item_message);
+        addItemType(ItemType.TYPE_LEVEL_0, R.layout.rec_item_level_0);
+        addItemType(ItemType.TYPE_LEVEL_1, R.layout.rec_item_level_1);
     }
 
 
@@ -45,10 +44,22 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
     @Override
     protected void convert(final BaseViewHolder holder, final ExpandableMultipleItemEntity entity) {
         final String text;
+        final String customerSn;
+        final String customerName;
+        final String workOrderSn;
+        final String customerOrderSn;
         switch (holder.getItemViewType()) {
             case ItemType.TYPE_LEVEL_0:
                 text = entity.getField(MultipleFields.TEXT);
-                holder.setText(R.id.item_title1,text );
+                customerSn = entity.getField(MultipleFields.CUSTOMER_SN);
+                customerName = entity.getField(MultipleFields.CUSTOMER_NAME);
+                workOrderSn = entity.getField(MultipleFields.WORK_ORDER_SN);
+                customerOrderSn = entity.getField(MultipleFields.CUSTOMER_ORDER_SN);
+                holder.setText(R.id.tv_big_pack_sn,text );
+                holder.setText(R.id.tv_big_pack_customer_sn,customerSn );
+                holder.setText(R.id.tv_big_pack_customer_name,customerName );
+                holder.setText(R.id.tv_big_pack_work_order_sn,workOrderSn );
+                holder.setText(R.id.tv_big_pack_customer_order_sn,customerOrderSn );
 //                // TODO: 2019/4/16 关键代码，添加子view的点击事件
 //                holder.addOnClickListener(R.id.item_title1);
 //                holder.addOnClickListener(R.id.item_title2);
@@ -59,19 +70,15 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
                         int pos = holder.getAdapterPosition();
                         if (entity.isExpanded()) {
                             collapse(pos, false);
-                            Toast.makeText(mContext, "收起：" + text,
-                                    Toast.LENGTH_SHORT).show();
                         } else {
                             expand(pos, false);
-                            Toast.makeText(mContext, "展开：" + text,
-                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
                 break;
             case ItemType.TYPE_LEVEL_1:
                 text = entity.getField(MultipleFields.TEXT);
-                holder.setText(R.id.item_message1, text);
+                holder.setText(R.id.tv_big_pack_product_sn, text);
 //                holder.setText(R.id.item_message2, listBean.getMessage2());
 //                // TODO: 2019/4/16 关键代码，添加子view的点击事件
 //                holder.addOnClickListener(R.id.item_message1);

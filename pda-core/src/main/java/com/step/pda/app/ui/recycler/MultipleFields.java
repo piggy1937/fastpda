@@ -17,4 +17,9 @@ public enum MultipleFields {
     SLIDE_RECYCLER_VIEW,
     QUANTITY,
     LAST_MODIFY_TIME,
+    CUSTOMER_SN,//客户编号
+    CUSTOMER_NAME,//客户名称
+    WORK_ORDER_SN,//工单单号
+    CUSTOMER_ORDER_SN//客户工单号
+
 }

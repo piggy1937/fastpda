@@ -22,10 +22,17 @@ public class BigPackingDataConverter extends DataConverter<ExpandableBigPack,Exp
         for(int i=0;i<size;i++){
             tEntity = items.get(i);
             String sn = tEntity.getSn();
-
+            String customerSn = tEntity.getCustomerSn();
+            String customerName = tEntity.getCustomerName();
+            String workOrderSn = tEntity.getWorkOrderSn();
+            String customerOrderSn = tEntity.getCustomerOrderSn();
             multipleItemEntity = ExpandableMultipleItemEntity._builder()
                     .setField(MultipleFields.ITEM_TYPE,tEntity.getItemType())
                     .setField(MultipleFields.TEXT,sn)
+                    .setField(MultipleFields.CUSTOMER_SN,customerSn)
+                    .setField(MultipleFields.CUSTOMER_NAME,customerName)
+                    .setField(MultipleFields.WORK_ORDER_SN,workOrderSn)
+                    .setField(MultipleFields.CUSTOMER_ORDER_SN,customerOrderSn)
                     .build();
             multipleItemEntity.setExpanded(false);
 
@@ -42,7 +49,7 @@ public class BigPackingDataConverter extends DataConverter<ExpandableBigPack,Exp
         for(BigPackItem item:subItems){
             result.add(ExpandableMultipleItemEntity._builder()
                     .setField(MultipleFields.ITEM_TYPE,item.getItemType())
-                    .setField(MultipleFields.TEXT,item.getSn())
+                    .setField(MultipleFields.TEXT,item.getProductSn())
                     .build());
         }
         return result;
