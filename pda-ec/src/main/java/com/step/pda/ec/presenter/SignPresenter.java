@@ -98,6 +98,17 @@ public class SignPresenter extends ISignContract.Presenter {
                 });
 
     }
+    //登出当前系统
+    @Override
+    public void requestSignOut() {
+        try {
+            DatabaseManager.getInstance().getDao().deleteByKey(1L);
+            mView.onSignOutSuccess();
+        }catch (Exception e){
+            Log.e("login",e.getLocalizedMessage());
+        }
+    }
+
     private void stopLoading(){
         HANDLER.postDelayed(new Runnable() {
             @Override

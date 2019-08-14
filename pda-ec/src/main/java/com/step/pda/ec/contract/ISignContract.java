@@ -27,7 +27,10 @@ public interface ISignContract {
           */
          void onSignUpSuccess();
 
-
+         /***
+          * 退出登录
+          */
+         void onSignOutSuccess();
      }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -41,6 +44,11 @@ public interface ISignContract {
          * @param password 密码
          */
          public abstract  void requestSignIn(String username, String password);
+
+        /***
+         * 退出当前系统
+         */
+        public abstract  void requestSignOut();
     }
 
 }

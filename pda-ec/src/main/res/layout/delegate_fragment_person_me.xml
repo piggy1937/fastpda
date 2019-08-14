@@ -5,25 +5,39 @@
              android:background="#f3f3f3"
              android:orientation="vertical"
              android:paddingTop="32dp">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_btn_settings"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:text="@string/settings"
-            android:drawablePadding="16dp"
-            android:textSize="16sp"
-            android:background="?attr/selectableItemBackground"
-            android:drawableLeft="@drawable/ic_settings_grey_500_24dp"
-            android:paddingLeft="16dp"
-            android:drawableRight="@drawable/fragmentation_ic_right"
-            android:paddingRight="16dp"/>
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_btn_settings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:text="@string/settings"
+                android:drawablePadding="16dp"
+                android:textSize="16sp"
+                android:background="?attr/selectableItemBackground"
+                android:drawableLeft="@drawable/ic_settings_grey_500_24dp"
+                android:paddingLeft="16dp"
+                android:drawableRight="@drawable/fragmentation_ic_right"
+                android:paddingRight="16dp"/>
+        </LinearLayout>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_person_sign_out"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:text="@string/sign_out"
+            />
     </LinearLayout>
 </FrameLayout>

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.honeywell.aidc.AidcManager;
 import com.honeywell.aidc.BarcodeReader;
+import com.step.pda.app.AccountManager;
 import com.step.pda.app.Pda;
 import com.step.pda.app.activity.ProxyActivity;
 import com.step.pda.app.ui.launcher.ILauncherListener;
@@ -80,6 +81,15 @@ public class MainActivity extends ProxyActivity implements ISignContract.View,IL
     @Override
     public void onSignUpSuccess() {
         Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show();
+    }
+
+    /***
+     * 退出当前系统
+     */
+    @Override
+    public void onSignOutSuccess() {
+        AccountManager.setSignState(false);
+        getSupportDelegate().startWithPop(new SignInDelegate());
     }
 
     @Override
