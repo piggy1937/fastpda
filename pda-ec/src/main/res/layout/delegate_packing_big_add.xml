@@ -33,7 +33,7 @@
              android:layout_height="wrap_content"
              android:textColor="@android:color/white"
              android:textSize="20sp"
-             android:text="@string/add_big_pack_label"
+             android:text="@string/scan_mini_tag"
              android:gravity="center_vertical"
              android:layout_gravity="center_vertical"
              />
