@@ -13,4 +13,5 @@
     <string name="sales_sn">销货单号</string>
     <string name="add_big_pack_label">小标签条码</string>
     <string name="mini_pack_label">小标签条码</string>
+    <string name="me">我的</string>
 </resources>

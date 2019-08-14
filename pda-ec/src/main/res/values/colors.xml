@@ -6,5 +6,6 @@
     <color name="app_background">#1111</color>
     <color name="we_chat_black">#323232</color>
     <color name="item_background">#F1F1F1</color>
+    <color name="blue">#269f42</color>
     <color name="white">#fff</color>
 </resources>
