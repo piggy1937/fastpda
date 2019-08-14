@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.step.pda.ec.R;
+import com.step.pda.ec.main.bigpack.BigPackingDataConverter;
 
 import java.util.List;
 
@@ -22,6 +23,11 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<MultiItemE
         addItemType(TYPE_LEVEL_0, R.layout.item_title);
         addItemType(TYPE_LEVEL_1, R.layout.item_message);
     }
+
+    public static BigPackRecyclerAdapter create(BigPackingDataConverter setItems) {
+        return null;
+    }
+
     @NonNull
     @Override
     public List<MultiItemEntity> getData() {

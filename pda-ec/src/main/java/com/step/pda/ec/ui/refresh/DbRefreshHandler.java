@@ -106,7 +106,7 @@ public class DbRefreshHandler implements
                 //设置Adapter
                 if(CONVERTER instanceof IndexDataConverter) {
                     if(mAdapter==null) {
-                        mAdapter = MultipleRecyclerAdapter.create(((IndexDataConverter) CONVERTER).setPackageInfoList(packageInfos));
+                        mAdapter = MultipleRecyclerAdapter.create( CONVERTER.setItems(packageInfos));
                     }
                 }
                 if(mAdapter!=null) {
@@ -197,7 +197,7 @@ public class DbRefreshHandler implements
             List<PackageInfo> packageInfoList = dao.queryBuilder().offset(index * pageSize).limit(BEAN.getPageSize()).orderAsc(PackageInfoDao.Properties.Id).list();
             //设置Adapter
             if(CONVERTER instanceof IndexDataConverter) {
-                mAdapter.addData(((IndexDataConverter)CONVERTER).setPackageInfoList(packageInfoList).convert());
+                mAdapter.addData(CONVERTER.setItems(packageInfoList).convert());
             }
             BEAN.setCurrentCount(mAdapter.getData().size());
             mAdapter.loadMoreComplete();
@@ -231,9 +231,9 @@ public class DbRefreshHandler implements
         List<PackageInfo> list= new ArrayList<PackageInfo>();
         list.add(packageInfo);
         CONVERTER.clearData();
-        if(CONVERTER instanceof IndexDataConverter) {
-            mAdapter.getData().add(((IndexDataConverter)CONVERTER).setPackageInfoList(list).convert().get(0));
-        }
+        MultipleItemEntity itemEntity= (MultipleItemEntity) CONVERTER.setItems(list).convert().get(0);
+        mAdapter.getData().add(itemEntity);
+
         mAdapter.refresh();
     }
 }

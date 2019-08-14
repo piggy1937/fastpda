@@ -10,10 +10,35 @@ import static com.step.pda.ec.adapter.BigPackRecyclerAdapter.TYPE_LEVEL_1;
  * @date 2019/8/13 0013 下午 9:10
  */
 public class BigPackItem implements MultiItemEntity {
+    private Long id;
     private String sn;
     private String customer;
     @Override
     public int getItemType() {
         return TYPE_LEVEL_1;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
     }
 }

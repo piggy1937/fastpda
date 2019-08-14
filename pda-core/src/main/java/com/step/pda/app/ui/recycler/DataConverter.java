@@ -1,13 +1,14 @@
 package com.step.pda.app.ui.recycler;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhushubin
  */
 
-public abstract class DataConverter {
-
+public abstract class DataConverter<T> {
+    protected List<T> items =null;
     protected final ArrayList<MultipleItemEntity> ENTITIES = new ArrayList<>();
     private String mJsonData = null;
 
@@ -24,7 +25,14 @@ public abstract class DataConverter {
         }
         return mJsonData;
     }
-
+    public DataConverter setItems(List<T> items) {
+        if(items==null){
+            this.items =null;
+            return this;
+        }
+        this.items = items ;
+        return this;
+    }
     public void clearData(){
         ENTITIES.clear();
     }

@@ -3,16 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FastPda.iml" filepath="$PROJECT_DIR$/FastPda.iml" />
-      <module fileurl="file://$PROJECT_DIR$/fastpda.iml" filepath="$PROJECT_DIR$/fastpda.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pda-annotations/pda-annotations.iml" filepath="$PROJECT_DIR$/pda-annotations/pda-annotations.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-annotations/pda-annotations.iml" filepath="$PROJECT_DIR$/pda-annotations/pda-annotations.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-complier/pda-complier.iml" filepath="$PROJECT_DIR$/pda-complier/pda-complier.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pda-complier/pda-complier.iml" filepath="$PROJECT_DIR$/pda-complier/pda-complier.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pda-core/pda-core.iml" filepath="$PROJECT_DIR$/pda-core/pda-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-core/pda-core.iml" filepath="$PROJECT_DIR$/pda-core/pda-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-ec/pda-ec.iml" filepath="$PROJECT_DIR$/pda-ec/pda-ec.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pda-ec/pda-ec.iml" filepath="$PROJECT_DIR$/pda-ec/pda-ec.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pda-master/pda-master.iml" filepath="$PROJECT_DIR$/pda-master/pda-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/pda-master/pda-master.iml" filepath="$PROJECT_DIR$/pda-master/pda-master.iml" />
     </modules>
   </component>

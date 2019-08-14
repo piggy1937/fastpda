@@ -22,8 +22,9 @@ import com.step.pda.app.util.DimenUtil;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.main.EcBottomDelegate;
+import com.step.pda.ec.main.bigpack.BigPackingDataConverter;
 import com.step.pda.ec.main.pack.PackingDelegate;
-import com.step.pda.ec.ui.refresh.DbRefreshHandler;
+import com.step.pda.ec.ui.refresh.BigPackRefreshHandler;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -79,7 +80,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
     }
 
 
-    private DbRefreshHandler mRefreshHandler = null;
+    private BigPackRefreshHandler mRefreshHandler = null;
     @Override
     public Object setLayout() {
         return R.layout.delegate_packing_big;
@@ -87,7 +88,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
-        mRefreshHandler =null;// DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new BigPackingDataConverter(),getContext());
+        mRefreshHandler =BigPackRefreshHandler.create(mRefreshLayout, mRecyclerView, new BigPackingDataConverter(),getContext());
     }
 
     @Override
@@ -101,7 +102,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
         initRefreshLayout();
         initRecyclerView();
         if(isAlreadyLoadData) {
-            mRefreshHandler.firstPage("package_info");
+            mRefreshHandler.firstPage();
             isAlreadyLoadData = true;
         }
     }
