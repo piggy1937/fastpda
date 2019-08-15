@@ -102,7 +102,6 @@ public class BigPackPresenter extends IBigPackContract.Presenter {
                     @Override
                     public void onComplete() {
                         stopLoading();
-                        Toast.makeText(mContext,"登录成功",Toast.LENGTH_SHORT).show();
                     }
                 });
     }

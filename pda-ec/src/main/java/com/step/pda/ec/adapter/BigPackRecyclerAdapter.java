@@ -8,6 +8,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.joanzapata.iconify.widget.IconTextView;
+import com.step.pda.app.Pda;
 import com.step.pda.app.ui.recycler.DataConverter;
 import com.step.pda.app.ui.recycler.ItemType;
 import com.step.pda.app.ui.recycler.MultipleFields;
@@ -98,6 +99,7 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
                     iconTag.setText("{fa-close}");
                     iconTag.setTextColor(Color.GRAY);
                 }else{
+                    iconTag.setTextColor(Pda.getApplicationContext().getResources().getColor(R.color.colorAccent));
                     iconTag.setText("{fa-check}");
                 }
 

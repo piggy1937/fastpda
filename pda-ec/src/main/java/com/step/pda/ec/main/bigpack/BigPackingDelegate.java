@@ -9,7 +9,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.step.pda.app.Pda;
@@ -138,6 +137,6 @@ public class BigPackingDelegate extends BottomItemDelegate implements IBigPackCo
      */
     @Override
     public void onRefreshSuccess() {
-        Toast.makeText(getContext(),"asdasdasd",Toast.LENGTH_LONG).show();
+        mRefreshHandler.onRefresh();
     }
 }

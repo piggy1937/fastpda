@@ -69,4 +69,34 @@ public class BigPackService {
         return mBigPackItemDao.queryBuilder().where(BigPackItemDao.Properties.ParentId.eq(pid)).list();
 
     }
+
+    /***
+     * 根据客户单号及产品品号去查找数据
+     * @param customerOrderSn  客户单号
+     * @param productSn 产品品号
+     * @return  BigPackItem
+     */
+    public BigPackItem findByParams(String customerOrderSn, String productSn) {
+      BigPack bigPack =  mBigPackDao.queryBuilder().where(BigPackDao.Properties.CustomerOrderSn.eq(customerOrderSn)).unique();
+      if(bigPack == null){
+          return null;
+      }
+      BigPackItem item= mBigPackItemDao.queryBuilder().where(BigPackItemDao.Properties.ParentId.eq(bigPack.getId()),(BigPackItemDao.Properties.ProductSn.eq(productSn))).unique();
+      return item;
+    }
+
+    /***
+     * 修改小标签状态
+     * @param bigPackItem
+     */
+    public void saveBigPackItem(BigPackItem bigPackItem) {
+        bigPackItem.setTag(1);
+        mBigPackItemDao.save(bigPackItem);
+        long count= mBigPackItemDao.queryBuilder().where(BigPackItemDao.Properties.ParentId.eq(bigPackItem.getParentId()),(BigPackItemDao.Properties.Tag.eq(0))).count();
+        if(count<1){
+            BigPack bigPack =   mBigPackDao.load(bigPackItem.getParentId());
+            bigPack.setTag(1);
+            mBigPackDao.save(bigPack);
+        }
+    }
 }

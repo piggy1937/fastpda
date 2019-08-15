@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.honeywell.aidc.BarcodeFailureEvent;
 import com.honeywell.aidc.BarcodeReadEvent;
 import com.honeywell.aidc.BarcodeReader;
@@ -20,8 +21,9 @@ import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
+import com.step.pda.ec.database.BigPackItem;
 import com.step.pda.ec.database.PackageInfo;
-import com.step.pda.ec.main.index.IndexDelegate;
+import com.step.pda.ec.services.BigPackService;
 import com.step.pda.ec.services.PackageInfoService;
 
 import java.text.ParseException;
@@ -31,6 +33,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import freemarker.template.utility.StringUtil;
 
 import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
 
@@ -50,14 +53,22 @@ public class BigPackingDelegateScan extends PdaDelegate implements View.OnClickL
 
     @OnClick(R2.id.icon_packing_close)
     void onIconPackingClose(){
-       getSupportDelegate().startWithPop(new IndexDelegate());
+        getSupportDelegate().startWithPop(new BigPackingDelegate());
     }
+
     @Override
     public Object setLayout() {
         return R.layout.delegate_packing_big_add;
     }
     private BarcodeReader mBarcodeReader;
     private String lastModifyTime;
+    private BigPackService bigPackService;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bigPackService = new BigPackService();
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -77,7 +88,6 @@ public class BigPackingDelegateScan extends PdaDelegate implements View.OnClickL
         if(mBarcodeReader!=null){
             initBarcodeReader(mBarcodeReader);
         }
-
 
     }
 
@@ -129,31 +139,29 @@ public class BigPackingDelegateScan extends PdaDelegate implements View.OnClickL
         if(id==R.id.btn_packing_submit){
             //保存数据到数据库
             if(checkForm()) {
-                PackageInfo packageInfo = new PackageInfo();
-                packageInfo.setSn(mEdPackingSn.getText().toString());
-                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
-                    try {
-                        packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
-                    } catch (ParseException e) {
-                        Log.e("packing_delegate",e.getMessage());
-                    }
+                String barCode = mEdPackingSn.getText().toString();
+                String[] strArry=StringUtil.split(barCode,'+');
+                if(strArry==null||strArry.length!=2){
+                    Toast.makeText(getContext(),"条码标签不符合规范",Toast.LENGTH_SHORT).show();
+                    return;
                 }
-
-                PackageInfoService packageInfoService = new PackageInfoService();
-
-
-                long rowId= packageInfoService.save(packageInfo);
-                if(rowId>0) {
-                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
+                String customerOrderSn = strArry[0];//客户单号
+                String productSn =  strArry[1];//产品品号
+                //查找到的产品item
+                BigPackItem bigPackItem= bigPackService.findByParams(customerOrderSn,productSn);
+                if(bigPackItem ==null){
+                    new MaterialDialog.Builder(getContext())
+                            .title("检查")
+                            .content("销货单中不存在此标签")
+                            //限制输入的长度
+                            .positiveText("确定")
+                            .negativeText("取消")
+                            .show();
+                    return ;
                 }
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("package_info",packageInfo);
-                 setFragmentResult(RES_CODE,bundle);
-              //  getSupportDelegate().pop();
-                getSupportDelegate().startWithPop(new IndexDelegate());
-
+                bigPackService.saveBigPackItem(bigPackItem);
+                Toast.makeText(getContext(),"条码标签已扫描",Toast.LENGTH_SHORT).show();
+                mEdPackingSn.setText("");
             }
         }else if(id==R.id.btn_packing_submit_next){
             if(checkForm()) {

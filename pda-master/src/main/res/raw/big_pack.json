@@ -10,19 +10,19 @@
     "tag": 0,
     "itemList": [
       {"productSn": "10001","tag": 0},
-      {"productSn": "10002","tag": 1}
+      {"productSn": "10002","tag": 0}
     ]
   },
     {
       "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
+      "customerSn": "C1002",
       "customerName": "Kindey",
       "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "tag": 1,
+      "customerOrderSn": "kideny-002",
+      "tag": 0,
       "itemList": [
-        {"productSn": "10001","tag": 1},
-        {"productSn": "10002","tag": 1}
+        {"productSn": "10001","tag": 0},
+        {"productSn": "10002","tag": 0}
       ]
     }
 

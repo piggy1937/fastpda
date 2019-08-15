@@ -27,7 +27,8 @@ public class BigPackRefreshHandler implements
     private BigPackRecyclerAdapter mAdapter = null;
     private final DataConverter CONVERTER;
     private final Context CONTEXT;
-
+    private BigPackService bigPackService;
+    private boolean refreshFlag=false;
     private BigPackRefreshHandler(SwipeRefreshLayout swipeRefreshLayout,
                              RecyclerView recyclerView,
                              DataConverter converter, PagingBean bean,Context context) {
@@ -36,6 +37,7 @@ public class BigPackRefreshHandler implements
         this.CONVERTER = converter;
         this.BEAN = bean;
         this.CONTEXT = context;
+        bigPackService = new BigPackService();
         REFRESH_LAYOUT.setOnRefreshListener(this);
     }
 
@@ -52,6 +54,14 @@ public class BigPackRefreshHandler implements
             @Override
             public void run() {
                 //进行一些网络请求
+                refreshFlag = true;
+                BigPackService bigPackService = new BigPackService();
+                mAdapter.getData().clear();
+                BEAN.setTotal((int)bigPackService.total());
+                BEAN.setPageIndex(0);
+                BEAN.setCurrentCount(0);
+                paging();
+                refreshFlag = false;
                 REFRESH_LAYOUT.setRefreshing(false);
             }
         }, 1000);
@@ -108,13 +118,37 @@ public class BigPackRefreshHandler implements
         final int currentCount = BEAN.getCurrentCount();
         final int total = BEAN.getTotal();
         final int index = BEAN.getPageIndex();
-        if (mAdapter.getData().size() < pageSize || currentCount >= total) {
+        if (!refreshFlag &&(mAdapter.getData().size() < pageSize || currentCount >= total)) {
             mAdapter.loadMoreEnd(true);
         } else {
             CONVERTER.clearData();
             List<BigPack> packageInfoList = bigPackService.findList(index * pageSize, BEAN.getPageSize());
+
+
+            List<ExpandableBigPack> list= new ArrayList<ExpandableBigPack>();
+            ExpandableBigPack expandEntity = null;
+            List<BigPackItem> bigPackItems =null;
+            for(BigPack entity:packageInfoList) {
+                bigPackItems = new ArrayList<>();
+                expandEntity = new ExpandableBigPack();
+                expandEntity.setExpanded(false);
+                expandEntity.setSn(entity.getCustomerSn());
+                expandEntity.setCustomerSn(entity.getCustomerSn());
+                expandEntity.setCustomerName(entity.getCustomerName());
+                expandEntity.setWorkOrderSn(entity.getWordOrderSn());
+                expandEntity.setCustomerOrderSn(entity.getCustomerOrderSn());
+                expandEntity.setTag(entity.getTag());
+                List<com.step.pda.ec.database.BigPackItem> subItems = bigPackService.findItemByPid(entity.getId());
+                for (com.step.pda.ec.database.BigPackItem item : subItems) {
+                    bigPackItems.add(new BigPackItem(item.getId(), item.getProductSn(), item.getTag()));
+                }
+                expandEntity.setSubItems(bigPackItems);
+
+
+                list.add(expandEntity);
+            }
             //设置Adapter
-            mAdapter.addData(CONVERTER.setItems(packageInfoList).convert());
+            mAdapter.addData(CONVERTER.setItems(list).convert());
             BEAN.setCurrentCount(mAdapter.getData().size());
             mAdapter.loadMoreComplete();
             BEAN.addIndex();
