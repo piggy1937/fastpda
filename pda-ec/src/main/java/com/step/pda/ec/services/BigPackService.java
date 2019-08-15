@@ -24,6 +24,9 @@ public class BigPackService {
     }
     public void saveBigPackInTx(List<BigPack> list){
 
+        //同步的时候情况所有记录
+        mBigPackDao.deleteAll();
+        mBigPackItemDao.deleteAll();
         for(BigPack entity:list){
             Long id =  mBigPackDao.insert(entity);
            for(BigPackItem item:entity.getItemList()){
