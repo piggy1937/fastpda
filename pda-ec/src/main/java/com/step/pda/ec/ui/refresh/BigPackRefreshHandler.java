@@ -9,8 +9,10 @@ import com.step.pda.app.Pda;
 import com.step.pda.app.ui.recycler.DataConverter;
 import com.step.pda.app.ui.refresh.PagingBean;
 import com.step.pda.ec.adapter.BigPackRecyclerAdapter;
+import com.step.pda.ec.database.BigPack;
 import com.step.pda.ec.database.bean.BigPackItem;
 import com.step.pda.ec.database.bean.ExpandableBigPack;
+import com.step.pda.ec.services.BigPackService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,33 +59,65 @@ public class BigPackRefreshHandler implements
 
     @Override
     public void onLoadMoreRequested() {
-
+        paging();
     }
 
     public void firstPage() {
+        BigPackService bigPackService = new BigPackService();
+        long total=bigPackService.total();
+
+        BEAN.setDelayed(1000);
+        BEAN.setTotal((int)total).setPageSize(20);
+        List<BigPack> results = bigPackService.findList(0,BEAN.getPageSize());
         List<ExpandableBigPack> list= new ArrayList<ExpandableBigPack>();
         ExpandableBigPack expandEntity = null;
-        BigPackItem bigPackItem = null;
-       for(int i=1;i<20;i++){
+         List<BigPackItem> bigPackItems =null;
+       for(BigPack entity:results){
+           bigPackItems = new ArrayList<>();
            expandEntity = new ExpandableBigPack();
            expandEntity.setExpanded(false);
-           expandEntity.setSn("2019726001"+i);
-           expandEntity.setCustomerSn("C1001");
-           expandEntity.setCustomerName("Kindey");
-           expandEntity.setWorkOrderSn("510120110620004");
-           expandEntity.setCustomerOrderSn("kideny-001");
-
-           expandEntity.setSubItems(new ArrayList<BigPackItem>());
-           for(int j=0;j<i;j++){
-               bigPackItem = new BigPackItem();
-               bigPackItem.setProductSn("1000"+j);
-               expandEntity.getSubItems().add(bigPackItem);
+           expandEntity.setSn(entity.getCustomerSn());
+           expandEntity.setCustomerSn(entity.getCustomerSn());
+           expandEntity.setCustomerName(entity.getCustomerName());
+           expandEntity.setWorkOrderSn(entity.getWordOrderSn());
+           expandEntity.setCustomerOrderSn(entity.getCustomerOrderSn());
+           expandEntity.setTag(entity.getTag());
+           List<com.step.pda.ec.database.BigPackItem> subItems= bigPackService.findItemByPid(entity.getId());
+           for(com.step.pda.ec.database.BigPackItem item:subItems){
+               bigPackItems.add(new BigPackItem(item.getId(),item.getProductSn(),item.getTag()) );
            }
+           expandEntity.setSubItems(bigPackItems);
+
 
            list.add(expandEntity);
        }
         mAdapter = BigPackRecyclerAdapter.create(CONVERTER.setItems(list));
         RECYCLERVIEW.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(this, RECYCLERVIEW);
+        BEAN.setCurrentCount(mAdapter.getData().size());
+        BEAN.addIndex();
+    }
+
+    /**
+     * 分页
+     */
+    private void paging() {
+        BigPackService bigPackService = new BigPackService();
+
+        final int pageSize = BEAN.getPageSize();
+        final int currentCount = BEAN.getCurrentCount();
+        final int total = BEAN.getTotal();
+        final int index = BEAN.getPageIndex();
+        if (mAdapter.getData().size() < pageSize || currentCount >= total) {
+            mAdapter.loadMoreEnd(true);
+        } else {
+            CONVERTER.clearData();
+            List<BigPack> packageInfoList = bigPackService.findList(index * pageSize, BEAN.getPageSize());
+            //设置Adapter
+            mAdapter.addData(CONVERTER.setItems(packageInfoList).convert());
+            BEAN.setCurrentCount(mAdapter.getData().size());
+            mAdapter.loadMoreComplete();
+            BEAN.addIndex();
+        }
     }
 }

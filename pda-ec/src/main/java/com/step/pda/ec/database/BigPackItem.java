@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Entity(nameInDb = "big_pack_item")
 public class BigPackItem implements Serializable{
-    private static final long serialVersionUID = -8160717989516782205L;
+    private static final long serialVersionUID = 5856117153409995488L;
     @Id(autoincrement = true)
     private Long id ;
     /***
@@ -23,12 +23,16 @@ public class BigPackItem implements Serializable{
 
     @NotNull
     private Long parentId;
-
-    @Generated(hash = 2010757569)
-    public BigPackItem(Long id, String productSn, @NotNull Long parentId) {
+    /***
+     * 是否已扫描
+     */
+    private int tag = 0;
+    @Generated(hash = 1999750123)
+    public BigPackItem(Long id, String productSn, @NotNull Long parentId, int tag) {
         this.id = id;
         this.productSn = productSn;
         this.parentId = parentId;
+        this.tag = tag;
     }
 
     @Generated(hash = 1175545505)
@@ -59,5 +63,11 @@ public class BigPackItem implements Serializable{
         this.parentId = parentId;
     }
 
+    public int getTag() {
+        return tag;
+    }
 
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
 }

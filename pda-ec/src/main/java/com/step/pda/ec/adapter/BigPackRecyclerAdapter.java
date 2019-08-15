@@ -1,10 +1,13 @@
 package com.step.pda.ec.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.joanzapata.iconify.widget.IconTextView;
 import com.step.pda.app.ui.recycler.DataConverter;
 import com.step.pda.app.ui.recycler.ItemType;
 import com.step.pda.app.ui.recycler.MultipleFields;
@@ -48,6 +51,9 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
         final String customerName;
         final String workOrderSn;
         final String customerOrderSn;
+        final int tag;
+        final AppCompatButton btnSubmit;
+        final IconTextView iconTag;
         switch (holder.getItemViewType()) {
             case ItemType.TYPE_LEVEL_0:
                 text = entity.getField(MultipleFields.TEXT);
@@ -55,6 +61,13 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
                 customerName = entity.getField(MultipleFields.CUSTOMER_NAME);
                 workOrderSn = entity.getField(MultipleFields.WORK_ORDER_SN);
                 customerOrderSn = entity.getField(MultipleFields.CUSTOMER_ORDER_SN);
+                tag = entity.getField(MultipleFields.TAG);
+                btnSubmit=holder.getView(R.id.btn_big_pack_submit);
+                if(tag==0){
+                    btnSubmit.setVisibility(View.GONE);
+                }else{
+                    btnSubmit.setVisibility(View.VISIBLE);
+                }
                 holder.setText(R.id.tv_big_pack_sn,text );
                 holder.setText(R.id.tv_big_pack_customer_sn,customerSn );
                 holder.setText(R.id.tv_big_pack_customer_name,customerName );
@@ -78,7 +91,16 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
                 break;
             case ItemType.TYPE_LEVEL_1:
                 text = entity.getField(MultipleFields.TEXT);
+                tag  = entity.getField(MultipleFields.TAG);
                 holder.setText(R.id.tv_big_pack_product_sn, text);
+                iconTag = holder.getView(R.id.tv_big_pack_icon);
+                if(tag == 0){
+                    iconTag.setText("{fa-close}");
+                    iconTag.setTextColor(Color.GRAY);
+                }else{
+                    iconTag.setText("{fa-check}");
+                }
+
 //                holder.setText(R.id.item_message2, listBean.getMessage2());
 //                // TODO: 2019/4/16 关键代码，添加子view的点击事件
 //                holder.addOnClickListener(R.id.item_message1);

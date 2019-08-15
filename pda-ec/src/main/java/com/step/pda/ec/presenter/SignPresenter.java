@@ -34,7 +34,7 @@ public class SignPresenter extends ISignContract.Presenter {
 
     @Override
     public void requestSignIn(final String username, final String password) {
-        RxRestClient.builder().url("http://222.71.220.31:5000/data/LoginUser")
+        RxRestClient.builder().url("/data/LoginUser")
                 .params("id", "0")
                 .loader(mContext)
                 .build().get().subscribeOn(Schedulers.io())
@@ -47,7 +47,12 @@ public class SignPresenter extends ISignContract.Presenter {
 
                     @Override
                     public void onNext(String data) {
-                        final JSONArray dataArray = JSON.parseArray(data);
+                         JSONArray dataArray =null;
+                         try {
+                             dataArray= JSON.parseArray(data);
+                         }catch (Exception e){
+                             Log.e("SignPresenter",e.getMessage());
+                         }
                         int size = dataArray.size();
                         String tUsername = "";
                         String tPassword = "";

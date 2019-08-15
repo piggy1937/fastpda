@@ -7,8 +7,10 @@
     "customerName": "Kindey",
     "wordOrderSn": "510120110620004",
     "customerOrderSn": "kideny-001",
-    "productSn": [
-      10001, 10002
+    "tag": 0,
+    "itemList": [
+      {"productSn": "10001","tag": 0},
+      {"productSn": "10002","tag": 1}
     ]
   },
     {
@@ -17,189 +19,12 @@
       "customerName": "Kindey",
       "wordOrderSn": "510120110620004",
       "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
-      ]
-    },
-    {
-      "saleOrderSn": "2019726001",
-      "customerSn": "C1001",
-      "customerName": "Kindey",
-      "wordOrderSn": "510120110620004",
-      "customerOrderSn": "kideny-001",
-      "productSn": [
-        10001, 10002
+      "tag": 1,
+      "itemList": [
+        {"productSn": "10001","tag": 1},
+        {"productSn": "10002","tag": 1}
       ]
     }
+
   ]
 }

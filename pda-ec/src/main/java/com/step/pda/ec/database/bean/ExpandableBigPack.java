@@ -34,6 +34,12 @@ public class ExpandableBigPack extends AbstractExpandableItem<BigPackItem> imple
     private String customerOrderSn;
 
     private List<BigPackItem> list;
+    /***
+     * 手否可以提交
+     * 0 不可
+     * 1 可以
+     */
+    private int  tag;
     @Override
     public int getLevel() {
         return 0;
@@ -90,6 +96,11 @@ public class ExpandableBigPack extends AbstractExpandableItem<BigPackItem> imple
     }
 
 
+    public int getTag() {
+        return tag;
+    }
 
-
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
 }

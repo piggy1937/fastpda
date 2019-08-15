@@ -45,14 +45,14 @@
 
 
          <com.joanzapata.iconify.widget.IconTextView
-             android:id="@+id/icon_index_ellipsis"
+             android:id="@+id/icon_big_pack_refresh"
              android:layout_width="wrap_content"
              android:layout_height="match_parent"
              android:layout_gravity="right"
              android:gravity="center"
              android:paddingLeft="10dp"
              android:paddingRight="20dp"
-             android:text="{fa-ellipsis-v}"
+             android:text="{fa-refresh}"
              android:textColor="@android:color/white"
              android:textSize="20sp" />
 

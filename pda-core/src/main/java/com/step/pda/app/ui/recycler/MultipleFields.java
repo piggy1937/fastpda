@@ -13,7 +13,7 @@ public enum MultipleFields {
     SPAN_SIZE,
     ID,
     NAME,
-    TAG,
+    TAG, //标记
     SLIDE_RECYCLER_VIEW,
     QUANTITY,
     LAST_MODIFY_TIME,

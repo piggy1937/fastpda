@@ -8,21 +8,19 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
-import com.step.pda.app.ui.dialog.SelectDialog;
 import com.step.pda.app.ui.slider.SlideRecyclerView;
-import com.step.pda.app.util.DimenUtil;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
+import com.step.pda.ec.contract.IBigPackContract;
 import com.step.pda.ec.main.EcBottomDelegate;
 import com.step.pda.ec.main.index.IndexItemClickListener;
+import com.step.pda.ec.presenter.BigPackPresenter;
 import com.step.pda.ec.ui.refresh.BigPackRefreshHandler;
 
 import butterknife.BindView;
@@ -32,10 +30,11 @@ import butterknife.OnClick;
  * Created by user on 2019-08-06.
  */
 
-public class BigPackingDelegate extends BottomItemDelegate {
+public class BigPackingDelegate extends BottomItemDelegate implements IBigPackContract.View {
     private static  final int ReqCode = 100;
     private static final int LOADER_SIZE_SCALE = 2;
     private volatile boolean  isAlreadyLoadData = false;
+    private IBigPackContract.Presenter mPresenter;
     @BindView(R2.id.rv_index)
     SlideRecyclerView mRecyclerView = null;
     @BindView(R2.id.srl_index)
@@ -43,8 +42,8 @@ public class BigPackingDelegate extends BottomItemDelegate {
     @BindView(R2.id.tb_index)
     Toolbar mToolbar = null;
 
-    @BindView(R2.id.icon_index_ellipsis)
-    IconTextView mIconEllipsis = null;
+    @BindView(R2.id.icon_big_pack_refresh)
+    IconTextView mIconRefresh = null;
     @BindView(R2.id.fab_index_add)
     FloatingActionButton mfabIndexAdd;
     @OnClick(R2.id.fab_index_add)
@@ -56,26 +55,9 @@ public class BigPackingDelegate extends BottomItemDelegate {
 
 
 
-    @OnClick(R2.id.icon_index_ellipsis)
-    public void onIconEllipsisClick(){
-        SelectDialog dialog= new SelectDialog(getContext(), com.step.pda.R.style.select_dialog);
-        final Window dialogWindow = dialog.getWindow();
-        int deviceWidth = DimenUtil.getScreenWidth();
-        int deviceHeight = DimenUtil.getScreenHeight();
-        if(dialogWindow!=null){
-            WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-            int[] location = new int[2];
-            mIconEllipsis.getLocationOnScreen(location);
-            int x = location[0];
-            int y = location[1];
-            lp.x = x;
-            lp.y = y;
-            lp.width  =deviceWidth/LOADER_SIZE_SCALE;
-            lp.height = deviceHeight/LOADER_SIZE_SCALE;
-            lp.gravity= Gravity.TOP;
-            dialogWindow.setAttributes(lp);
-        }
-        dialog.show();
+    @OnClick(R2.id.icon_big_pack_refresh)
+    public void onIconRefreshClick(){
+        mPresenter.refresh();
     }
 
 
@@ -96,6 +78,12 @@ public class BigPackingDelegate extends BottomItemDelegate {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPresenter = new BigPackPresenter(this,getContext());
+    }
+
+    @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
@@ -104,6 +92,7 @@ public class BigPackingDelegate extends BottomItemDelegate {
             mRefreshHandler.firstPage();
             isAlreadyLoadData = true;
         }
+
 
     }
 
@@ -144,5 +133,11 @@ public class BigPackingDelegate extends BottomItemDelegate {
         }
     }
 
-
+    /***
+     * 刷新成功回调函数
+     */
+    @Override
+    public void onRefreshSuccess() {
+        Toast.makeText(getContext(),"asdasdasd",Toast.LENGTH_LONG).show();
+    }
 }

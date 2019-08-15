@@ -33,6 +33,7 @@ public class BigPackingDataConverter extends DataConverter<ExpandableBigPack,Exp
                     .setField(MultipleFields.CUSTOMER_NAME,customerName)
                     .setField(MultipleFields.WORK_ORDER_SN,workOrderSn)
                     .setField(MultipleFields.CUSTOMER_ORDER_SN,customerOrderSn)
+                    .setField(MultipleFields.TAG,tEntity.getTag())
                     .build();
             multipleItemEntity.setExpanded(false);
 
@@ -45,11 +46,15 @@ public class BigPackingDataConverter extends DataConverter<ExpandableBigPack,Exp
     }
 
     private List<ExpandableMultipleItemEntity> convertSubItems(List<BigPackItem> subItems) {
+        if(subItems==null){
+            return null;
+        }
         List<ExpandableMultipleItemEntity> result = new ArrayList<>(subItems.size());
         for(BigPackItem item:subItems){
             result.add(ExpandableMultipleItemEntity._builder()
                     .setField(MultipleFields.ITEM_TYPE,item.getItemType())
                     .setField(MultipleFields.TEXT,item.getProductSn())
+                    .setField(MultipleFields.TAG,item.getTag())
                     .build());
         }
         return result;

@@ -14,6 +14,19 @@ public class BigPackItem implements MultiItemEntity {
      * 产品品号
      */
     private String productSn;
+    /***
+     * 手否可以提交
+     * 0 未扫描
+     * 1 已扫描
+     */
+    private int  tag;
+    public BigPackItem(){}
+    public BigPackItem(Long id, String productSn,int tag) {
+        this.id =id;
+        this.productSn = productSn;
+        this.tag = tag;
+    }
+
     @Override
     public int getItemType() {
         return ItemType.TYPE_LEVEL_1;
@@ -33,5 +46,13 @@ public class BigPackItem implements MultiItemEntity {
 
     public void setProductSn(String productSn) {
         this.productSn = productSn;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 }

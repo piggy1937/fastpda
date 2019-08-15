@@ -38,6 +38,12 @@ public class BigPack implements Serializable{
      * 客户单号
      */
     private String customerOrderSn;
+    /***
+     * 是否可以提交
+     * 0 不可提交
+     * 1 可提交
+     */
+    private int tag;
     @ToMany(referencedJoinProperty = "parentId")
     private List<BigPackItem> itemList;
     /** Used to resolve relations */
@@ -46,19 +52,22 @@ public class BigPack implements Serializable{
     /** Used for active entity operations. */
     @Generated(hash = 1630218915)
     private transient BigPackDao myDao;
-    @Generated(hash = 733699700)
-    public BigPack(Long id, String saleOrderSn, String customerSn,
-            String customerName, String wordOrderSn, String customerOrderSn) {
+    @Generated(hash = 299665638)
+    public BigPack(Long id, String saleOrderSn, String customerSn, String customerName,
+            String wordOrderSn, String customerOrderSn, int tag) {
         this.id = id;
         this.saleOrderSn = saleOrderSn;
         this.customerSn = customerSn;
         this.customerName = customerName;
         this.wordOrderSn = wordOrderSn;
         this.customerOrderSn = customerOrderSn;
+        this.tag = tag;
     }
     @Generated(hash = 84606953)
     public BigPack() {
     }
+
+
     public Long getId() {
         return this.id;
     }
@@ -95,6 +104,11 @@ public class BigPack implements Serializable{
     public void setCustomerOrderSn(String customerOrderSn) {
         this.customerOrderSn = customerOrderSn;
     }
+
+    public void setItemList(List<BigPackItem> itemList) {
+        this.itemList = itemList;
+    }
+
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
@@ -159,6 +173,12 @@ public class BigPack implements Serializable{
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getBigPackDao() : null;
+    }
+    public int getTag() {
+        return this.tag;
+    }
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 
 }

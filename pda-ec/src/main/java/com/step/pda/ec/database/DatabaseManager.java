@@ -12,6 +12,8 @@ public class DatabaseManager {
     private DaoSession mDaoSession = null;
     private UserProfileDao mUserProfileDao = null;
     private PackageInfoDao mPackageInfoDao;
+    private BigPackDao mBigPackDao=null; //大包标签数据库
+    private BigPackItemDao mBigPackItemDao=null; //大包标签小标签数据库
     private static DatabaseManager instance;
     private DatabaseManager(){
 
@@ -40,6 +42,8 @@ public class DatabaseManager {
          mDaoSession = new DaoMaster(db).newSession();
          mUserProfileDao = mDaoSession.getUserProfileDao();
          mPackageInfoDao = mDaoSession.getPackageInfoDao();
+         mBigPackDao = mDaoSession.getBigPackDao();
+        mBigPackItemDao =  mDaoSession.getBigPackItemDao();
     }
 
     /***
@@ -56,5 +60,20 @@ public class DatabaseManager {
      */
     public PackageInfoDao getmPackageInfoDao() {
         return mPackageInfoDao;
+    }
+
+    /***
+     * 大包标签数据库
+     * @return
+     */
+    public BigPackDao getmBigPackDao() {
+        return mBigPackDao;
+    }
+    /***
+     * 大包标签小标签数据库
+     * @return
+     */
+    public BigPackItemDao getmBigPackItemDao() {
+        return mBigPackItemDao;
     }
 }

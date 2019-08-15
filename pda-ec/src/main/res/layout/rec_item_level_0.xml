@@ -56,16 +56,18 @@
         </LinearLayout>
 
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_big_pack_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="50sp"
+            android:layout_height="30sp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:padding="2sp"
             android:text="提交"
-            android:background="@color/blue"
-            android:padding="@dimen/dp_10"
+            android:background="@drawable/border_line_while"
             android:layout_gravity="right|center_vertical"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp"
             />
 
 
