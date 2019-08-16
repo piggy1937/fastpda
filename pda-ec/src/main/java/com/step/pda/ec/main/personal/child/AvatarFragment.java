@@ -18,9 +18,9 @@ import me.yokeyword.fragmentation.SupportFragment;
  * Created by YoKeyword on 16/6/6.
  */
 public class AvatarFragment extends SupportFragment {
-    //”√ªß√˚
-   private AppCompatTextView mTvUsername;
-   private UserProfile mUserProfile;
+    //Áî®Êà∑Âêç
+    private AppCompatTextView mTvUsername;
+    private UserProfile mUserProfile;
     public static AvatarFragment newInstance() {
 
         Bundle args = new Bundle();

@@ -22,9 +22,13 @@ import com.step.pda.app.ui.slider.SlideRecyclerView;
 import com.step.pda.app.util.DimenUtil;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
+import com.step.pda.ec.contract.IMiniPackContract;
 import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.main.EcBottomDelegate;
-import com.step.pda.ec.ui.refresh.DbRefreshHandler;
+import com.step.pda.ec.presenter.MiniPackPresenter;
+import com.step.pda.ec.ui.refresh.MiniPackRefreshHandler;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,10 +37,13 @@ import butterknife.OnClick;
  * Created by user on 2019-08-06.
  */
 
-public class IndexDelegate extends BottomItemDelegate {
+public class IndexDelegate extends BottomItemDelegate implements IMiniPackContract.View {
     private static  final int ReqCode = 100;
     private static final int LOADER_SIZE_SCALE = 2;
     private PopupWindow mPopupWindow;
+
+    //小包标签
+    private IMiniPackContract.Presenter mPresenter;
     @BindView(R2.id.rv_index)
     SlideRecyclerView mRecyclerView = null;
     @BindView(R2.id.srl_index)
@@ -70,9 +77,10 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initPopupWindow();
+
     }
 
-    private DbRefreshHandler mRefreshHandler = null;
+    private MiniPackRefreshHandler mRefreshHandler = null;
     @Override
     public Object setLayout() {
         return R.layout.delegate_index;
@@ -80,10 +88,9 @@ public class IndexDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
-
         initRecyclerView();
-
-        mRefreshHandler = DbRefreshHandler.create(mRefreshLayout, mRecyclerView, new IndexDataConverter(),getContext());
+        mPresenter = new MiniPackPresenter(this,getContext());
+        mRefreshHandler = MiniPackRefreshHandler.create(mRefreshLayout, mRecyclerView,mPresenter, new IndexDataConverter(),getContext());
     }
 
     @Override
@@ -95,7 +102,7 @@ public class IndexDelegate extends BottomItemDelegate {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
-        mRefreshHandler.firstPage("package_info");
+        mPresenter.firstPage();
     }
 
     private void initRefreshLayout() {
@@ -152,5 +159,14 @@ public class IndexDelegate extends BottomItemDelegate {
         mPopupWindow.setBackgroundDrawable(drawable);
         mPopupWindow.setAnimationStyle(R.style.PopupAnimation);
     }
-
+    //加载首页成功
+    @Override
+    public void onFirstPageSuccess(int pageNo, int pageSize, int total, List<PackageInfo> packageInfoList) {
+        mRefreshHandler.firstPage(pageNo, pageSize, total,packageInfoList);
+    }
+    //分页成功
+    @Override
+    public void onPageSuccess() {
+        mRefreshHandler.paging();
+    }
 }

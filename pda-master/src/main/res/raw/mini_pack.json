@@ -1,0 +1,25 @@
+{
+  "errcode": 0,
+  "errmsg": "success",
+  "content": {
+    "pageInfo": {
+      "pageNo": 1,
+      "pageSize": 20,
+      "total": 2,
+      "list": [{
+        "id": 1,
+        "sn": "201900001",
+        "quantity": 20,
+        "lastModifyTime": "20190816",
+        "creator": "admin"
+      }, {
+        "id": 1,
+        "sn": "201900001",
+        "quantity": 20,
+        "lastModifyTime": "20190816",
+        "creator": "admin"
+      }]
+    }
+
+  }
+}

@@ -24,12 +24,9 @@
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/item_multiple_text.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/values/styles.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-ec/src/main/java/com/step/pda/ec/main/personal/child" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/pda-ec/src/main/java/com/step/pda/ec/main/personal/child/AvatarFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/drawable/ic_avatar.png" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/drawable/ic_launcher.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/drawable/ic_settings_grey_500_24dp.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/layout-ldrtl/delegate_fragment_person_avatar.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/layout-ldrtl/delegate_fragment_person_me.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/layout-ldrtl/delegate_fragment_person_settings.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/mipmap/ic_avatar.png" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-ec/src/main/res/values/colors.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
