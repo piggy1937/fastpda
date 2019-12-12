@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 
+import com.step.pda.app.AccountManager;
+import com.step.pda.app.Configurator;
+import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
@@ -25,11 +28,14 @@ public class SignInDelegate  extends PdaDelegate{
     TextInputEditText mUsername;
     @BindView(R2.id.edit_sign_in_password)
     TextInputEditText mPassword;
+    @BindView(R2.id.edit_sign_in_host)
+    TextInputEditText mApiHost;
     private ISignContract.Presenter mPresenter;
 
     @OnClick(R2.id.btn_sign_in)
     public void doLogin(){
         if(checkForm()){
+            Pda.getConfigurations().put(Configurator.ConfigType.API_HOST.name(),mApiHost.getText().toString().trim());
             mPresenter.requestSignIn(mUsername.getText().toString(),mPassword.getText().toString());
         }
     }
@@ -49,9 +55,14 @@ public class SignInDelegate  extends PdaDelegate{
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
     }
     private boolean checkForm(){
+        String apiHost = mApiHost.getText().toString();
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
         boolean isPass = true;
+        if(apiHost==null||apiHost.isEmpty()){
+            mApiHost.setError("服务器地址不允许为空");
+            isPass = false;
+        }
         if(username==null||username.isEmpty()){
             mUsername.setError("用户名不允许为空");
             isPass = false;

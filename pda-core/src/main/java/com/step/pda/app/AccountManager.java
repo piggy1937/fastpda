@@ -1,5 +1,7 @@
 package com.step.pda.app;
 
+import android.content.Context;
+
 import com.step.pda.app.util.storage.PreferenceUtils;
 
 /**
@@ -9,7 +11,8 @@ import com.step.pda.app.util.storage.PreferenceUtils;
 
 public class AccountManager {
     private enum  SignTag{
-        SIGN_TAG
+        SIGN_TAG,
+        API_HOST //url地址
     }
 
     /***
@@ -19,7 +22,22 @@ public class AccountManager {
     public static void setSignState(boolean state){
         PreferenceUtils.setAppFlag(SignTag.SIGN_TAG.name(),state);
     }
-
+    /***
+     * 保存服务器地址
+     * @param apiHost
+     */
+    public static void setApiHost(String apiHost){
+        Context context=   Pda.getApplicationContext();
+        PreferenceUtils.putString(context,SignTag.API_HOST.name(),apiHost);
+    }
+    /***
+     * 保存服务器地址
+     * @param apiHost
+     */
+    public static void getApiHost(String apiHost){
+        Context context=   Pda.getApplicationContext();
+        PreferenceUtils.putString(context,SignTag.API_HOST.name(),apiHost);
+    }
     /***
      * 判断用户是否已登录
      * @return

@@ -26,6 +26,11 @@ public interface IMiniPackContract {
          */
         void  onFirstPageSuccess(int pageNo, int pageSize, int total, List<PackageInfo> packageInfoList);
         void  onPageSuccess();
+
+        /***
+         * 新增标签条码成功
+         */
+        void  onAddBarCodeSuccess();
     }
     abstract class Presenter extends BasePresenter<IMiniPackContract.View>{
         public Presenter(View view, Context context) {
@@ -41,6 +46,12 @@ public interface IMiniPackContract {
          * @param pageNo 请求页码
          */
         public abstract  void page(int pageNo);
+        /***
+         * 小包标签的打印添加
+         * @param sn 编号
+         * @param quantity 数量
+         */
+        public abstract  void requestAddBarCodeSignIn(String sn,Integer quantity);
     }
 
 }

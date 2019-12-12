@@ -108,7 +108,12 @@ public class BigPack implements Serializable{
     public void setItemList(List<BigPackItem> itemList) {
         this.itemList = itemList;
     }
-
+    public int getTag() {
+        return this.tag;
+    }
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
@@ -174,11 +179,7 @@ public class BigPack implements Serializable{
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getBigPackDao() : null;
     }
-    public int getTag() {
-        return this.tag;
-    }
-    public void setTag(int tag) {
-        this.tag = tag;
-    }
+
+
 
 }

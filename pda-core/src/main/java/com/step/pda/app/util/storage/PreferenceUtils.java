@@ -66,6 +66,8 @@ public class PreferenceUtils {
         sp.edit().clear().commit();
     }
 
+
+
     public static void setAppFlag(String key, boolean flag) {
         Context context=   Pda.getApplicationContext();
         SharedPreferences sp = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);

@@ -16,4 +16,5 @@
     <string name="me">我的</string>
     <string name="sign_out">退出登录</string>
     <string name="scan_mini_tag">扫描小标签条形码</string>
+    <string name="api_host">服务端</string>
 </resources>

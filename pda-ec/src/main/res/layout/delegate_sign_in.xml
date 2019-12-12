@@ -39,7 +39,22 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"
                 android:src="@drawable/ic_launcher1" />
+<!--           服务端-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
 
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_sign_in_host"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/api_host"
+                    android:text="http://114.88.72.131:4500/"
+                    android:inputType="textEmailAddress"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
             <!--邮箱-->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
