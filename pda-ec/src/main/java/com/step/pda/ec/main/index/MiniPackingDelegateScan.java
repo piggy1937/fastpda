@@ -62,7 +62,8 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     AppCompatButton  mbtnPackingSubmitPrint;//保存并继续
     @OnClick(R2.id.icon_packing_close)
     void onIconPackingClose(){
-
+        //getSupportDelegate().replaceFragment(new IndexDelegate(),false);
+        getSupportDelegate().onDestroy();
         //@TODO 关闭刷新列表页
         getSupportDelegate().pop();
        // getSupportDelegate().startWithPop(new IndexDelegate());
