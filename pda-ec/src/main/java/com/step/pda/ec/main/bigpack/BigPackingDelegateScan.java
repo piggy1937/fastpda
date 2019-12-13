@@ -53,7 +53,7 @@ public class BigPackingDelegateScan extends PdaDelegate implements View.OnClickL
 
     @OnClick(R2.id.icon_packing_close)
     void onIconPackingClose(){
-        getSupportDelegate().startWithPop(new BigPackingDelegate());
+        onDestroy();
     }
 
     @Override

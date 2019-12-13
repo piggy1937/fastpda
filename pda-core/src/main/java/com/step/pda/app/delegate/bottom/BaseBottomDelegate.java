@@ -116,8 +116,8 @@ public abstract class BaseBottomDelegate extends PdaDelegate implements View.OnC
         final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
         itemTitle.setTextColor(mClickedColor);
         BottomItemDelegate fragement= ITEM_DELEGATES.get(mCurrentDelegate);
-       // getSupportDelegate().showHideFragment(ITEM_DELEGATES.get(tag));
-        getSupportDelegate().showHideFragment(ITEM_DELEGATES.get(tag), fragement);
+        getSupportDelegate().showHideFragment(ITEM_DELEGATES.get(tag));
+        //getSupportDelegate().showHideFragment(ITEM_DELEGATES.get(tag), fragement);
         //注意先后顺序
         mCurrentDelegate = tag;
     }

@@ -130,6 +130,7 @@ public class BigPackingDelegate extends BottomItemDelegate implements IBigPackCo
             mRefreshHandler.onRefresh();
             this.onResume();
         }
+        getParentDelegate().showHideFragment(this);
     }
 
     /***
