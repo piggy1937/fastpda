@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -137,10 +138,13 @@ public class IndexDelegate extends BottomItemDelegate implements IMiniPackContra
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
         if(requestCode==100&&resultCode==101){
-           PackageInfo packageInfo = (PackageInfo) data.getSerializable("package_info");
+            Fragment IndexDelegate  = getChildFragmentManager().findFragmentByTag(IndexDelegate.class.getName());
+            getParentDelegate().showHideFragment(this);
+            PackageInfo packageInfo = (PackageInfo) data.getSerializable("package_info");
             mRefreshHandler.addData(packageInfo);
             mRefreshHandler.onRefresh();
         }
+        getParentDelegate().showHideFragment(this);
     }
     private void initPopupWindow() {
         View v = getActivity().getLayoutInflater().inflate(
