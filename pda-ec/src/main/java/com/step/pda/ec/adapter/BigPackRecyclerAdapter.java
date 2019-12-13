@@ -52,6 +52,7 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
         final String customerName;
         final String workOrderSn;
         final String customerOrderSn;
+        final String oQuantity;//数量使用比例
         final int tag;
         final AppCompatButton btnSubmit;
         final IconTextView iconTag;
@@ -62,6 +63,7 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
                 customerName = entity.getField(MultipleFields.CUSTOMER_NAME);
                 workOrderSn = entity.getField(MultipleFields.WORK_ORDER_SN);
                 customerOrderSn = entity.getField(MultipleFields.CUSTOMER_ORDER_SN);
+                oQuantity = entity.getField(MultipleFields.OQUANTITY);
                 tag = entity.getField(MultipleFields.TAG);
                 btnSubmit=holder.getView(R.id.btn_big_pack_submit);
                 if(tag==0){
@@ -74,6 +76,7 @@ public class BigPackRecyclerAdapter extends BaseMultiItemQuickAdapter<Expandable
                 holder.setText(R.id.tv_big_pack_customer_name,customerName );
                 holder.setText(R.id.tv_big_pack_work_order_sn,workOrderSn );
                 holder.setText(R.id.tv_big_pack_customer_order_sn,customerOrderSn );
+                holder.setText(R.id.tv_big_pack_oquantity,oQuantity );
 //                // TODO: 2019/4/16 关键代码，添加子view的点击事件
 //                holder.addOnClickListener(R.id.item_title1);
 //                holder.addOnClickListener(R.id.item_title2);

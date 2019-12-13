@@ -1,11 +1,11 @@
 package com.step.pda.ec.database;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by user on 2019-08-06.
@@ -32,7 +32,7 @@ public class PackageInfo  implements Serializable{
     /***
      * 创建者
      */
-    private String creator;
+    private String creator="";
     @Generated(hash = 1868720201)
     public PackageInfo(Long id, String sn, String title, Integer quantity,
             Date lastModifyTime, String creator) {

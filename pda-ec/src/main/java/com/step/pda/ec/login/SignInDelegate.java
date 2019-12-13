@@ -36,6 +36,7 @@ public class SignInDelegate  extends PdaDelegate{
     public void doLogin(){
         if(checkForm()){
             Pda.getConfigurations().put(Configurator.ConfigType.API_HOST.name(),mApiHost.getText().toString().trim());
+            AccountManager.setApiHost(mApiHost.getText().toString());
             mPresenter.requestSignIn(mUsername.getText().toString(),mPassword.getText().toString());
         }
     }

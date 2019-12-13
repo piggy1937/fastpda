@@ -169,4 +169,9 @@ public class IndexDelegate extends BottomItemDelegate implements IMiniPackContra
     public void onPageSuccess() {
         mRefreshHandler.paging();
     }
+
+    @Override
+    public void onAddBarCodeSuccess() {
+
+    }
 }

@@ -20,12 +20,15 @@ import com.honeywell.aidc.ScannerNotClaimedException;
 import com.honeywell.aidc.ScannerUnavailableException;
 import com.honeywell.aidc.TriggerStateChangeEvent;
 import com.honeywell.aidc.UnsupportedPropertyException;
+import com.step.pda.app.AccountManager;
 import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.adapter.MyPrintAdapter;
+import com.step.pda.ec.contract.IMiniPackScanContract;
 import com.step.pda.ec.database.PackageInfo;
+import com.step.pda.ec.presenter.MiniPackScanPresenter;
 import com.step.pda.ec.services.PackageInfoService;
 
 import java.text.ParseException;
@@ -43,7 +46,7 @@ import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
  *包装
  */
 
-public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener  {
+public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener, IMiniPackScanContract.View  {
     private static final  int RES_CODE = 101;//保存
     private static final  int  MIN_MARK =0;
     private static final  int MAX_MARK =100;
@@ -61,6 +64,9 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     void onIconPackingClose(){
        getSupportDelegate().startWithPop(new IndexDelegate());
     }
+
+    //小包标签
+    private IMiniPackScanContract.Presenter mPresenter;
     @Override
     public Object setLayout() {
         return R.layout.delegate_packing_mini_add;
@@ -75,10 +81,10 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
 
-
-        mEdPackingSn.setCursorVisible(false);//隐藏光标
-        mEdPackingSn.setFocusable(false);//失去焦点
-        mEdPackingSn.setFocusableInTouchMode(false);
+        mPresenter = new MiniPackScanPresenter(this,getContext());
+//        mEdPackingSn.setCursorVisible(false);//隐藏光标
+//        mEdPackingSn.setFocusable(false);//失去焦点
+//        mEdPackingSn.setFocusableInTouchMode(false);
         mbtnPackingSubmit.setOnClickListener(this);
         mbtnPackingSubmitNext.setOnClickListener(this);
         mEdPackingQuantity.addTextChangedListener(new TextWatcher() {
@@ -198,6 +204,7 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
                 PackageInfo packageInfo = new PackageInfo();
                 packageInfo.setSn(mEdPackingSn.getText().toString());
                 packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
+                packageInfo.setCreator(AccountManager.getCreater());
                 if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
                     try {
                         packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
@@ -205,21 +212,18 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
                         Log.e("packing_delegate",e.getMessage());
                     }
                 }
+                mPresenter.addMiniPackPrintTask(packageInfo);
 
-                PackageInfoService packageInfoService = new PackageInfoService();
-
-
-                long rowId= packageInfoService.save(packageInfo);
-                if(rowId>0) {
-                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
-                }
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("package_info",packageInfo);
-                 setFragmentResult(RES_CODE,bundle);
-              //  getSupportDelegate().pop();
-                getSupportDelegate().startWithPop(new IndexDelegate());
+//                if(rowId>0) {
+//                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
+//                }
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("package_info",packageInfo);
+//                 setFragmentResult(RES_CODE,bundle);
+//              //  getSupportDelegate().pop();
+//                getSupportDelegate().startWithPop(new IndexDelegate());
 
             }
         }else if(id==R.id.btn_packing_submit_next){
@@ -347,6 +351,32 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         } catch (ScannerUnavailableException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Scanner unavailable", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /***
+     * presenter 回调函数
+     * @param packageInfo
+     */
+    @Override
+    public void onSuccess(PackageInfo packageInfo) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("package_info", packageInfo);
+        PackageInfoService packageInfoService = new PackageInfoService();
+        long rowId= packageInfoService.save(packageInfo);
+        setFragmentResult(RES_CODE, bundle);
+        getSupportDelegate().startWithPop(new IndexDelegate());
+    }
+
+    /***
+     * 失败回调函数
+     * @param packageInfo
+     * @param errmsg
+     */
+    @Override
+    public void onError(PackageInfo packageInfo, String errmsg) {
+        if(!errmsg.isEmpty()) {
+            Toast.makeText(getContext(), errmsg, Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -10,9 +10,12 @@ import com.step.pda.app.util.storage.PreferenceUtils;
  */
 
 public class AccountManager {
+
+
     private enum  SignTag{
         SIGN_TAG,
-        API_HOST //url地址
+        API_HOST, //url地址
+        LOGIN_USER
     }
 
     /***
@@ -31,13 +34,29 @@ public class AccountManager {
         PreferenceUtils.putString(context,SignTag.API_HOST.name(),apiHost);
     }
     /***
-     * 保存服务器地址
-     * @param apiHost
+     * 获取服务器地址
      */
-    public static void getApiHost(String apiHost){
+    public static String getApiHost(){
         Context context=   Pda.getApplicationContext();
-        PreferenceUtils.putString(context,SignTag.API_HOST.name(),apiHost);
+       return PreferenceUtils.getString(context,SignTag.API_HOST.name(),"");
     }
+    /***
+     * 设置登录用户信息
+     * @param tUsername
+     */
+    public static void setCreater(String tUsername) {
+        Context context=   Pda.getApplicationContext();
+        PreferenceUtils.putString(context,SignTag.LOGIN_USER.name(),tUsername);
+    }
+
+    /***
+     * 获取登录信息
+     */
+    public static String getCreater() {
+        Context context=   Pda.getApplicationContext();
+        return PreferenceUtils.getString(context,SignTag.LOGIN_USER.name(),"demo");
+    }
+
     /***
      * 判断用户是否已登录
      * @return

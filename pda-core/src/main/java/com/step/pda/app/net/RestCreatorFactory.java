@@ -38,8 +38,11 @@ public enum  RestCreatorFactory {
         public RestCreator(){
 
             String BaseUrl = (String) Pda.getConfigurations().get(Configurator.ConfigType.API_HOST.name());
-
-
+            //修改默认url
+             String  hostUrl= AccountManager.getApiHost();
+             if(!hostUrl.isEmpty()){
+                 BaseUrl = hostUrl;
+             }
 
             OkHttpClient.Builder okHttpBuilder   =new OkHttpClient.Builder();
             List<Interceptor > interceptors = (List<Interceptor>) Pda.getConfigurations().get(Configurator.ConfigType.INTERCEPTOR.name());

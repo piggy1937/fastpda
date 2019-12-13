@@ -26,6 +26,7 @@ public class BigPackingDataConverter extends DataConverter<ExpandableBigPack,Exp
             String customerName = tEntity.getCustomerName();
             String workOrderSn = tEntity.getWorkOrderSn();
             String customerOrderSn = tEntity.getCustomerOrderSn();
+
             multipleItemEntity = ExpandableMultipleItemEntity._builder()
                     .setField(MultipleFields.ITEM_TYPE,tEntity.getItemType())
                     .setField(MultipleFields.TEXT,sn)
@@ -37,8 +38,20 @@ public class BigPackingDataConverter extends DataConverter<ExpandableBigPack,Exp
                     .build();
             multipleItemEntity.setExpanded(false);
 
+            int j = 0;
+            for(BigPackItem itm:tEntity.getSubItems()){
+                if(itm.getTag()==1){
+                    j++;
+                }
+            }
+            String oQuantity= String.format("%s/%s",tEntity.getSubItems().size(),j);
+            multipleItemEntity.setField(MultipleFields.OQUANTITY,oQuantity);
             List<ExpandableMultipleItemEntity> subItems = convertSubItems(tEntity.getSubItems());
             multipleItemEntity.setSubItems(subItems);
+
+
+
+
             ENTITIES.add(multipleItemEntity);
 
         }

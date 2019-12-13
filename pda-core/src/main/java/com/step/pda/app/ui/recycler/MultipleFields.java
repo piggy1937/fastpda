@@ -20,6 +20,7 @@ public enum MultipleFields {
     CUSTOMER_SN,//客户编号
     CUSTOMER_NAME,//客户名称
     WORK_ORDER_SN,//工单单号
-    CUSTOMER_ORDER_SN//客户工单号
+    CUSTOMER_ORDER_SN,//客户工单号
+    OQUANTITY   //总数量与扫描数量比
 
 }

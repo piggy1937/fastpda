@@ -63,6 +63,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:hint="编号"
+                   android:text=""
                    android:inputType="textEmailAddress"
                    tools:ignore="HardcodedText" />
             </android.support.design.widget.TextInputLayout>

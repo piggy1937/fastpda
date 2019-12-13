@@ -178,6 +178,7 @@ public class MiniPackRefreshHandler implements
      */
     @Override
     public void onLoadMoreRequested() {
+
         PRESENTER.page(BEAN.getPageIndex());
     }
 

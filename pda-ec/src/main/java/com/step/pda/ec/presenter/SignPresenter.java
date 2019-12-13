@@ -79,6 +79,8 @@ public class SignPresenter extends ISignContract.Presenter {
                             }catch (Exception e){
                                 Log.e("login",e.getLocalizedMessage());
                             }
+                            //保存用户信息
+                            AccountManager.setCreater(tUsername);
                             ////保存用户状态
                             AccountManager.setSignState(true);
                             mView.onSignInSuccess();

@@ -55,20 +55,35 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+      <LinearLayout
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_big_pack_submit"
-            android:layout_width="50sp"
-            android:layout_height="30sp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:padding="2sp"
-            android:text="提交"
-            android:background="@drawable/border_line_while"
-            android:layout_gravity="right|center_vertical"
-            android:textColor="@color/colorAccent"
-            android:textSize="15sp"
-            />
+          android:layout_width="50sp"
+          android:layout_height="fill_parent"
+          android:orientation="vertical"
+              >
+          <TextView
+              android:id="@+id/tv_big_pack_oquantity"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="1/1"
+              android:layout_gravity="top|center"
+              />
+          <android.support.v7.widget.AppCompatButton
+              android:layout_width="fill_parent"
+              android:layout_marginTop="@dimen/dp_10"
+              android:layout_height="34sp"
+              android:layout_marginRight="@dimen/dp_4"
+              android:layout_marginLeft="@dimen/dp_4"
+              android:id="@+id/btn_big_pack_submit"
+              android:gravity="center"
+              android:text="@string/submit"
+              android:background="@drawable/border_line_while"
+              android:layout_gravity="center_vertical"
+              android:textColor="@color/colorAccent"
+              android:textSize="15sp"
+              />
+      </LinearLayout>
+
 
 
     </LinearLayout>
