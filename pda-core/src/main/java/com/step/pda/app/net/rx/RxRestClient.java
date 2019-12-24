@@ -51,7 +51,7 @@ public class RxRestClient {
                 observable = restService.get(URL,PARAMS);
                 break;
             case POST:
-                observable = restService.post(URL,PARAMS);
+                observable = restService.post(URL,BODY);
                 break;
             case PUT:
                 observable = restService.put(URL,PARAMS);

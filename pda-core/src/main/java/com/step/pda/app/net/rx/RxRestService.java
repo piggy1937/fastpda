@@ -4,7 +4,9 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -27,6 +29,9 @@ public interface RxRestService {
     @FormUrlEncoded
     @POST
     Observable<String> post(@Url String url, @FieldMap Map<String, Object> params);
+
+    @POST
+    Observable<String> post(@Url String url, @Body RequestBody body);
     @FormUrlEncoded
     @PUT
     Observable<String> put(@Url String url, @FieldMap Map<String, Object> params);

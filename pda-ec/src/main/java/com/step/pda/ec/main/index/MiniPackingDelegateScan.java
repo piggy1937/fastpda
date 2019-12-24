@@ -2,8 +2,6 @@ package com.step.pda.ec.main.index;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.print.PrintAttributes;
-import android.print.PrintManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
@@ -25,7 +23,6 @@ import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.PdaDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
-import com.step.pda.ec.adapter.MyPrintAdapter;
 import com.step.pda.ec.contract.IMiniPackScanContract;
 import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.presenter.MiniPackScanPresenter;
@@ -33,6 +30,7 @@ import com.step.pda.ec.services.PackageInfoService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -135,16 +133,16 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         });
 
 
-        mbtnPackingSubmitPrint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 String filePath="";
-                PrintManager printManager = (PrintManager) getActivity().getSystemService(Context.PRINT_SERVICE);
-                PrintAttributes.Builder builder = new PrintAttributes.Builder();
-                builder.setColorMode(PrintAttributes.COLOR_MODE_COLOR);
-                printManager.print("barcode print", new MyPrintAdapter(getActivity(),filePath), builder.build());
-            }
-        });
+//        mbtnPackingSubmitPrint.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                 String filePath="";
+//                PrintManager printManager = (PrintManager) getActivity().getSystemService(Context.PRINT_SERVICE);
+//                PrintAttributes.Builder builder = new PrintAttributes.Builder();
+//                builder.setColorMode(PrintAttributes.COLOR_MODE_COLOR);
+//                printManager.print("barcode print", new MyPrintAdapter(getActivity(),filePath), builder.build());
+//            }
+//        });
         mBarcodeReader = (BarcodeReader) Pda.getConfigurations().get(BARCODE_READER.name());
         if(mBarcodeReader!=null){
             initBarcodeReader(mBarcodeReader);
@@ -194,6 +192,29 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         barcodeReader.setProperties(properties);
     }
 
+    /***
+     * 新增打印标签
+     */
+    private void addMiniInfo(String sn,String lastModifyTime) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        if (checkForm()) {
+            PackageInfo packageInfo = new PackageInfo();
+            packageInfo.setSn(sn);
+            packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
+            packageInfo.setCreator(AccountManager.getCreater());
+            if (lastModifyTime != null && !lastModifyTime.isEmpty()) {
+                try {
+                    packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
+                } catch (ParseException e) {
+                    Log.e("packing_delegate", e.getMessage());
+                }
+            }
+
+            mPresenter.addMiniPackPrintTask(packageInfo);
+        }
+    }
+
+
     @Override
     public void onClick(View v) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -207,8 +228,8 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
                 packageInfo.setCreator(AccountManager.getCreater());
                 if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
                     try {
-                        packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
-                    } catch (ParseException e) {
+                        packageInfo.setLastModifyTime(new Date());
+                    } catch (Exception e) {
                         Log.e("packing_delegate",e.getMessage());
                     }
                 }
@@ -321,8 +342,14 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
             public void run() {
                 mEdPackingSn.setText(barcodeData);
                 mEdPackingQuantity.requestFocus();
+                addMiniInfo(barcodeData,lastModifyTime);
             }
         });
+
+
+
+
+
     }
 
     @Override
@@ -365,6 +392,8 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         PackageInfoService packageInfoService = new PackageInfoService();
         long rowId= packageInfoService.save(packageInfo);
         setFragmentResult(RES_CODE, bundle);
+        mEdPackingSn.setText("");
+        mEdPackingQuantity.setText("0");
         onDestroy();
         //getSupportDelegate().onDestroy();
         //getSupportDelegate().startWithPop(new IndexDelegate());
@@ -377,6 +406,8 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
      */
     @Override
     public void onError(PackageInfo packageInfo, String errmsg) {
+        mEdPackingSn.setText("");
+        mEdPackingQuantity.setText("0");
         if(!errmsg.isEmpty()) {
             Toast.makeText(getContext(), errmsg, Toast.LENGTH_SHORT).show();
         }
