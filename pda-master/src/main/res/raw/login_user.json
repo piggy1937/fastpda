@@ -1,6 +1,6 @@
 [{
   "UserName": "admin",
-  "UserPwd": "admin",
+  "UserPwd": "123456",
   "State": true
 }, {
   "UserName": "John",
