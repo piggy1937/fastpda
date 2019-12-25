@@ -337,11 +337,11 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     public void onBarcodeEvent(BarcodeReadEvent event) {
         final String barcodeData = event.getBarcodeData();
         lastModifyTime= event.getTimestamp();
-        addMiniInfo(barcodeData,lastModifyTime);
-        Toast.makeText(getContext(),barcodeData,Toast.LENGTH_SHORT).show();
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                addMiniInfo(barcodeData,lastModifyTime);
                 mEdPackingSn.setText(barcodeData);
                 mEdPackingQuantity.requestFocus();
 
@@ -390,7 +390,7 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     @Override
     public void onSuccess(PackageInfo packageInfo) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("package_info", packageInfo);
+        //bundle.putSerializable("package_info", packageInfo);
         //PackageInfoService packageInfoService = new PackageInfoService();
         //long rowId= packageInfoService.save(packageInfo);
         setFragmentResult(RES_CODE, bundle);

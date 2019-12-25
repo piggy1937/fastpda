@@ -275,10 +275,11 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
     public void onBarcodeEvent(BarcodeReadEvent event) {
         final String barcodeData = event.getBarcodeData();
         lastModifyTime= event.getTimestamp();
-        addMiniInfo(barcodeData,lastModifyTime);
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                addMiniInfo(barcodeData,lastModifyTime);
                 mEdPackingSn.setText(barcodeData);
                 mEdPackingQuantity.requestFocus();
 
@@ -327,7 +328,7 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
     @Override
     public void onSuccess(PackageInfo packageInfo) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("package_info", packageInfo);
+        //bundle.putSerializable("package_info", packageInfo);
        // PackageInfoService packageInfoService = new PackageInfoService();
         //long rowId= packageInfoService.save(packageInfo);
         setFragmentResult(RES_CODE, bundle);
