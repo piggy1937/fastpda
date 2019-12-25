@@ -13,13 +13,37 @@
        android:id="@+id/srl_index"
        android:layout_width="match_parent"
        android:layout_height="match_parent">
-
-      <com.step.pda.app.ui.slider.SlideRecyclerView
-          android:id="@+id/rv_index"
+      <android.support.v7.widget.LinearLayoutCompat
           android:layout_width="match_parent"
-          android:layout_height="match_parent" />
-
+          android:layout_height="match_parent"
+          >
+            <android.support.v7.widget.LinearLayoutCompat
+                android:id="@+id/lay_fragment_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+               <TextView
+                   android:id="@+id/tv_fragment_ProdutEmpty"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginTop="15dp"
+                   android:text="暂无数据"
+                   android:textAppearance="?android:attr/textAppearanceMedium"
+                   android:textColor="@color/cardview_shadow_start_color"
+                   android:textSize="12pt" />
+            </android.support.v7.widget.LinearLayoutCompat>
+            <com.step.pda.app.ui.slider.SlideRecyclerView
+                android:id="@+id/rv_index"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+      </android.support.v7.widget.LinearLayoutCompat>
    </android.support.v4.widget.SwipeRefreshLayout>
+
 
    <android.support.v7.widget.Toolbar
        android:id="@+id/tb_index"

@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/api_host"
-                    android:text="http://192.168.20.44:5000/"
+                    android:text="http://114.88.72.131:5500/"
                     android:inputType="textEmailAddress"
                     tools:ignore="HardcodedText" />
             </android.support.design.widget.TextInputLayout>

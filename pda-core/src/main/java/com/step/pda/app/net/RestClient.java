@@ -55,6 +55,7 @@ public class RestClient {
 
     private void request(HttpMethod method) {
         final RestService restService = RestCreatorFactory.INSTANCE.getInstance().getRestService();
+
         Call<String> call = null;
         if (REQUEST != null) {
             REQUEST.onRequestStart();

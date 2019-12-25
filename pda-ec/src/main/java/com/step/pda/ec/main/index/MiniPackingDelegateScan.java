@@ -394,9 +394,8 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         setFragmentResult(RES_CODE, bundle);
         mEdPackingSn.setText("");
         mEdPackingQuantity.setText("0");
-        onDestroy();
-        //getSupportDelegate().onDestroy();
-        //getSupportDelegate().startWithPop(new IndexDelegate());
+        //onDestroy();
+
     }
 
     /***

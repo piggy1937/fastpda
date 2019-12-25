@@ -1,6 +1,5 @@
 package com.step.pda.app.net;
 
-import com.step.pda.app.AccountManager;
 import com.step.pda.app.Configurator;
 import com.step.pda.app.Pda;
 import com.step.pda.app.net.rx.RxRestService;
@@ -38,12 +37,6 @@ public enum  RestCreatorFactory {
         public RestCreator(){
 
             String BaseUrl = (String) Pda.getConfigurations().get(Configurator.ConfigType.API_HOST.name());
-            //修改默认url
-             String  hostUrl= AccountManager.getApiHost();
-             if(!hostUrl.isEmpty()){
-                 BaseUrl = hostUrl;
-             }
-
             OkHttpClient.Builder okHttpBuilder   =new OkHttpClient.Builder();
             List<Interceptor > interceptors = (List<Interceptor>) Pda.getConfigurations().get(Configurator.ConfigType.INTERCEPTOR.name());
             if(interceptors!=null) {
@@ -62,6 +55,7 @@ public enum  RestCreatorFactory {
                    .addConverterFactory(ScalarsConverterFactory.create())
                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
+
         }
 
        public RestService getRestService(){

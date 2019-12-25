@@ -37,8 +37,10 @@ public class PackageInfoService {
     public void update(long id, int quantity) {
         PackageInfoDao packageInfoDao= DatabaseManager.getInstance().getmPackageInfoDao();
         PackageInfo packageInfo =  packageInfoDao.load(id);
-        packageInfo.setQuantity(quantity);
-        packageInfoDao.update(packageInfo);
+        if(packageInfo!=null) {
+            packageInfo.setQuantity(quantity);
+            packageInfoDao.update(packageInfo);
+        }
     }
 
     public Boolean existSn(String sn) {

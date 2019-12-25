@@ -90,7 +90,7 @@ public class MiniPackPresenter extends IMiniPackContract.Presenter {
                            // List<PackageInfo>  packageInfoList=content.toJavaList(PackageInfo.class);
                            mView.onFirstPageSuccess(1,packageInfos.size(),packageInfos.size(),packageInfos);
                         }else{
-                           String errmsg =  jObj.getString("errmsg");
+                            String errmsg =  jObj.getString("errmsg");
                             Toast.makeText(mContext, errmsg, Toast.LENGTH_SHORT).show();
                         }
 
@@ -100,6 +100,7 @@ public class MiniPackPresenter extends IMiniPackContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         stopLoading();
+                        mView.onPageError();
                         Toast.makeText(mContext,e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
 

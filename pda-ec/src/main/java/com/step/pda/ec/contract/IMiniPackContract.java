@@ -25,12 +25,19 @@ public interface IMiniPackContract {
          * @param packageInfoList list
          */
         void  onFirstPageSuccess(int pageNo, int pageSize, int total, List<PackageInfo> packageInfoList);
+
+        /***
+         * 分页失败
+         */
+        void onPageError();
         void  onPageSuccess();
 
         /***
          * 新增标签条码成功
          */
         void  onAddBarCodeSuccess();
+
+
     }
     abstract class Presenter extends BasePresenter<IMiniPackContract.View>{
         public Presenter(View view, Context context) {

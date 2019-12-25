@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
@@ -51,6 +52,8 @@ public class IndexDelegate extends BottomItemDelegate implements IMiniPackContra
     SwipeRefreshLayout mRefreshLayout = null;
     @BindView(R2.id.tb_index)
     Toolbar mToolbar = null;
+    @BindView(R2.id.lay_fragment_empty)
+    LinearLayoutCompat layFragmentEmpty;
 
 
 
@@ -166,8 +169,25 @@ public class IndexDelegate extends BottomItemDelegate implements IMiniPackContra
     //加载首页成功
     @Override
     public void onFirstPageSuccess(int pageNo, int pageSize, int total, List<PackageInfo> packageInfoList) {
-        mRefreshHandler.firstPage(pageNo, pageSize, total,packageInfoList);
+        if(total==0){
+            mRecyclerView.setVisibility(View.GONE);
+            layFragmentEmpty.setVisibility(View.VISIBLE);
+        }else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            layFragmentEmpty.setVisibility(View.GONE);
+            mRefreshHandler.firstPage(pageNo, pageSize, total, packageInfoList);
+        }
     }
+
+    /***
+     * 加载数据失败
+     */
+    @Override
+    public void onPageError() {
+        mRecyclerView.setVisibility(View.GONE);
+        layFragmentEmpty.setVisibility(View.VISIBLE);
+    }
+
     //分页成功
     @Override
     public void onPageSuccess() {

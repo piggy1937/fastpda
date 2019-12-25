@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 
-import com.step.pda.app.AccountManager;
 import com.step.pda.app.Configurator;
 import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.PdaDelegate;
@@ -36,7 +35,6 @@ public class SignInDelegate  extends PdaDelegate{
     public void doLogin(){
         if(checkForm()){
             Pda.getConfigurations().put(Configurator.ConfigType.API_HOST.name(),mApiHost.getText().toString().trim());
-            AccountManager.setApiHost(mApiHost.getText().toString());
             mPresenter.requestSignIn(mUsername.getText().toString(),mPassword.getText().toString());
         }
     }
