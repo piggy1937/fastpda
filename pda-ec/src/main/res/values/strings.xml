@@ -18,4 +18,5 @@
     <string name="submit">提交</string>
     <string name="scan_mini_tag">扫描小标签条形码</string>
     <string name="api_host">服务端</string>
+    <string name="add_mini_pack_label_attach">补打</string>
 </resources>

@@ -20,7 +20,7 @@ import com.honeywell.aidc.TriggerStateChangeEvent;
 import com.honeywell.aidc.UnsupportedPropertyException;
 import com.step.pda.app.AccountManager;
 import com.step.pda.app.Pda;
-import com.step.pda.app.delegate.PdaDelegate;
+import com.step.pda.app.delegate.bottom.BottomItemDelegate;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.contract.IMiniPackScanContract;
@@ -30,12 +30,10 @@ import com.step.pda.ec.services.PackageInfoService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
 
@@ -44,7 +42,7 @@ import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
  *包装
  */
 
-public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener, IMiniPackScanContract.View  {
+public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener, IMiniPackScanContract.View  {
     private static final  int RES_CODE = 101;//保存
     private static final  int  MIN_MARK =0;
     private static final  int MAX_MARK =100;
@@ -58,16 +56,13 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     AppCompatButton  mbtnPackingSubmitNext;//保存并继续
     @BindView(R2.id.btn_packing_submit_print)
     AppCompatButton  mbtnPackingSubmitPrint;//保存并继续
-    @OnClick(R2.id.icon_packing_close)
-    void onIconPackingClose(){
-        onDestroy();
-    }
+
 
     //小包标签
     private IMiniPackScanContract.Presenter mPresenter;
     @Override
     public Object setLayout() {
-        return R.layout.delegate_packing_mini_add;
+        return R.layout.delegate_packing_mini_add_attach;
     }
     private BarcodeReader mBarcodeReader;
     private String lastModifyTime;
@@ -133,16 +128,7 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         });
 
 
-//        mbtnPackingSubmitPrint.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                 String filePath="";
-//                PrintManager printManager = (PrintManager) getActivity().getSystemService(Context.PRINT_SERVICE);
-//                PrintAttributes.Builder builder = new PrintAttributes.Builder();
-//                builder.setColorMode(PrintAttributes.COLOR_MODE_COLOR);
-//                printManager.print("barcode print", new MyPrintAdapter(getActivity(),filePath), builder.build());
-//            }
-//        });
+
         mBarcodeReader = (BarcodeReader) Pda.getConfigurations().get(BARCODE_READER.name());
         if(mBarcodeReader!=null){
             initBarcodeReader(mBarcodeReader);
@@ -202,7 +188,7 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
             packageInfo.setSn(sn);
             packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
             packageInfo.setCreator(AccountManager.getCreater());
-            packageInfo.setType("normal");
+            packageInfo.setType("attach");
             if (lastModifyTime != null && !lastModifyTime.isEmpty()) {
                 try {
                     packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
@@ -220,57 +206,8 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     public void onClick(View v) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Integer id = v.getId();
-        if(id==R.id.btn_packing_submit){
+        if(id==R.id.btn_packing_submit) {
             //保存数据到数据库
-            if(checkForm()) {
-                PackageInfo packageInfo = new PackageInfo();
-                packageInfo.setSn(mEdPackingSn.getText().toString());
-                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
-                packageInfo.setCreator(AccountManager.getCreater());
-                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
-                    try {
-                        packageInfo.setLastModifyTime(new Date());
-                    } catch (Exception e) {
-                        Log.e("packing_delegate",e.getMessage());
-                    }
-                }
-                mPresenter.addMiniPackPrintTask(packageInfo);
-
-//                if(rowId>0) {
-//                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
-//                }
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("package_info",packageInfo);
-//                 setFragmentResult(RES_CODE,bundle);
-//              //  getSupportDelegate().pop();
-//                getSupportDelegate().startWithPop(new IndexDelegate());
-
-            }
-        }else if(id==R.id.btn_packing_submit_next){
-            if(checkForm()) {
-                PackageInfo packageInfo = new PackageInfo();
-                packageInfo.setSn(mEdPackingSn.getText().toString());
-                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
-                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
-                    try {
-                        packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
-                    } catch (ParseException e) {
-                        Log.e("packing_delegate",e.getMessage());
-                    }
-                }
-                PackageInfoService packageInfoService = new PackageInfoService();
-                long rowId= packageInfoService.save(packageInfo);
-                if(rowId>0) {
-                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
-                }
-                mEdPackingSn.setText("");
-                mEdPackingQuantity.setText("");
-                mEdPackingQuantity.requestFocus();
-            }
         }
 
     }
@@ -297,8 +234,8 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         return isPass;
     }
 
-    public static MiniPackingDelegateScan newInstance() {
-        return new MiniPackingDelegateScan();
+    public static MiniPackingDelegateScanAttach newInstance() {
+        return new MiniPackingDelegateScanAttach();
     }
     @Override
     public void onResume() {

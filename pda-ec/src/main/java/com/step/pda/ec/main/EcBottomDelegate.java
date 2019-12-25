@@ -7,8 +7,8 @@ import com.step.pda.app.delegate.bottom.BaseBottomDelegate;
 import com.step.pda.app.delegate.bottom.BottomItemDelegate;
 import com.step.pda.app.delegate.bottom.BottomTabBean;
 import com.step.pda.app.delegate.bottom.ItemBuilder;
-import com.step.pda.ec.main.bigpack.BigPackingDelegate;
 import com.step.pda.ec.main.index.IndexDelegate;
+import com.step.pda.ec.main.index.MiniPackingDelegateScanAttach;
 import com.step.pda.ec.main.personal.PersonalDelegate;
 
 import java.util.LinkedHashMap;
@@ -27,17 +27,17 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         Fragment IndexDelegate  = getChildFragmentManager().findFragmentByTag(IndexDelegate.class.getName());
         if(IndexDelegate ==null){
             supportFragments[0] =   new IndexDelegate();
-            supportFragments[1] =   new BigPackingDelegate();
+            supportFragments[1] =   new MiniPackingDelegateScanAttach();
             supportFragments[2] =   new PersonalDelegate();
 
         }else{
             supportFragments[0] =   IndexDelegate;
-            supportFragments[1] =    getChildFragmentManager().findFragmentByTag(BigPackingDelegate.class.getName());
+            supportFragments[1] =    getChildFragmentManager().findFragmentByTag(MiniPackingDelegateScanAttach.class.getName());
             supportFragments[2] =    getChildFragmentManager().findFragmentByTag(PersonalDelegate.class.getName());
             flag = true;
         }
         items.put(new BottomTabBean("{fa-ship}", "小包标签"),(BottomItemDelegate)supportFragments[0]);
-        items.put(new BottomTabBean("{fa-shield}", "大包标签"), (BottomItemDelegate)supportFragments[1]);
+        items.put(new BottomTabBean("{fa-shield}", "补打"), (BottomItemDelegate)supportFragments[1]);
         items.put(new BottomTabBean("{fa-user}", "我的"),  (BottomItemDelegate)supportFragments[2]);
         return builder.addItems(items).build();
     }

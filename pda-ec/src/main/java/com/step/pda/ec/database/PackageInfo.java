@@ -33,15 +33,17 @@ public class PackageInfo  implements Serializable{
      * 创建者
      */
     private String creator="";
-    @Generated(hash = 1868720201)
+    private String type="";
+    @Generated(hash = 417928841)
     public PackageInfo(Long id, String sn, String title, Integer quantity,
-            Date lastModifyTime, String creator) {
+            Date lastModifyTime, String creator, String type) {
         this.id = id;
         this.sn = sn;
         this.title = title;
         this.quantity = quantity;
         this.lastModifyTime = lastModifyTime;
         this.creator = creator;
+        this.type = type;
     }
     @Generated(hash = 1854842808)
     public PackageInfo() {
@@ -82,9 +84,12 @@ public class PackageInfo  implements Serializable{
     public void setCreator(String creator) {
         this.creator = creator;
     }
-   
-    
 
+    public String getType() {
+        return type;
+    }
 
-
+    public void setType(String type) {
+        this.type = type;
+    }
 }

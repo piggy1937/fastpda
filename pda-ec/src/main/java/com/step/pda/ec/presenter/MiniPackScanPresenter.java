@@ -46,6 +46,7 @@ public class MiniPackScanPresenter extends IMiniPackScanContract.Presenter  {
         params.put("barcode",packageInfo.getSn());
         params.put("txtSL",packageInfo.getQuantity());
         params.put("creater",packageInfo.getCreator());
+        params.put("type",packageInfo.getType());
         RxRestClient.builder().url("/data/parsebarcode")
                 .params("", "")
                 .raw(JSONObject.toJSONString(params))

@@ -28,6 +28,7 @@ public class PackageInfoDao extends AbstractDao<PackageInfo, Long> {
         public final static Property Quantity = new Property(3, Integer.class, "quantity", false, "QUANTITY");
         public final static Property LastModifyTime = new Property(4, java.util.Date.class, "lastModifyTime", false, "LAST_MODIFY_TIME");
         public final static Property Creator = new Property(5, String.class, "creator", false, "CREATOR");
+        public final static Property Type = new Property(6, String.class, "type", false, "TYPE");
     }
 
 
@@ -48,7 +49,8 @@ public class PackageInfoDao extends AbstractDao<PackageInfo, Long> {
                 "\"TITLE\" TEXT," + // 2: title
                 "\"QUANTITY\" INTEGER," + // 3: quantity
                 "\"LAST_MODIFY_TIME\" INTEGER," + // 4: lastModifyTime
-                "\"CREATOR\" TEXT);"); // 5: creator
+                "\"CREATOR\" TEXT," + // 5: creator
+                "\"TYPE\" TEXT);"); // 6: type
     }
 
     /** Drops the underlying database table. */
@@ -90,6 +92,11 @@ public class PackageInfoDao extends AbstractDao<PackageInfo, Long> {
         if (creator != null) {
             stmt.bindString(6, creator);
         }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(7, type);
+        }
     }
 
     @Override
@@ -125,6 +132,11 @@ public class PackageInfoDao extends AbstractDao<PackageInfo, Long> {
         if (creator != null) {
             stmt.bindString(6, creator);
         }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(7, type);
+        }
     }
 
     @Override
@@ -140,7 +152,8 @@ public class PackageInfoDao extends AbstractDao<PackageInfo, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // title
             cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // quantity
             cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // lastModifyTime
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // creator
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // creator
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // type
         );
         return entity;
     }
@@ -153,6 +166,7 @@ public class PackageInfoDao extends AbstractDao<PackageInfo, Long> {
         entity.setQuantity(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
         entity.setLastModifyTime(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
         entity.setCreator(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setType(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override
