@@ -45,7 +45,7 @@ import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
 public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener, IMiniPackScanContract.View  {
     private static final  int RES_CODE = 101;//保存
     private static final  int  MIN_MARK =0;
-    private static final  int MAX_MARK =100;
+    private static final  int MAX_MARK =999999;
     @BindView(R2.id.ed_packing_sn)
     TextInputEditText mEdPackingSn;//小包标签
     @BindView(R2.id.ed_packing_quantity)
@@ -275,12 +275,13 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
     public void onBarcodeEvent(BarcodeReadEvent event) {
         final String barcodeData = event.getBarcodeData();
         lastModifyTime= event.getTimestamp();
+        addMiniInfo(barcodeData,lastModifyTime);
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mEdPackingSn.setText(barcodeData);
                 mEdPackingQuantity.requestFocus();
-                addMiniInfo(barcodeData,lastModifyTime);
+
             }
         });
 
@@ -327,8 +328,8 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
     public void onSuccess(PackageInfo packageInfo) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("package_info", packageInfo);
-        PackageInfoService packageInfoService = new PackageInfoService();
-        long rowId= packageInfoService.save(packageInfo);
+       // PackageInfoService packageInfoService = new PackageInfoService();
+        //long rowId= packageInfoService.save(packageInfo);
         setFragmentResult(RES_CODE, bundle);
         mEdPackingSn.setText("");
         mEdPackingQuantity.setText("0");

@@ -30,7 +30,6 @@ import com.step.pda.ec.services.PackageInfoService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +46,7 @@ import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
 public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener, IMiniPackScanContract.View  {
     private static final  int RES_CODE = 101;//保存
     private static final  int  MIN_MARK =0;
-    private static final  int MAX_MARK =100;
+    private static final  int MAX_MARK =999999;
     @BindView(R2.id.ed_packing_sn)
     TextInputEditText mEdPackingSn;//小包标签
     @BindView(R2.id.ed_packing_quantity)
@@ -218,60 +217,60 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        Integer id = v.getId();
-        if(id==R.id.btn_packing_submit){
-            //保存数据到数据库
-            if(checkForm()) {
-                PackageInfo packageInfo = new PackageInfo();
-                packageInfo.setSn(mEdPackingSn.getText().toString());
-                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
-                packageInfo.setCreator(AccountManager.getCreater());
-                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
-                    try {
-                        packageInfo.setLastModifyTime(new Date());
-                    } catch (Exception e) {
-                        Log.e("packing_delegate",e.getMessage());
-                    }
-                }
-                mPresenter.addMiniPackPrintTask(packageInfo);
-
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+//        Integer id = v.getId();
+//        if(id==R.id.btn_packing_submit){
+//            //保存数据到数据库
+//            if(checkForm()) {
+//                PackageInfo packageInfo = new PackageInfo();
+//                packageInfo.setSn(mEdPackingSn.getText().toString());
+//                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
+//                packageInfo.setCreator(AccountManager.getCreater());
+//                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
+//                    try {
+//                        packageInfo.setLastModifyTime(new Date());
+//                    } catch (Exception e) {
+//                        Log.e("packing_delegate",e.getMessage());
+//                    }
+//                }
+//                mPresenter.addMiniPackPrintTask(packageInfo);
+//
+////                if(rowId>0) {
+////                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
+////                }else{
+////                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
+////                }
+////                Bundle bundle = new Bundle();
+////                bundle.putSerializable("package_info",packageInfo);
+////                 setFragmentResult(RES_CODE,bundle);
+////              //  getSupportDelegate().pop();
+////                getSupportDelegate().startWithPop(new IndexDelegate());
+//
+//            }
+//        }else if(id==R.id.btn_packing_submit_next){
+//            if(checkForm()) {
+//                PackageInfo packageInfo = new PackageInfo();
+//                packageInfo.setSn(mEdPackingSn.getText().toString());
+//                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
+//                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
+//                    try {
+//                        packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
+//                    } catch (ParseException e) {
+//                        Log.e("packing_delegate",e.getMessage());
+//                    }
+//                }
+//                PackageInfoService packageInfoService = new PackageInfoService();
+//                long rowId= packageInfoService.save(packageInfo);
 //                if(rowId>0) {
 //                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
 //                }else{
 //                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
 //                }
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("package_info",packageInfo);
-//                 setFragmentResult(RES_CODE,bundle);
-//              //  getSupportDelegate().pop();
-//                getSupportDelegate().startWithPop(new IndexDelegate());
-
-            }
-        }else if(id==R.id.btn_packing_submit_next){
-            if(checkForm()) {
-                PackageInfo packageInfo = new PackageInfo();
-                packageInfo.setSn(mEdPackingSn.getText().toString());
-                packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
-                if(lastModifyTime!=null&&!lastModifyTime.isEmpty()){
-                    try {
-                        packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
-                    } catch (ParseException e) {
-                        Log.e("packing_delegate",e.getMessage());
-                    }
-                }
-                PackageInfoService packageInfoService = new PackageInfoService();
-                long rowId= packageInfoService.save(packageInfo);
-                if(rowId>0) {
-                    Toast.makeText(getContext(), "操作成功", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(), "操作失败", Toast.LENGTH_SHORT).show();
-                }
-                mEdPackingSn.setText("");
-                mEdPackingQuantity.setText("");
-                mEdPackingQuantity.requestFocus();
-            }
-        }
+//                mEdPackingSn.setText("");
+//                mEdPackingQuantity.setText("");
+//                mEdPackingQuantity.requestFocus();
+//            }
+//        }
 
     }
 
@@ -338,12 +337,14 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     public void onBarcodeEvent(BarcodeReadEvent event) {
         final String barcodeData = event.getBarcodeData();
         lastModifyTime= event.getTimestamp();
+        addMiniInfo(barcodeData,lastModifyTime);
+        Toast.makeText(getContext(),barcodeData,Toast.LENGTH_SHORT).show();
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mEdPackingSn.setText(barcodeData);
                 mEdPackingQuantity.requestFocus();
-                addMiniInfo(barcodeData,lastModifyTime);
+
             }
         });
 
@@ -390,8 +391,8 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     public void onSuccess(PackageInfo packageInfo) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("package_info", packageInfo);
-        PackageInfoService packageInfoService = new PackageInfoService();
-        long rowId= packageInfoService.save(packageInfo);
+        //PackageInfoService packageInfoService = new PackageInfoService();
+        //long rowId= packageInfoService.save(packageInfo);
         setFragmentResult(RES_CODE, bundle);
         mEdPackingSn.setText("");
         mEdPackingQuantity.setText("0");

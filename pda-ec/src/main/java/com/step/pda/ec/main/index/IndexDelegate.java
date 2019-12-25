@@ -184,8 +184,12 @@ public class IndexDelegate extends BottomItemDelegate implements IMiniPackContra
      */
     @Override
     public void onPageError() {
-        mRecyclerView.setVisibility(View.GONE);
-        layFragmentEmpty.setVisibility(View.VISIBLE);
+        if(mRecyclerView!=null) {
+            mRecyclerView.setVisibility(View.GONE);
+        }
+        if(layFragmentEmpty!=null) {
+            layFragmentEmpty.setVisibility(View.VISIBLE);
+        }
     }
 
     //分页成功

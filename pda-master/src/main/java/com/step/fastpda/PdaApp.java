@@ -17,7 +17,7 @@ public class PdaApp extends Application {
     public void onCreate() {
         super.onCreate();
         Pda.init(this)
-                .withApiHost("http://114.88.72.131:5500/")
+                .withApiHost("http://192.168.20.44:5000/")
                 .withInterceptor(MainInterceptor.get())
                 .withInterceptor(new DebugInterceptor("mini/page",R.raw.mini_pack))
                 .withInterceptor(new DebugInterceptor("LoginUser",R.raw.login_user))
