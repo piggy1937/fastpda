@@ -279,9 +279,10 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                addMiniInfo(barcodeData,lastModifyTime);
+
                 mEdPackingSn.setText(barcodeData);
                 mEdPackingQuantity.requestFocus();
+                addMiniInfo(barcodeData,lastModifyTime);
 
             }
         });

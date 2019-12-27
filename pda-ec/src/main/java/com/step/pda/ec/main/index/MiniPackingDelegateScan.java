@@ -342,10 +342,9 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                addMiniInfo(barcodeData,lastModifyTime);
                 mEdPackingSn.setText(barcodeData);
                 mEdPackingQuantity.requestFocus();
-
+                addMiniInfo(barcodeData,lastModifyTime);
             }
         });
 
