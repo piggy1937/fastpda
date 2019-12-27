@@ -28,5 +28,11 @@ public interface IMiniPackScanContract {
          * @param packageInfo
          */
         public abstract void addMiniPackPrintTask(PackageInfo packageInfo);
+
+        /***
+         * 判断编号是否存在
+         * @param sn 编号
+         */
+        public abstract void existSn(String sn);
     }
 }

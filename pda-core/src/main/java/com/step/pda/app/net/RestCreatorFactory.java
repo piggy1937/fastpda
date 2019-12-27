@@ -33,7 +33,7 @@ public enum  RestCreatorFactory {
         private Retrofit mRetrofit = null;
         private OkHttpClient okHttpClient = null;
       //  GsonConverterFactory factory = null;
-        private static  final  int TIME_OUT = 60;
+        private static  final  int TIME_OUT = 30;
         public RestCreator(){
 
             String BaseUrl = (String) Pda.getConfigurations().get(Configurator.ConfigType.API_HOST.name());

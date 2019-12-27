@@ -66,7 +66,7 @@ public class MiniPackScanPresenter extends IMiniPackScanContract.Presenter  {
                         if(errcode==1){
                             //成功
                             mView.onSuccess(packageInfo);
-                        }else{
+                        } else{
                             String errmsg =  jObj.getString("errMsg");
 
                             mView.onError(packageInfo,errmsg);
@@ -78,7 +78,7 @@ public class MiniPackScanPresenter extends IMiniPackScanContract.Presenter  {
                     @Override
                     public void onError(Throwable e) {
                         stopLoading();
-                        mView.onError(packageInfo,"");
+                        mView.onError(packageInfo,"新增失败");
                     }
 
                     @Override
@@ -86,5 +86,15 @@ public class MiniPackScanPresenter extends IMiniPackScanContract.Presenter  {
                         stopLoading();
                     }
                 });
+    }
+
+    /***
+     * 判断当前编号是否存在
+     * @param sn 编号
+     * @TODO  编号是否存在待完成
+     */
+    @Override
+    public void existSn(String sn) {
+
     }
 }

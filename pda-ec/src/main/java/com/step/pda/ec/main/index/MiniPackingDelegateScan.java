@@ -26,7 +26,6 @@ import com.step.pda.ec.R2;
 import com.step.pda.ec.contract.IMiniPackScanContract;
 import com.step.pda.ec.database.PackageInfo;
 import com.step.pda.ec.presenter.MiniPackScanPresenter;
-import com.step.pda.ec.services.PackageInfoService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -277,13 +276,15 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     private boolean checkForm(){
         String sn = mEdPackingSn.getText().toString();
         String quantity = mEdPackingQuantity.getText().toString();
+        //mPresenter.existSn(sn);
         boolean isPass = true;
         if(sn==null||sn.isEmpty()){
             mEdPackingSn.setError("编号不允许为空");
             isPass = false;
         }
-        PackageInfoService packageInfoService = new PackageInfoService();
-        Boolean flag = packageInfoService.existSn(sn);
+        Boolean flag =false;
+//        PackageInfoService packageInfoService = new PackageInfoService();
+//        Boolean flag = packageInfoService.existSn(sn);
         if(flag){
             mEdPackingSn.setError("编号已存在");
             Toast.makeText(getContext(), "编号已存在", Toast.LENGTH_SHORT).show();
