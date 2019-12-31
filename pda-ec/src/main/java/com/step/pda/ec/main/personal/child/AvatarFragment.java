@@ -43,7 +43,9 @@ public class AvatarFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.delegate_fragment_person_avatar, container, false);
         mTvUsername = view.findViewById(R.id.tv_person_username);
-        mTvUsername.setText(mUserProfile.getName());
+        if(mUserProfile!=null) {
+            mTvUsername.setText(mUserProfile.getName());
+        }
         return view;
     }
 
