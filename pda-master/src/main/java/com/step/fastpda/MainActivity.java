@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -21,11 +22,13 @@ import com.step.pda.ec.main.EcBottomDelegate;
 import qiu.niorgai.StatusBarCompat;
 
 import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
+import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER_ATTACH;
 
 public class MainActivity extends ProxyActivity implements ISignContract.View,ILauncherListener {
 
 
     private static BarcodeReader barcodeReader;
+    private static BarcodeReader barcodeReaderAttach;
     private AidcManager manager;
     //去重fragement
     private Fragment[] mFragments = new Fragment[4];
@@ -55,7 +58,13 @@ public class MainActivity extends ProxyActivity implements ISignContract.View,IL
             public void onCreated(AidcManager aidcManager) {
                 manager = aidcManager;
                 barcodeReader = manager.createBarcodeReader();
+                barcodeReaderAttach = manager.createBarcodeReader();
+                if(barcodeReader == barcodeReaderAttach){
+                    Log.e(
+                            "aaa","12312");
+                }
                 Pda.getConfigurations().put(BARCODE_READER.name(),barcodeReader);
+                Pda.getConfigurations().put(BARCODE_READER_ATTACH.name(),barcodeReaderAttach);
             }
         });
 
@@ -116,7 +125,11 @@ public class MainActivity extends ProxyActivity implements ISignContract.View,IL
             barcodeReader.close();
             barcodeReader = null;
         }
-
+        if (barcodeReaderAttach != null) {
+            // close BarcodeReader to clean up resources.
+            barcodeReaderAttach.close();
+            barcodeReaderAttach = null;
+        }
         if (manager != null) {
             // close AidcManager to disconnect from the scanner service.
             // once closed, the object can no longer be used.

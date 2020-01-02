@@ -9,6 +9,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.honeywell.aidc.BarcodeFailureEvent;
@@ -59,11 +61,13 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     AppCompatButton  mbtnPackingSubmitNext;//保存并继续
     @BindView(R2.id.btn_packing_submit_print)
     AppCompatButton  mbtnPackingSubmitPrint;//保存并继续
+    @BindView(R2.id.cb_attach)
+    CheckBox mcbAttach;
     @OnClick(R2.id.icon_packing_close)
     void onIconPackingClose(){
         onDestroy();
     }
-
+    private  volatile  String type="";
     //小包标签
     private IMiniPackScanContract.Presenter mPresenter;
     @Override
@@ -150,7 +154,16 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         if(mBarcodeReader!=null){
             initBarcodeReader(mBarcodeReader);
         }
-
+        mcbAttach.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    type="attach";
+                }else{
+                    type = "normal";
+                }
+            }
+        });
         CallbackManager.getInstance()
                 .addCallback(CallbackType.ON_SCAN_NORMAL, new IGlobalCallback<String>() {
                     @Override
@@ -211,7 +224,10 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
             packageInfo.setSn(sn);
             packageInfo.setQuantity(Integer.parseInt(mEdPackingQuantity.getText().toString()));
             packageInfo.setCreator(AccountManager.getCreater());
-            packageInfo.setType("normal");
+            if(type.isEmpty()){
+                type="normal";
+            }
+            packageInfo.setType(type);
             if (lastModifyTime != null && !lastModifyTime.isEmpty()) {
                 try {
                     packageInfo.setLastModifyTime(simpleDateFormat.parse(lastModifyTime));
@@ -363,7 +379,6 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
 
             }
         });
-       // addMiniInfo(barcodeData,lastModifyTime);
     }
 
     @Override

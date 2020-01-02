@@ -84,7 +84,14 @@
                    tools:ignore="HardcodedText" />
             </android.support.design.widget.TextInputLayout>
 
-
+             <CheckBox
+                 android:id="@+id/cb_attach"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/tvHead"
+                 android:layout_marginTop="32dp"
+                 android:layout_toLeftOf="@+id/tvHead"
+                 android:text="补打" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_packing_submit"

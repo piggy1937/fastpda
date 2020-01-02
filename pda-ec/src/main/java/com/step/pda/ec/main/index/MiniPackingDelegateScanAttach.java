@@ -26,9 +26,9 @@ import com.step.pda.app.util.callback.CallbackType;
 import com.step.pda.app.util.callback.IGlobalCallback;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
-import com.step.pda.ec.contract.IMiniPackScanContract;
+import com.step.pda.ec.contract.IMiniAttachPackScanContract;
 import com.step.pda.ec.database.PackageInfo;
-import com.step.pda.ec.presenter.MiniPackScanPresenter;
+import com.step.pda.ec.presenter.MiniAttachPackScanPresenter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,14 +37,14 @@ import java.util.Map;
 
 import butterknife.BindView;
 
-import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER;
+import static com.step.pda.app.Configurator.ConfigType.BARCODE_READER_ATTACH;
 
 /**
  * Created by user on 2019-08-07.
  *包装
  */
 
-public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener, IMiniPackScanContract.View  {
+public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements View.OnClickListener,BarcodeReader.BarcodeListener, BarcodeReader.TriggerListener, IMiniAttachPackScanContract.View  {
     private static final  int RES_CODE = 101;//保存
     private static final  int  MIN_MARK =0;
     private static final  int MAX_MARK =999999;
@@ -61,7 +61,7 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
 
 
     //小包标签
-    private IMiniPackScanContract.Presenter mPresenter;
+    private IMiniAttachPackScanContract.Presenter mPresenter;
     @Override
     public Object setLayout() {
         return R.layout.delegate_packing_mini_add_attach;
@@ -76,7 +76,7 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
     @Override
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
 
-        mPresenter = new MiniPackScanPresenter(this,this.getContext());
+        mPresenter = new MiniAttachPackScanPresenter(this,this.getContext());
         mEdPackingSn.setCursorVisible(true);//隐藏光标
         mEdPackingSn.setFocusable(true);//失去焦点
         mEdPackingSn.setFocusableInTouchMode(true);
@@ -132,7 +132,8 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
 
 
 
-        mBarcodeReader = (BarcodeReader) Pda.getConfigurations().get(BARCODE_READER.name());
+        mBarcodeReader = (BarcodeReader) Pda.getConfigurations().get(BARCODE_READER_ATTACH.name());
+
         if(mBarcodeReader!=null){
             initBarcodeReader(mBarcodeReader);
         }
@@ -206,7 +207,7 @@ public class MiniPackingDelegateScanAttach extends BottomItemDelegate implements
                 }
             }
 
-            mPresenter.addMiniPackPrintTask(packageInfo);
+           mPresenter.addMiniPackPrintTask(packageInfo);
         }
     }
 
