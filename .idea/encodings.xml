@@ -14,6 +14,7 @@
     <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/recycler/MultipleViewHolder.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/refresh/PagingBean.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/ui/refresh/RefreshHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pda-core/src/main/java/com/step/pda/app/util/callback" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/drawable/dot_focus.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/drawable/dot_normal.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/pda-core/src/main/res/layout/bottom_item_icon_text_layout.xml" charset="GBK" />

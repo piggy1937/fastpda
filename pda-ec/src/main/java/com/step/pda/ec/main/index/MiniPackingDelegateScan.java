@@ -21,6 +21,9 @@ import com.honeywell.aidc.UnsupportedPropertyException;
 import com.step.pda.app.AccountManager;
 import com.step.pda.app.Pda;
 import com.step.pda.app.delegate.PdaDelegate;
+import com.step.pda.app.util.callback.CallbackManager;
+import com.step.pda.app.util.callback.CallbackType;
+import com.step.pda.app.util.callback.IGlobalCallback;
 import com.step.pda.ec.R;
 import com.step.pda.ec.R2;
 import com.step.pda.ec.contract.IMiniPackScanContract;
@@ -78,9 +81,11 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     public void onBindView(@Nullable Bundle saveInstance, View rootViw) {
 
         mPresenter = new MiniPackScanPresenter(this,getContext());
-//        mEdPackingSn.setCursorVisible(false);//隐藏光标
-//        mEdPackingSn.setFocusable(false);//失去焦点
-//        mEdPackingSn.setFocusableInTouchMode(false);
+        mEdPackingSn.setCursorVisible(true);//隐藏光标
+        mEdPackingSn.setFocusable(true);//失去焦点
+        mEdPackingSn.requestFocus();
+        mEdPackingSn.setFocusableInTouchMode(true);
+
         mbtnPackingSubmit.setOnClickListener(this);
         mbtnPackingSubmitNext.setOnClickListener(this);
         mEdPackingQuantity.addTextChangedListener(new TextWatcher() {
@@ -146,7 +151,13 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
             initBarcodeReader(mBarcodeReader);
         }
 
-
+        CallbackManager.getInstance()
+                .addCallback(CallbackType.ON_SCAN_NORMAL, new IGlobalCallback<String>() {
+                    @Override
+                    public void executeCallback(@Nullable String barcode) {
+                     addMiniInfo(barcode);
+                    }
+                });
     }
 
     /***
@@ -193,7 +204,7 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
     /***
      * 新增打印标签
      */
-    private void addMiniInfo(String sn,String lastModifyTime) {
+    private void addMiniInfo(String sn) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         if (checkForm()) {
             PackageInfo packageInfo = new PackageInfo();
@@ -343,15 +354,16 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
             @Override
             public void run() {
                 mEdPackingSn.setText(barcodeData);
-                mEdPackingQuantity.requestFocus();
-                addMiniInfo(barcodeData,lastModifyTime);
+                final IGlobalCallback<String> callback = CallbackManager
+                        .getInstance()
+                        .getCallback(CallbackType.ON_SCAN_NORMAL);
+                    if (callback != null) {
+                    callback.executeCallback(barcodeData);
+                }
+
             }
         });
-
-
-
-
-
+       // addMiniInfo(barcodeData,lastModifyTime);
     }
 
     @Override
@@ -394,8 +406,9 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
         //PackageInfoService packageInfoService = new PackageInfoService();
         //long rowId= packageInfoService.save(packageInfo);
         setFragmentResult(RES_CODE, bundle);
-        mEdPackingSn.setText("");
         mEdPackingQuantity.setText("0");
+        mEdPackingSn.setText("");
+        mEdPackingSn.requestFocus();
         //onDestroy();
 
     }
@@ -407,8 +420,9 @@ public class MiniPackingDelegateScan extends PdaDelegate implements View.OnClick
      */
     @Override
     public void onError(PackageInfo packageInfo, String errmsg) {
-        mEdPackingSn.setText("");
         mEdPackingQuantity.setText("0");
+        mEdPackingSn.setText("");
+        mEdPackingSn.requestFocus();
         if(!errmsg.isEmpty()) {
             Toast.makeText(getContext(), errmsg, Toast.LENGTH_SHORT).show();
         }
